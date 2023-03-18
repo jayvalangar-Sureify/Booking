@@ -1,0 +1,42 @@
+[
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-mergeDebugResources-44:/layout/nav_header_main.xml",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/nav_header_main.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-mergeDebugResources-44:/layout/app_bar_main.xml",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/app_bar_main.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-mergeDebugResources-44:/layout/content_main.xml",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/content_main.xml"
+    },
+    {
+        "merged": "com.example.booking.app-mergeDebugResources-44:/layout/activity_login_screen.xml",
+        "source": "com.example.booking.app-main-47:/layout/activity_login_screen.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-mergeDebugResources-44:/layout/activity_main.xml",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-mergeDebugResources-44:/layout/fragment_slideshow.xml",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/fragment_slideshow.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-mergeDebugResources-44:/layout/activity_login_screen.xml",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/activity_login_screen.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-mergeDebugResources-44:/layout/fragment_home.xml",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-mergeDebugResources-44:/layout/fragment_gallery.xml",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/fragment_gallery.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-mergeDebugResources-44:/layout/activity_splash_screen.xml",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/activity_splash_screen.xml"
+    }
+]

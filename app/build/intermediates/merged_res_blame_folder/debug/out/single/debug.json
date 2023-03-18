@@ -1,0 +1,174 @@
+[
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/menu_activity_main_drawer.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/menu/activity_main_drawer.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/xml_data_extraction_rules.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/layout_content_main.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/content_main.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/layout_activity_main.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable_ic_menu_camera.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable/ic_menu_camera.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable_button_state_wise_styling.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable/button_state_wise_styling.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/layout_fragment_gallery.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/fragment_gallery.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/layout_fragment_slideshow.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/fragment_slideshow.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/layout_fragment_home.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable_icon_right_corner_24.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable/icon_right_corner_24.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/layout_app_bar_main.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/app_bar_main.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/layout_nav_header_main.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/nav_header_main.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable-v24/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable_et_style.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable/et_style.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/xml_backup_rules.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable_circle_combo_text_blue.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable/circle_combo_text_blue.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/layout_activity_splash_screen.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/activity_splash_screen.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable_icon_location_24.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable/icon_location_24.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable_ic_menu_slideshow.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable/ic_menu_slideshow.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable_ic_launcher_background.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable_icon_closed_eye_24.png.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable/icon_closed_eye_24.png"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable_icon_left_corner_24.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable/icon_left_corner_24.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable_icon_hide_password_24.png.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable/icon_hide_password_24.png"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/layout_activity_login_screen.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/activity_login_screen.xml"
+    },
+    {
+        "merged": "com.example.booking.app-merged_res-45:/layout_activity_login_screen.xml.flat",
+        "source": "com.example.booking.app-main-47:/layout/activity_login_screen.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable_icon_google_24.png.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable/icon_google_24.png"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable_ic_menu_gallery.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable/ic_menu_gallery.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable_side_nav_bar.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable/side_nav_bar.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/menu_main.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/menu/main.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/drawable_icon_open_eye__24.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/drawable/icon_open_eye__24.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/navigation_mobile_navigation.xml.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/navigation/mobile_navigation.xml"
+    },
+    {
+        "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/mipmap-xxxhdpi/ic_launcher.webp"
+    }
+]

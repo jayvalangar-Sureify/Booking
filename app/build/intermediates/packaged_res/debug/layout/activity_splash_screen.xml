@@ -1,0 +1,63 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/layoutTop"
+        android:layout_width="match_parent"
+        android:layout_height="400dp" >
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/splash_top_cardview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            app:cardBackgroundColor="@color/combo_background_blue"
+            app:shapeAppearance="@style/ShapeAppearanceOverlay.CardView">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="40sp"
+                android:textColor="@color/combo_text_blue"
+                android:text="@string/app_name" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
+
+
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-60dp"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:background="@drawable/circle_combo_text_blue"
+        android:layout_above="@id/layoutBottom">
+
+        <ImageView
+            android:id="@+id/overlapImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/icon_location_24" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/layoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/layoutTop" >
+    </RelativeLayout>
+
+</RelativeLayout>

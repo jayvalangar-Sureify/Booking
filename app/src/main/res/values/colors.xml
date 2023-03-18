@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+
+    <color name="app_bar_title_background">@color/combo_text_blue</color>
+    <color name="notification_bar">@color/combo_text_blue</color>
+
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Best Color Combo -->
+    <!-- Green -->
+    <color name="combo_background_green">#D2FBD0</color>
+    <color name="combo_text_green">#0D5F07</color>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
+    <!-- Best Color Combo -->
+    <!-- Blue -->
+    <color name="combo_background_blue">#B3D9FF</color>
+    <color name="combo_text_blue">#00264D</color>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
+    <!-- Grey -->
+    <color name="grey_1">#a6a6a6</color>
+    <color name="grey_2">#999999</color>
+    <color name="grey_3">#808080</color>
+    <color name="grey_4">#666666</color>
+    <color name="grey_5">#4d4d4d</color>
+    <color name="grey_6">#333333</color>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
+
+
+
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
+
+</resources>
