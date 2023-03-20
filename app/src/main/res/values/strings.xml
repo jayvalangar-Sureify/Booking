@@ -27,4 +27,11 @@
     <string name="email_hint">Booking@gmail.com</string>
     <string name="password_hint">#123BookingTest</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
+    <!-- Signup Screen -->
+    <string name="signup">Signup</string>
+    <string name="enter_user_name">Enter User Name</string>
+    <string name="user_name_hint">Jay</string>
+    <string name="already_have_account">Already have account ?</string>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 </resources>
