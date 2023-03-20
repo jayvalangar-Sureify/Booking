@@ -28,6 +28,13 @@
         android:testOnly="true"
         android:theme="@style/Theme.Booking" >
         <activity
+            android:name="com.example.booking.SignupScreen_User"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name="com.example.booking.ui.Login.LoginScreenActivity"
             android:exported="true"
             android:label="" >

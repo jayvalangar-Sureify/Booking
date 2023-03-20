@@ -41,6 +41,9 @@ public final class ActivityLoginScreenBinding implements ViewBinding {
   public final RelativeLayout loginRlInputFields;
 
   @NonNull
+  public final RelativeLayout loginRlNewAccountView;
+
+  @NonNull
   public final RelativeLayout loginRlOrView;
 
   @NonNull
@@ -51,6 +54,9 @@ public final class ActivityLoginScreenBinding implements ViewBinding {
 
   @NonNull
   public final MaterialCardView loginTopCardview;
+
+  @NonNull
+  public final TextView loginTvNewAccount;
 
   @NonNull
   public final TextView loginTvOr;
@@ -67,9 +73,10 @@ public final class ActivityLoginScreenBinding implements ViewBinding {
   private ActivityLoginScreenBinding(@NonNull RelativeLayout rootView,
       @NonNull Button btnGoogleLogin, @NonNull Button btnLogin, @NonNull TextView loginAppName,
       @NonNull TextView loginAppOneLiner, @NonNull RelativeLayout loginRlGoogleSign,
-      @NonNull RelativeLayout loginRlInputFields, @NonNull RelativeLayout loginRlOrView,
-      @NonNull RelativeLayout loginRlTopAppOneLiner, @NonNull RelativeLayout loginRlTopLogoAndName,
-      @NonNull MaterialCardView loginTopCardview, @NonNull TextView loginTvOr,
+      @NonNull RelativeLayout loginRlInputFields, @NonNull RelativeLayout loginRlNewAccountView,
+      @NonNull RelativeLayout loginRlOrView, @NonNull RelativeLayout loginRlTopAppOneLiner,
+      @NonNull RelativeLayout loginRlTopLogoAndName, @NonNull MaterialCardView loginTopCardview,
+      @NonNull TextView loginTvNewAccount, @NonNull TextView loginTvOr,
       @NonNull ImageView overlapImage, @NonNull TextView tvEnterEmail,
       @NonNull TextView tvEnterPassword) {
     this.rootView = rootView;
@@ -79,10 +86,12 @@ public final class ActivityLoginScreenBinding implements ViewBinding {
     this.loginAppOneLiner = loginAppOneLiner;
     this.loginRlGoogleSign = loginRlGoogleSign;
     this.loginRlInputFields = loginRlInputFields;
+    this.loginRlNewAccountView = loginRlNewAccountView;
     this.loginRlOrView = loginRlOrView;
     this.loginRlTopAppOneLiner = loginRlTopAppOneLiner;
     this.loginRlTopLogoAndName = loginRlTopLogoAndName;
     this.loginTopCardview = loginTopCardview;
+    this.loginTvNewAccount = loginTvNewAccount;
     this.loginTvOr = loginTvOr;
     this.overlapImage = overlapImage;
     this.tvEnterEmail = tvEnterEmail;
@@ -152,6 +161,12 @@ public final class ActivityLoginScreenBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.login_rl_new_account_view;
+      RelativeLayout loginRlNewAccountView = ViewBindings.findChildViewById(rootView, id);
+      if (loginRlNewAccountView == null) {
+        break missingId;
+      }
+
       id = R.id.login_rl_or_view;
       RelativeLayout loginRlOrView = ViewBindings.findChildViewById(rootView, id);
       if (loginRlOrView == null) {
@@ -173,6 +188,12 @@ public final class ActivityLoginScreenBinding implements ViewBinding {
       id = R.id.login_top_cardview;
       MaterialCardView loginTopCardview = ViewBindings.findChildViewById(rootView, id);
       if (loginTopCardview == null) {
+        break missingId;
+      }
+
+      id = R.id.login_tv_new_account;
+      TextView loginTvNewAccount = ViewBindings.findChildViewById(rootView, id);
+      if (loginTvNewAccount == null) {
         break missingId;
       }
 
@@ -201,9 +222,10 @@ public final class ActivityLoginScreenBinding implements ViewBinding {
       }
 
       return new ActivityLoginScreenBinding((RelativeLayout) rootView, btnGoogleLogin, btnLogin,
-          loginAppName, loginAppOneLiner, loginRlGoogleSign, loginRlInputFields, loginRlOrView,
-          loginRlTopAppOneLiner, loginRlTopLogoAndName, loginTopCardview, loginTvOr, overlapImage,
-          tvEnterEmail, tvEnterPassword);
+          loginAppName, loginAppOneLiner, loginRlGoogleSign, loginRlInputFields,
+          loginRlNewAccountView, loginRlOrView, loginRlTopAppOneLiner, loginRlTopLogoAndName,
+          loginTopCardview, loginTvNewAccount, loginTvOr, overlapImage, tvEnterEmail,
+          tvEnterPassword);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

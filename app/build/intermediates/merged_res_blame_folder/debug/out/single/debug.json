@@ -1,5 +1,9 @@
 [
     {
+        "merged": "com.example.booking.app-merged_res-45:/layout_activity_signup_screen_user.xml.flat",
+        "source": "com.example.booking.app-main-47:/layout/activity_signup_screen_user.xml"
+    },
+    {
         "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-merged_res-45:/menu_activity_main_drawer.xml.flat",
         "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/menu/activity_main_drawer.xml"
     },

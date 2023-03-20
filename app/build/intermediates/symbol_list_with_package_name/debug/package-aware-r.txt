@@ -3137,10 +3137,12 @@ id login_app_name
 id login_app_one_liner
 id login_rl_google_sign
 id login_rl_input_fields
+id login_rl_new_account_view
 id login_rl_or_view
 id login_rl_top_app_one_liner
 id login_rl_top_logo_and_name
 id login_top_cardview
+id login_tv_new_account
 id login_tv_or
 id ltr
 id m3_side_sheet
@@ -3527,6 +3529,7 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_login_screen
 layout activity_main
+layout activity_signup_screen_user
 layout activity_splash_screen
 layout app_bar_main
 layout content_main
@@ -3659,6 +3662,7 @@ string character_counter_content_description
 string character_counter_overflowed_content_description
 string character_counter_pattern
 string clear_text_end_icon_content_description
+string create_new_account
 string dummy_button
 string dummy_content
 string email_hint

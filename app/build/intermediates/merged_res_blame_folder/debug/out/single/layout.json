@@ -38,5 +38,9 @@
     {
         "merged": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-mergeDebugResources-44:/layout/activity_splash_screen.xml",
         "source": "/home/jayv/.gradle/daemon/7.4/com.example.booking.app-main-47:/layout/activity_splash_screen.xml"
+    },
+    {
+        "merged": "com.example.booking.app-mergeDebugResources-44:/layout/activity_signup_screen_user.xml",
+        "source": "com.example.booking.app-main-47:/layout/activity_signup_screen_user.xml"
     }
 ]

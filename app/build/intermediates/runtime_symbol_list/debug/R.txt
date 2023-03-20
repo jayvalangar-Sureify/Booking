@@ -3136,10 +3136,12 @@ int id login_app_name 0x7f080209
 int id login_app_one_liner 0x7f08020a
 int id login_rl_google_sign 0x7f080212
 int id login_rl_input_fields 0x7f08020b
+int id login_rl_new_account_view 0x7f080216
 int id login_rl_or_view 0x7f080213
 int id login_rl_top_app_one_liner 0x7f08020c
 int id login_rl_top_logo_and_name 0x7f08020d
 int id login_top_cardview 0x7f080215
+int id login_tv_new_account 0x7f080217
 int id login_tv_or 0x7f080214
 int id ltr 0x7f0800f6
 int id m3_side_sheet 0x7f0800f7
@@ -3526,6 +3528,7 @@ int layout abc_select_dialog_material 0x7f0b001a
 int layout abc_tooltip 0x7f0b001b
 int layout activity_login_screen 0x7f0b001c
 int layout activity_main 0x7f0b001d
+int layout activity_signup_screen_user 0x7f0b0072
 int layout activity_splash_screen 0x7f0b001e
 int layout app_bar_main 0x7f0b001f
 int layout content_main 0x7f0b0020
@@ -3658,6 +3661,7 @@ int string character_counter_content_description 0x7f110025
 int string character_counter_overflowed_content_description 0x7f110026
 int string character_counter_pattern 0x7f110027
 int string clear_text_end_icon_content_description 0x7f110028
+int string create_new_account 0x7f1100b1
 int string dummy_button 0x7f110029
 int string dummy_content 0x7f11002a
 int string email_hint 0x7f1100aa

@@ -58,10 +58,12 @@ id login_app_name
 id login_app_one_liner
 id login_rl_google_sign
 id login_rl_input_fields
+id login_rl_new_account_view
 id login_rl_or_view
 id login_rl_top_app_one_liner
 id login_rl_top_logo_and_name
 id login_top_cardview
+id login_tv_new_account
 id login_tv_or
 id mobile_navigation
 id nav_gallery
@@ -80,6 +82,7 @@ id tv_enter_email
 id tv_enter_password
 layout activity_login_screen
 layout activity_main
+layout activity_signup_screen_user
 layout activity_splash_screen
 layout app_bar_main
 layout content_main
@@ -95,6 +98,7 @@ navigation mobile_navigation
 string action_settings
 string app_name
 string app_one_liner
+string create_new_account
 string dummy_button
 string dummy_content
 string email_hint

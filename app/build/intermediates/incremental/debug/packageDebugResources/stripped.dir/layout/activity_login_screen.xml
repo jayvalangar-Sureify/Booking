@@ -231,4 +231,41 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/login_rl_new_account_view"
+        android:layout_below="@+id/login_rl_google_sign"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/grey_1"
+                />
+
+            <TextView
+                android:id="@+id/login_tv_new_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:textColor="@color/combo_text_blue"
+                android:text="@string/create_new_account" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
 </RelativeLayout>
