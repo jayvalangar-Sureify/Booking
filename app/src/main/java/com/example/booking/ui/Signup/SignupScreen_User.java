@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +31,12 @@ public class SignupScreen_User extends AppCompatActivity {
         binding = ActivitySignupScreenUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // re-set error
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        binding.tvSignupErrorDisplay.setText("");
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
         // Initialize
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
           firebaseAuth = FirebaseAuth.getInstance();
@@ -55,27 +60,34 @@ public class SignupScreen_User extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // re-set error
+                binding.tvSignupErrorDisplay.setText("");
+
                 String user_name_String = binding.etSignupEnterUserName.getText().toString();
                 String user_email_String = binding.etSignupEnterEmail.getText().toString();
                 String user_password_String = binding.etSignupEnterPassword.getText().toString();
                 String user_phone_String = binding.etSignupEnterPhoneNumber.getText().toString();
 
                 if(TextUtils.isEmpty(user_name_String)){
+                    binding.tvSignupErrorDisplay.setText("User name is required");
                     binding.etSignupEnterUserName.setError("User name is required");
                     return;
                 }
 
                 if(TextUtils.isEmpty(user_phone_String)){
+                    binding.tvSignupErrorDisplay.setText("Phone Number is required");
                     binding.etSignupEnterPhoneNumber.setError("User Phone Number is required");
                     return;
                 }
 
                 if(TextUtils.isEmpty(user_email_String)){
+                    binding.tvSignupErrorDisplay.setText("Email is required");
                     binding.etSignupEnterEmail.setError("User Email is required");
                     return;
                 }
 
                 if(TextUtils.isEmpty(user_password_String)){
+                    binding.tvSignupErrorDisplay.setText("User Password is required");
                     binding.etSignupEnterPassword.setError("User Password is required");
                     return;
                 }
@@ -91,10 +103,9 @@ public class SignupScreen_User extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
-                            Toast.makeText(getApplicationContext(), "USER CREATED SUCCESSFULLY", Toast.LENGTH_LONG).show();
                         }else{
-                            Toast.makeText(getApplicationContext(), "Error : "+task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            // set error
+                            binding.tvSignupErrorDisplay.setText("Error : "+task.getException().getMessage());
                         }
 
                         binding.signupProgressbar.setVisibility(View.GONE);

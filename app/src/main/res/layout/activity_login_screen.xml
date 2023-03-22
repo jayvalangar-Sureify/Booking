@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,7 +8,24 @@
     tools:context=".ui.Login.LoginScreenActivity">
 
 
-    <!-- Top Logo and Name -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_login_error_display"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_top_cardview"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/red"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <!-- Top Logo and Name -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/login_top_cardview"
         android:layout_width="match_parent"
@@ -84,7 +101,7 @@
 
     <RelativeLayout
         android:id="@+id/login_rl_input_fields"
-        android:layout_below="@+id/login_top_cardview"
+        android:layout_below="@+id/tv_login_error_display"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -97,7 +114,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_enter_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -107,6 +123,7 @@
                 android:text="@string/enter_email" />
 
             <EditText
+                android:id="@+id/et_login_enter_email"
                 android:layout_width="fill_parent"
                 android:textColor="@color/combo_text_blue"
                 android:background="@drawable/et_style"
@@ -118,7 +135,6 @@
                 android:hint="@string/email_hint" />
 
             <TextView
-                android:id="@+id/tv_enter_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -128,6 +144,7 @@
                 android:text="@string/enter_password" />
 
             <EditText
+                android:id="@+id/et_login_enter_password"
                 android:layout_width="fill_parent"
                 android:textColor="@color/combo_text_blue"
                 android:background="@drawable/et_style"
@@ -145,6 +162,18 @@
         </LinearLayout>
 
     </RelativeLayout>
+
+
+        <ProgressBar
+            android:id="@+id/login_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:padding="20dp"
+            android:background="@color/combo_background_blue"
+            android:indeterminateTint="@color/combo_text_blue"
+            />
 
     <Button
         android:id="@+id/btn_login"
@@ -268,4 +297,5 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

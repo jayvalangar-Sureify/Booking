@@ -10,6 +10,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="red">#FF0000</color>
+
     <!-- Best Color Combo -->
     <!-- Green -->
     <color name="combo_background_green">#D2FBD0</color>
