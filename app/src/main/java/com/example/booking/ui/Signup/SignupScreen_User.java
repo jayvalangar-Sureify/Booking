@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.booking.MainActivity;
 import com.example.booking.R;
+import com.example.booking.Utils;
 import com.example.booking.databinding.ActivitySignupScreenUserBinding;
 import com.example.booking.ui.Login.LoginScreenActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -117,16 +118,17 @@ public class SignupScreen_User extends AppCompatActivity {
                             try {
                                 // Store data into FirebaseStore
                                 userID_string = firebaseAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference = firebaseFirestore.collection("users").document(userID_string);
+                                DocumentReference documentReference = firebaseFirestore.collection(Utils.key_users_firestore).document(userID_string);
                                 Map<String, Object> user_map = new HashMap<>();
-                                user_map.put("User_Name", user_name_String);
-                                user_map.put("User_Email", user_email_String);
-                                user_map.put("User_Phone_Number", user_phone_String);
-                                user_map.put("User_Password", user_password_String);
+                                user_map.put(Utils.map_key_User_Name, user_name_String);
+                                user_map.put(Utils.map_key_User_Email, user_email_String);
+                                user_map.put(Utils.map_key_User_Password, user_password_String);
+                                user_map.put(Utils.map_key_User_Phone_Number, user_phone_String);
+
                                 documentReference.set(user_map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
-                                        Log.i("test_response", "Datat successfully entered on FIRESTORE");
+                                        Log.i("test_response", "Data added successfully entered on FIRESTORE");
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
