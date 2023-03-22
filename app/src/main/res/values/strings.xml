@@ -19,6 +19,7 @@
 
     <!-- login Screen -->
     <string name="login">Login</string>
+    <string name="forgot_password">Forgot Password ?</string>
     <string name="or">or</string>
     <string name="create_new_account">Create new account ?</string>
     <string name="google">Google</string>
@@ -35,6 +36,13 @@
     <string name="phone_number_hint">8879960346</string>
     <string name="user_name_hint">Jay</string>
     <string name="already_have_account">Already have account ?</string>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
+
+    <!-- Reset Password -->
+    <string name="reset_password">Reset Password</string>
+    <string name="back">Back</string>
+    <string name="reset_password_info">Enter Valid Email, You will get mail for reset password, Thank You.</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
 
