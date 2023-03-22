@@ -1,14 +1,13 @@
 package com.example.booking.ui.SplashScreen;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.example.booking.MainActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.booking.R;
 import com.example.booking.ui.Login.LoginScreenActivity;
 
@@ -36,7 +35,7 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(i);
                 finish();
             }
-        }, 2000);
+        }, 1000);
 
     }
 }

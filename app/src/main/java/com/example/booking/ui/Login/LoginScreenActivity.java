@@ -6,9 +6,11 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.booking.MainActivity;
 import com.example.booking.R;
 import com.example.booking.databinding.ActivityLoginScreenBinding;
 import com.example.booking.ui.Signup.SignupScreen_User;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginScreenActivity extends AppCompatActivity {
 
@@ -21,6 +23,15 @@ public class LoginScreenActivity extends AppCompatActivity {
 
         binding = ActivityLoginScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // Check If session is running ? IF yes than open dashboard
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        if(FirebaseAuth.getInstance().getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
+        }
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
 
         binding.loginTvNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
