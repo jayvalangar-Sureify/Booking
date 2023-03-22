@@ -16,6 +16,20 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+    <!-- Common Errors -->
+    <string name="enter_valid_name">Enter Valid Name</string>
+    <string name="enter_valid_email">Enter Valid Email</string>
+    <string name="enter_valid_password">Enter Valid Password</string>
+    <string name="enter_valid_phone_number">Enter Valid Phone Number</string>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
+    <!-- Splash Screen -->
+    <string name="user">User</string>
+    <string name="user_note">I want to use app</string>
+    <string name="owner">Owner</string>
+    <string name="owner_note">I want to manage or add my place</string>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
 
     <!-- login Screen -->
     <string name="login">Login</string>
@@ -43,6 +57,7 @@
     <string name="reset_password">Reset Password</string>
     <string name="back">Back</string>
     <string name="reset_password_info">Enter Valid Email, You will get mail for reset password, Thank You.</string>
+    <string name="email_sent_success_message">"Email Sent Successfully, Check Your mail !"</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
 

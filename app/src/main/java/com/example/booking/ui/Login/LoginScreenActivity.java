@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.booking.MainActivity;
 import com.example.booking.R;
+import com.example.booking.Utils;
 import com.example.booking.databinding.ActivityLoginScreenBinding;
 import com.example.booking.ui.Signup.SignupScreen_User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +29,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginScreenActivity extends AppCompatActivity {
+
+    String get_type_of_login;
 
     ActivityLoginScreenBinding binding;
 
@@ -40,6 +43,8 @@ public class LoginScreenActivity extends AppCompatActivity {
 
         binding = ActivityLoginScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        get_type_of_login = Utils.get_SharedPreference_type_of_login(getApplicationContext());
 
         // Initialize
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -63,6 +68,7 @@ public class LoginScreenActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(LoginScreenActivity.this, SignupScreen_User.class);
                 startActivity(i);
+                finish();
             }
         });
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -76,14 +82,14 @@ public class LoginScreenActivity extends AppCompatActivity {
                 String user_password_String = binding.etLoginEnterPassword.getText().toString();
 
                 if(TextUtils.isEmpty(user_email_String)){
-                    binding.tvLoginErrorDisplay.setText("User Email is required");
-                    binding.etLoginEnterEmail.setError("User Email is required");
+                    binding.tvLoginErrorDisplay.setText(getString(R.string.enter_valid_email));
+                    binding.etLoginEnterEmail.setError(getString(R.string.enter_valid_email));
                     return;
                 }
 
                 if(TextUtils.isEmpty(user_password_String)){
-                    binding.tvLoginErrorDisplay.setText("User Password is required");
-                    binding.etLoginEnterPassword.setError("User Password is required");
+                    binding.tvLoginErrorDisplay.setText(getString(R.string.enter_valid_password));
+                    binding.etLoginEnterPassword.setError(getString(R.string.enter_valid_password));
                     return;
                 }
 
@@ -147,8 +153,8 @@ public class LoginScreenActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         String reset_email_string = et_reset_password_enter_email.getText().toString();
                         if(TextUtils.isEmpty(reset_email_string)){
-                            tv_reset_passwrd_error.setText("Enter Email !");
-                            et_reset_password_enter_email.setError("Enter Email !");
+                            tv_reset_passwrd_error.setText(getString(R.string.enter_valid_email));
+                            et_reset_password_enter_email.setError(getString(R.string.enter_valid_email));
                             return;
                         }
 
@@ -157,7 +163,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void unused) {
                                 tv_reset_passwrd_error.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.combo_text_green));
-                                tv_reset_passwrd_error.setText("Email Sent Successfully, Check Your mail !");
+                                tv_reset_passwrd_error.setText(getResources().getString(R.string.email_sent_success_message));
                                 iv_reset_password_right.setVisibility(View.VISIBLE);
                                 reset_password_ll.setVisibility(View.GONE);
                                 tv_reset_password_info.setVisibility(View.GONE);

@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SignupScreen_User extends AppCompatActivity {
+    String get_type_of_login;
     String userID_string;
 
     ActivitySignupScreenUserBinding binding;
@@ -38,21 +39,24 @@ public class SignupScreen_User extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_screen_user);
-
         binding = ActivitySignupScreenUserBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
+        // Initialize
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+        get_type_of_login = Utils.get_SharedPreference_type_of_login(getApplicationContext());
 
         // re-set error
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         binding.tvSignupErrorDisplay.setText("");
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-
-        // Initialize
-        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-          firebaseAuth = FirebaseAuth.getInstance();
-          firebaseFirestore = FirebaseFirestore.getInstance();
-        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
 
@@ -75,32 +79,32 @@ public class SignupScreen_User extends AppCompatActivity {
                 // re-set error
                 binding.tvSignupErrorDisplay.setText("");
 
-                String user_name_String = binding.etSignupEnterUserName.getText().toString();
-                String user_email_String = binding.etSignupEnterEmail.getText().toString();
-                String user_password_String = binding.etSignupEnterPassword.getText().toString();
-                String user_phone_String = binding.etSignupEnterPhoneNumber.getText().toString();
+                String name_String = binding.etSignupEnterUserName.getText().toString();
+                String email_String = binding.etSignupEnterEmail.getText().toString();
+                String password_String = binding.etSignupEnterPassword.getText().toString();
+                String phone_String = binding.etSignupEnterPhoneNumber.getText().toString();
 
-                if(TextUtils.isEmpty(user_name_String)){
-                    binding.tvSignupErrorDisplay.setText("User name is required");
-                    binding.etSignupEnterUserName.setError("User name is required");
+                if(TextUtils.isEmpty(name_String)){
+                    binding.tvSignupErrorDisplay.setText(getString(R.string.enter_valid_name));
+                    binding.etSignupEnterUserName.setError(getString(R.string.enter_valid_name));
                     return;
                 }
 
-                if(TextUtils.isEmpty(user_phone_String)){
-                    binding.tvSignupErrorDisplay.setText("Phone Number is required");
-                    binding.etSignupEnterPhoneNumber.setError("User Phone Number is required");
+                if(TextUtils.isEmpty(email_String)){
+                    binding.tvSignupErrorDisplay.setText(getString(R.string.enter_valid_email));
+                    binding.etSignupEnterPhoneNumber.setError(getString(R.string.enter_valid_email));
                     return;
                 }
 
-                if(TextUtils.isEmpty(user_email_String)){
-                    binding.tvSignupErrorDisplay.setText("Email is required");
-                    binding.etSignupEnterEmail.setError("User Email is required");
+                if(TextUtils.isEmpty(password_String)){
+                    binding.tvSignupErrorDisplay.setText(getString(R.string.enter_valid_password));
+                    binding.etSignupEnterEmail.setError(getString(R.string.enter_valid_password));
                     return;
                 }
 
-                if(TextUtils.isEmpty(user_password_String)){
-                    binding.tvSignupErrorDisplay.setText("User Password is required");
-                    binding.etSignupEnterPassword.setError("User Password is required");
+                if(TextUtils.isEmpty(phone_String)){
+                    binding.tvSignupErrorDisplay.setText(getString(R.string.enter_valid_phone_number));
+                    binding.etSignupEnterPassword.setError(getString(R.string.enter_valid_phone_number));
                     return;
                 }
 
@@ -110,44 +114,85 @@ public class SignupScreen_User extends AppCompatActivity {
                 binding.signupProgressbar.setVisibility(View.VISIBLE);
 
                 // Create User
-                firebaseAuth.createUserWithEmailAndPassword(user_email_String, user_password_String).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                firebaseAuth.createUserWithEmailAndPassword(email_String, password_String).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
 
-                            try {
-                                // Store data into FirebaseStore
-                                userID_string = firebaseAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference = firebaseFirestore.collection(Utils.key_users_firestore).document(userID_string);
-                                Map<String, Object> user_map = new HashMap<>();
-                                user_map.put(Utils.map_key_User_Name, user_name_String);
-                                user_map.put(Utils.map_key_User_Email, user_email_String);
-                                user_map.put(Utils.map_key_User_Password, user_password_String);
-                                user_map.put(Utils.map_key_User_Phone_Number, user_phone_String);
 
-                                documentReference.set(user_map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Log.i("test_response", "Data added successfully entered on FIRESTORE");
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.i("test_response", "Error : "+e.getMessage());
-                                    }
-                                });
+                            if(get_type_of_login.contains(Utils.user)) {
+                                // Login Type User
+                                //------------------------------------------------------------------------------------------------------------------------------------
+                                try {
+                                    // Store data into FirebaseStore
+                                    userID_string = firebaseAuth.getCurrentUser().getUid();
+                                    DocumentReference documentReference = firebaseFirestore.collection(Utils.key_users_firestore).document(userID_string);
+                                    Map<String, Object> user_map = new HashMap<>();
+                                    user_map.put(Utils.map_key_User_Name, name_String);
+                                    user_map.put(Utils.map_key_User_Email, email_String);
+                                    user_map.put(Utils.map_key_User_Password, password_String);
+                                    user_map.put(Utils.map_key_User_Phone_Number, phone_String);
 
-                            }catch (Exception e){
-                                e.getMessage();
-                            }
+                                    documentReference.set(user_map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.i("test_response", "Data added successfully entered on FIRESTORE");
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            binding.tvSignupErrorDisplay.setText("Error : " + e.getMessage());
+                                            Log.i("test_response", "Error : " + e.getMessage());
+                                        }
+                                    });
+
+                                } catch (Exception e) {
+                                    e.getMessage();
+                                }
+                                //------------------------------------------------------------------------------------------------------------------------------------
+                            }else {
+
+                                // Login Type Owner
+                                //------------------------------------------------------------------------------------------------------------------------------------
+                                try {
+                                    // Store data into FirebaseStore
+                                    userID_string = firebaseAuth.getCurrentUser().getUid();
+                                    DocumentReference documentReference = firebaseFirestore.collection(Utils.key_owner_firestore).document(userID_string);
+                                    Map<String, Object> user_map = new HashMap<>();
+                                    user_map.put(Utils.map_key_owner_Name, name_String);
+                                    user_map.put(Utils.map_key_owner_Email, email_String);
+                                    user_map.put(Utils.map_key_owner_Password, password_String);
+                                    user_map.put(Utils.map_key_owner_Phone_Number, phone_String);
+
+                                    documentReference.set(user_map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.i("test_response", "Data added successfully entered on FIRESTORE");
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            binding.tvSignupErrorDisplay.setText("Error : " + e.getMessage());
+                                            Log.i("test_response", "Error : " + e.getMessage());
+                                        }
+                                    });
+
+                                } catch (Exception e) {
+                                    e.getMessage();
+                                }
+                                //------------------------------------------------------------------------------------------------------------------------------------
+                              }
 
 
                             // Signing Successful Redirect to Dashboard
+                            //------------------------------------------------------------------------------------------------------------------------------------
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            //------------------------------------------------------------------------------------------------------------------------------------
                         }else{
                             // set error
                             binding.tvSignupErrorDisplay.setText("Error : "+task.getException().getMessage());
                         }
+
 
                         binding.signupProgressbar.setVisibility(View.GONE);
                     }
