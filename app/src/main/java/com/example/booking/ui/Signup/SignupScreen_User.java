@@ -3,6 +3,7 @@ package com.example.booking.ui.Signup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -13,15 +14,24 @@ import com.example.booking.R;
 import com.example.booking.databinding.ActivitySignupScreenUserBinding;
 import com.example.booking.ui.Login.LoginScreenActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignupScreen_User extends AppCompatActivity {
+    String userID_string;
 
     ActivitySignupScreenUserBinding binding;
 
     FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +50,7 @@ public class SignupScreen_User extends AppCompatActivity {
         // Initialize
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
           firebaseAuth = FirebaseAuth.getInstance();
+          firebaseFirestore = FirebaseFirestore.getInstance();
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
@@ -102,6 +113,34 @@ public class SignupScreen_User extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+
+                            try {
+                                // Store data into FirebaseStore
+                                userID_string = firebaseAuth.getCurrentUser().getUid();
+                                DocumentReference documentReference = firebaseFirestore.collection("users").document(userID_string);
+                                Map<String, Object> user_map = new HashMap<>();
+                                user_map.put("User_Name", user_name_String);
+                                user_map.put("User_Email", user_email_String);
+                                user_map.put("User_Phone_Number", user_phone_String);
+                                user_map.put("User_Password", user_password_String);
+                                documentReference.set(user_map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Log.i("test_response", "Datat successfully entered on FIRESTORE");
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.i("test_response", "Error : "+e.getMessage());
+                                    }
+                                });
+
+                            }catch (Exception e){
+                                e.getMessage();
+                            }
+
+
+                            // Signing Successful Redirect to Dashboard
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }else{
                             // set error
