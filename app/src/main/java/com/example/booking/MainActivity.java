@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         View headerView = navigationView.getHeaderView(0);
         TextView tv_nav_header_user_name = (TextView) headerView.findViewById(R.id.tv_nav_header_user_name);
+        TextView tv_nav_header_login_type = (TextView) headerView.findViewById(R.id.tv_nav_header_login_type);
+        ImageView iv_nav_header_profile = (ImageView) headerView.findViewById(R.id.iv_nav_header_profile);
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -97,7 +100,9 @@ public class MainActivity extends AppCompatActivity {
                                String user_password_string = value.getString(Utils.map_key_User_Password);
                                String user_phone_number_string = value.getString(Utils.map_key_User_Phone_Number);
 
-                               tv_nav_header_user_name.setText("USER \n Hello " + user_name_string + " !");
+                               iv_nav_header_profile.setImageDrawable(getDrawable(R.drawable.icon_user));
+                               tv_nav_header_login_type.setText("USER");
+                               tv_nav_header_user_name.setText("Hello " + user_name_string + " !");
                            }catch (Exception e){
                                e.getMessage();
                            }
@@ -128,7 +133,10 @@ public class MainActivity extends AppCompatActivity {
                                 String owner_phone_number_string = value.getString(Utils.map_key_owner_Phone_Number);
 
 
-                                tv_nav_header_user_name.setText("OWNER \n Hello " + owner_name_string + " !");
+
+                                iv_nav_header_profile.setImageDrawable(getDrawable(R.drawable.icon_owner));
+                                tv_nav_header_login_type.setText("OWNER");
+                                tv_nav_header_user_name.setText("Hello " + owner_name_string + " !");
                             }catch (Exception e){
                                 e.getMessage();
                             }

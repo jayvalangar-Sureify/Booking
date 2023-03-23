@@ -6,26 +6,40 @@
     android:background="@drawable/side_nav_bar"
     android:gravity="bottom"
     android:orientation="vertical"
+    android:padding="10dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp">
+        android:padding="4dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="5dp">
 
       <ImageView
         android:id="@+id/iv_nav_header_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/icon_user" />
+        app:srcCompat="@drawable/icon_user"
+          app:tint="@color/combo_text_green" />
 
+        <TextView
+            android:id="@+id/tv_nav_header_login_type"
+            android:layout_below="@+id/iv_nav_header_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="6dp"
+            android:textSize="20sp"
+            android:textColor="@color/combo_text_blue"
+            android:text="@string/user" />
 
         <TextView
             android:id="@+id/tv_nav_header_user_name"
-            android:layout_below="@+id/iv_nav_header_profile"
+            android:layout_below="@+id/tv_nav_header_login_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
