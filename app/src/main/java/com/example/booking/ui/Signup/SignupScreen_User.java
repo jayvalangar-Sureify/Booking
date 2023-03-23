@@ -132,6 +132,7 @@ public class SignupScreen_User extends AppCompatActivity {
                                     user_map.put(Utils.map_key_User_Email, email_String);
                                     user_map.put(Utils.map_key_User_Password, password_String);
                                     user_map.put(Utils.map_key_User_Phone_Number, phone_String);
+                                    user_map.put(Utils.map_common_key_login_type, Utils.user);
 
                                     documentReference.set(user_map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
@@ -158,13 +159,14 @@ public class SignupScreen_User extends AppCompatActivity {
                                     // Store data into FirebaseStore
                                     userID_string = firebaseAuth.getCurrentUser().getUid();
                                     DocumentReference documentReference = firebaseFirestore.collection(Utils.key_owner_firestore).document(userID_string);
-                                    Map<String, Object> user_map = new HashMap<>();
-                                    user_map.put(Utils.map_key_owner_Name, name_String);
-                                    user_map.put(Utils.map_key_owner_Email, email_String);
-                                    user_map.put(Utils.map_key_owner_Password, password_String);
-                                    user_map.put(Utils.map_key_owner_Phone_Number, phone_String);
+                                    Map<String, Object> owner_map = new HashMap<>();
+                                    owner_map.put(Utils.map_key_owner_Name, name_String);
+                                    owner_map.put(Utils.map_key_owner_Email, email_String);
+                                    owner_map.put(Utils.map_key_owner_Password, password_String);
+                                    owner_map.put(Utils.map_key_owner_Phone_Number, phone_String);
+                                    owner_map.put(Utils.map_common_key_login_type, Utils.owner);
 
-                                    documentReference.set(user_map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    documentReference.set(owner_map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
                                             Log.i("test_response", "Data added successfully entered on FIRESTORE");

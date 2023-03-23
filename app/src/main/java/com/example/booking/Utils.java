@@ -9,13 +9,17 @@ public class Utils {
     public static String user = "user";
     public static String owner = "owner";
 
-    // Firestore
+    // Firestore User
     public static String key_users_firestore = "Users";
     public static String map_key_User_Name = "User_Name";
     public static String map_key_User_Email = "User_Email";
     public static String map_key_User_Phone_Number = "User_Phone_Number";
     public static String map_key_User_Password = "User_Password";
 
+    // Firestore Common
+    public static String map_common_key_login_type = "Login_Type";
+
+    // Firestore Owner
     public static String key_owner_firestore = "Owners";
     public static String map_key_owner_Name = "Owner_Name";
     public static String map_key_owner_Email = "Owner_Email";
