@@ -25,6 +25,7 @@
 
     <!-- Splash Screen -->
     <string name="user">User</string>
+    <string name="create_new_account_label">Create New Account</string>
     <string name="user_note">I want to use app</string>
     <string name="owner">Owner</string>
     <string name="owner_note">I want to manage or add my place</string>
@@ -33,6 +34,7 @@
 
     <!-- login Screen -->
     <string name="login">Login</string>
+    <string name="already_have_account_label">Already Have Account</string>
     <string name="forgot_password">Forgot Password ?</string>
     <string name="or">or</string>
     <string name="create_new_account">Create new account ?</string>

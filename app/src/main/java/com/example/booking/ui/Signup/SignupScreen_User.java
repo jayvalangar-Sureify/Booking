@@ -3,8 +3,11 @@ package com.example.booking.ui.Signup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -202,5 +205,33 @@ public class SignupScreen_User extends AppCompatActivity {
             }
         });
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+
+        // Show / Hide Password Image
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+        binding.ivSignupShowHideImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if(view.getId()==R.id.iv_signup_show_hide_image){
+                    if(binding.etSignupEnterPassword.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
+                        ((ImageView)(view)).setImageResource(R.drawable.icon_hide_password_24);
+                        //Show Password
+                        binding.etSignupEnterPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    }
+                    else{
+                        ((ImageView)(view)).setImageResource(R.drawable.icon_show_password_24);
+                        //Hide Password
+                        binding.etSignupEnterPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    }
+                }
+
+            }
+        });
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
     }
 }

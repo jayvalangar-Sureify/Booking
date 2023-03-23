@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -242,6 +244,32 @@ public class LoginScreenActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+
+        // Show / Hide Password Image
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+             binding.ivLoginShowHideImage.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View view) {
+
+                     if(view.getId()==R.id.iv_login_show_hide_image){
+                         if(binding.etLoginEnterPassword.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
+                             ((ImageView)(view)).setImageResource(R.drawable.icon_hide_password_24);
+                             //Show Password
+                             binding.etLoginEnterPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                         }
+                         else{
+                             ((ImageView)(view)).setImageResource(R.drawable.icon_show_password_24);
+                             //Hide Password
+                             binding.etLoginEnterPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                         }
+                     }
+
+                 }
+             });
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
     }
