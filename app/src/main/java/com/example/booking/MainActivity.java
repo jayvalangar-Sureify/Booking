@@ -109,8 +109,11 @@ public class MainActivity extends AppCompatActivity {
                    e.getMessage();
                }
                 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-            }else {
-                // Fetch user Data from Firestore
+            }
+
+
+        if (Utils.get_SharedPreference_type_of_login(getApplicationContext()).contains(Utils.owner)) {
+                // Fetch owner Data from Firestore
                 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
                 try {
                     DocumentReference documentReference = firebaseFirestore.collection(Utils.key_owner_firestore).document(user_Id_string);

@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +29,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginScreenActivity extends AppCompatActivity {
 
@@ -35,6 +40,8 @@ public class LoginScreenActivity extends AppCompatActivity {
     ActivityLoginScreenBinding binding;
 
     FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
+    String user_Id_string;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,7 @@ public class LoginScreenActivity extends AppCompatActivity {
         // Initialize
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
@@ -101,7 +109,51 @@ public class LoginScreenActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-==-=-=
+                            // Initally set login-type as a user, and check in owner list if it's really owner than change type of login to owner
+                            Utils.set_SharedPreference_type_of_login(Utils.user, getApplicationContext());
+                            user_Id_string = firebaseAuth.getCurrentUser().getUid();
+
+                            firebaseFirestore.collection(Utils.key_owner_firestore)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    if((document.getId() != null) && (user_Id_string != null)){
+                                                        if(document.getId().equals(user_Id_string)){
+                                                            // OWNER ID FOUND, SET LOGIN TYPE == OWNER
+                                                            Utils.set_SharedPreference_type_of_login(Utils.owner, getApplicationContext());
+                                                            return;
+                                                        }
+                                                    }
+                                                }
+                                            } else {
+                                                Log.i("test_response", "Error getting documents: ", task.getException());
+                                            }
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.i("test_response", "Error getting documents: "+e.getMessage());
+                                        }
+                                    });
+                            //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-==-=-=
+
+                            binding.loginProgressbar.setVisibility(View.VISIBLE);
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
+                                    binding.loginProgressbar.setVisibility(View.GONE);
+                                    // Redirect Successful Login
+                                    //----------------------------------------------------------------------
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    //----------------------------------------------------------------------
+                                }
+                            }, 3000);
+
+
                         }else{
                             binding.tvLoginErrorDisplay.setText("Error : "+task.getException().getMessage());
                         }
