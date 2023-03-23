@@ -106,6 +106,8 @@ public class LoginScreenActivity extends AppCompatActivity {
                 // Now start progressbar
                 binding.loginProgressbar.setVisibility(View.VISIBLE);
 
+                binding.btnLogin.setEnabled(false);
+
                 //Login User
                 firebaseAuth.signInWithEmailAndPassword(user_email_String, user_password_String).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -152,17 +154,18 @@ public class LoginScreenActivity extends AppCompatActivity {
                                     //----------------------------------------------------------------------
                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                     //----------------------------------------------------------------------
+                                    binding.btnLogin.setEnabled(true);
                                 }
                             }, 3000);
 
-
                         }else{
+
+                            // Progressbar gone
+                            binding.loginProgressbar.setVisibility(View.GONE);
+                            binding.btnLogin.setEnabled(true);
                             binding.tvLoginErrorDisplay.setText("Error : "+task.getException().getMessage());
                         }
 
-
-                        // Progressbar gone
-                        binding.loginProgressbar.setVisibility(View.GONE);
                     }
                 });
             }
