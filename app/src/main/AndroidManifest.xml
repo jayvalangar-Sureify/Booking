@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,10 +15,17 @@
         android:theme="@style/Theme.Booking"
         tools:targetApi="31">
         <activity
-            android:name=".ui.Signup.SignupScreen_User"
-            android:label="@string/create_new_account_label"
-            android:noHistory="true"
+            android:name=".ui.Owner_Add_Place_Details.OwnerAddPlaceDetails"
             android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.Signup.SignupScreen_User"
+            android:exported="false"
+            android:label="@string/create_new_account_label"
+            android:noHistory="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -25,16 +33,16 @@
         <activity
             android:name=".ui.Login.LoginScreenActivity"
             android:exported="true"
-            android:noHistory="true"
-            android:label="@string/already_have_account_label">
+            android:label="@string/already_have_account_label"
+            android:noHistory="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".ui.SplashScreen.SplashScreen"
-            android:label=""
-            android:exported="true">
+            android:exported="true"
+            android:label="">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
