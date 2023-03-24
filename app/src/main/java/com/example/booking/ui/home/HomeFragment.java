@@ -243,25 +243,37 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                             double latitude = latLng.latitude;
                             double longitude = latLng.longitude;
 
-                            DocumentReference docRef = firebaseFirestore.collection(Utils.key_owner_firestore).document(user_Id_string);
 
-                           // Update the document with a new field
-                            Map<String, Object> updates = new HashMap<>();
-                            updates.put(Utils.map_key_owner_Location, latitude+","+longitude);
+                            binding.etHomeLatitude.setText(""+latitude);
+                            binding.etHomeLongitude.setText(""+longitude);
 
-                            docRef.update(updates)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Log.d("test_response", "location added successfully");
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.w("test_response", "Error updating document", e);
-                                        }
-                                    });
+                            binding.btnHomeAddOwnerPlace.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+
+                                    // Add location to owner table
+                                    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                                    DocumentReference docRef = firebaseFirestore.collection(Utils.key_owner_firestore).document(user_Id_string);
+                                    // Update the document with a new field
+                                    Map<String, Object> updates = new HashMap<>();
+                                    updates.put(Utils.map_key_owner_Location, latitude+","+longitude);
+
+                                    docRef.update(updates)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d("test_response", "location added successfully");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.w("test_response", "Error updating document", e);
+                                                }
+                                            });
+                                    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                                }
+                            });
                             Log.i("test_response", "latitude : " + latitude + " longitude : " + longitude);
                         }
                     });
