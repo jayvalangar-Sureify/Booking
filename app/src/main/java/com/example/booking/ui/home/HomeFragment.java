@@ -31,7 +31,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
 
-public class HomeFragment extends Fragment implements OnMapReadyCallback {
+public class HomeFragment extends Fragment implements OnMapReadyCallback,  GoogleMap.OnMapLoadedCallback {
 
     private FragmentHomeBinding binding;
 
@@ -95,13 +95,23 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap map) {
         googleMap = map;
-
+// Register the OnMapLoadedCallback
+        googleMap.setOnMapLoadedCallback(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mapView.onResume();
+
+    }
+
+
+    @Override
+    public void onMapLoaded() {
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
 
 
         // Check user permission
@@ -226,7 +236,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
         }
 
-
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     }
 
     @Override
