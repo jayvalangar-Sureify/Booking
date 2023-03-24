@@ -16,6 +16,11 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+    <!-- Map -->
+    <string name="map_api_key">AIzaSyC2G1fZQLib1hlTg-r31cLdB16IZG5SaVI</string>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
+
     <!-- Common Errors -->
     <string name="enter_valid_name">Enter Valid Name</string>
     <string name="enter_valid_email">Enter Valid Email</string>
