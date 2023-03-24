@@ -25,6 +25,7 @@ public class Utils {
     public static String map_key_owner_Email = "Owner_Email";
     public static String map_key_owner_Phone_Number = "Owner_Phone_Number";
     public static String map_key_owner_Password = "Owner_Password";
+    public static String map_key_owner_Location = "Owner_Place_Location";
 
 
     // Key Hash-Map User
