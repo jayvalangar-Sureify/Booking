@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.booking.Utils;
 import com.example.booking.databinding.FragmentHomeBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -44,12 +45,18 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     // For user to show places location
     public HashMap<Double, Double> owner_places_hashmap = new HashMap<>();
 
+    String login_type_string;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+
+        // Checking login type
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        login_type_string = Utils.get_SharedPreference_type_of_login(getActivity());
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
         // Check user permission
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -76,6 +83,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         provider = locationManager.getBestProvider(criteria, false);
         location = locationManager.getLastKnownLocation(provider);
 
+        if(googleMap != null) { //prevent crashing if the map doesn't exist yet (eg. on starting activity)
+            googleMap.clear();
+            googleMap.setMyLocationEnabled(true);
+
+        }
         return root;
     }
 
@@ -108,89 +120,109 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             googleMap.setMyLocationEnabled(true);
 
 
-            // Database Part : Add owner dummy location
-            //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-            owner_places_hashmap.put(21.170240, 72.831062);
-            owner_places_hashmap.put(21.216820, 72.830269);
-            owner_places_hashmap.put(21.227830, 72.860000);
-            owner_places_hashmap.put(21.238887, 72.850289);
-            owner_places_hashmap.put(21.248828, 72.840899);
-            //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+            // USer : Add owners places (Set All Location Mark)
+            if(login_type_string.equals(Utils.user)) {
+                // Database Part : Add owner dummy location
+                //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                owner_places_hashmap.put(21.170240, 72.831062);
+                owner_places_hashmap.put(21.216820, 72.830269);
+                owner_places_hashmap.put(21.227830, 72.860000);
+                owner_places_hashmap.put(21.238887, 72.850289);
+                owner_places_hashmap.put(21.248828, 72.840899);
+                //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
-            // User : Add custom places on map
-            //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-            if (location != null) {
-                LatLng current_my_location = new LatLng(location.getLatitude(), location.getLongitude());
+                // User : Add custom places on map
+                //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                if (location != null) {
+                    LatLng current_my_location = new LatLng(location.getLatitude(), location.getLongitude());
 
-                owner_places_hashmap.entrySet().forEach(entry -> {
-                    LatLng set_owner_places_location = new LatLng(entry.getKey(), entry.getValue());
-                    googleMap.addMarker(new MarkerOptions().position(set_owner_places_location).title("Custom Location")).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-                });
+                    owner_places_hashmap.entrySet().forEach(entry -> {
+                        LatLng set_owner_places_location = new LatLng(entry.getKey(), entry.getValue());
+                        googleMap.addMarker(new MarkerOptions().position(set_owner_places_location).title("Custom Location")).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                    });
 
-                googleMap.addMarker(new MarkerOptions().position(current_my_location).title("My Location"));
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current_my_location, 11));
+                    googleMap.addMarker(new MarkerOptions().position(current_my_location).title("My Location"));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current_my_location, 11));
+                }
+                //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                // USer : Clicked on location mark for place details
+                //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                try {
+                    googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+
+                        @Override
+                        public boolean onMarkerClick(Marker arg0) {
+                            if (arg0 != null) ; // if marker  source is clicked
+
+                            new AlertDialog.Builder(getActivity())
+                                    .setTitle("" + arg0.getTitle())
+                                    .setMessage("Book your place")
+
+                                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                                    // The dialog is automatically dismissed when a dialog button is clicked.
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // Continue with delete operation
+                                            dialog.dismiss();
+                                        }
+                                    })
+
+                                    // A null listener allows the button to dismiss the dialog and take no further action.
+                                    .setNegativeButton(android.R.string.no, null)
+                                    .setIcon(android.R.drawable.ic_menu_mylocation)
+                                    .show();
+                            return true;
+                        }
+
+                    });
+                }catch (Exception e){
+                    e.getMessage();
+                }
+                //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
             }
-            //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
-            // OWNER : Select place for add your place
-            //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-            try {
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        // Add a marker at the clicked location
-                        googleMap.clear();
-                        googleMap.addMarker(new MarkerOptions().position(latLng));
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
-                        // Do something with the latitude and longitude values
-                        double latitude = latLng.latitude;
-                        double longitude = latLng.longitude;
+            if(login_type_string.equals(Utils.owner)) {
 
-                        Log.i("test_response", "latitude : " + latitude + " longitude : " + longitude);
-                    }
-                });
-            }catch (Exception e){
-                e.getMessage();
+                // Show current location
+                //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                if (location != null) {
+                    LatLng current_my_location = new LatLng(location.getLatitude(), location.getLongitude());
+                    googleMap.addMarker(new MarkerOptions().position(current_my_location).title("My Location"));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current_my_location, 11));
+                }
+                //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+                // OWNER : Select place for add your place
+                //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                try {
+                    googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                        @Override
+                        public void onMapClick(LatLng latLng) {
+                            // Add a marker at the clicked location
+                            googleMap.clear();
+                            googleMap.addMarker(new MarkerOptions().position(latLng));
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+                            // Do something with the latitude and longitude values
+                            double latitude = latLng.latitude;
+                            double longitude = latLng.longitude;
+
+                            Log.i("test_response", "latitude : " + latitude + " longitude : " + longitude);
+                        }
+                    });
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+                //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
             }
-            //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
-            // USer : Clicked on location mark
-            //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-            try {
-                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-
-                    @Override
-                    public boolean onMarkerClick(Marker arg0) {
-                        if (arg0 != null) ; // if marker  source is clicked
-
-                        new AlertDialog.Builder(getActivity())
-                                .setTitle("" + arg0.getTitle())
-                                .setMessage("Book your place")
-
-                                // Specifying a listener allows you to take an action before dismissing the dialog.
-                                // The dialog is automatically dismissed when a dialog button is clicked.
-                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // Continue with delete operation
-                                        dialog.dismiss();
-                                    }
-                                })
-
-                                // A null listener allows the button to dismiss the dialog and take no further action.
-                                .setNegativeButton(android.R.string.no, null)
-                                .setIcon(android.R.drawable.ic_menu_mylocation)
-                                .show();
-                        return true;
-                    }
-
-                });
-            }catch (Exception e){
-                e.getMessage();
-            }
-            //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
         }
 
