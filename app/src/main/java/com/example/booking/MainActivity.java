@@ -17,7 +17,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.booking.databinding.ActivityMainBinding;
-import com.example.booking.ui.Owner_Add_Place_Details.OwnerAddPlaceDetails;
 import com.example.booking.ui.SplashScreen.SplashScreen;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,12 +61,7 @@ public class MainActivity extends AppCompatActivity {
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, OwnerAddPlaceDetails.class));
-            }
-        });
+
 
 
         // Passing each menu ID as a set of Ids because each

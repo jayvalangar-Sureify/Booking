@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -20,6 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.booking.Utils;
 import com.example.booking.databinding.FragmentHomeBinding;
+import com.example.booking.ui.Owner_Add_Place_Details.OwnerAddPlaceDetails;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -222,9 +224,15 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                 // Show current location
                 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
                 if (location != null) {
-                    LatLng current_my_location = new LatLng(location.getLatitude(), location.getLongitude());
-                    googleMap.addMarker(new MarkerOptions().position(current_my_location).title("My Location"));
+                    double owner_current_latitude = location.getLatitude();
+                    double owner_current_longitude = location.getLongitude();
+                    LatLng current_my_location = new LatLng(owner_current_latitude, owner_current_longitude);
+                    googleMap.addMarker(new MarkerOptions().position(current_my_location).title("My Current Location"));
                     googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current_my_location, 11));
+
+                    // Owner selected latitude and longitude
+                    binding.etHomeLatitude.setText(""+owner_current_latitude);
+                    binding.etHomeLongitude.setText(""+owner_current_longitude);
                 }
                 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
@@ -237,13 +245,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                         public void onMapClick(LatLng latLng) {
                             // Add a marker at the clicked location
                             googleMap.clear();
-                            googleMap.addMarker(new MarkerOptions().position(latLng));
+                            googleMap.addMarker(new MarkerOptions().position(latLng).title("Selected Location")).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
                             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                             // Do something with the latitude and longitude values
                             double latitude = latLng.latitude;
                             double longitude = latLng.longitude;
 
 
+                            // Owner selected latitude and longitude
                             binding.etHomeLatitude.setText(""+latitude);
                             binding.etHomeLongitude.setText(""+longitude);
 
@@ -263,6 +272,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
                                                     Log.d("test_response", "location added successfully");
+                                                    startActivity(new Intent(getActivity(), OwnerAddPlaceDetails.class));
                                                 }
                                             })
                                             .addOnFailureListener(new OnFailureListener() {
