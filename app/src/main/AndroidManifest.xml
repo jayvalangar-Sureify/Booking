@@ -35,6 +35,7 @@
 
         <activity
             android:name=".ui.Owner_Add_Place_Details.OwnerAddPlaceDetails"
+            android:label="@string/add_your_place"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

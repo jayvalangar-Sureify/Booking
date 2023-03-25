@@ -233,6 +233,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                     // Owner selected latitude and longitude
                     binding.etHomeLatitude.setText(""+owner_current_latitude);
                     binding.etHomeLongitude.setText(""+owner_current_longitude);
+
+                    binding.btnHomeAddOwnerPlace.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            add_latitude_and_longitude_to_firestore(owner_current_latitude, owner_current_longitude);
+                        }
+                    });
                 }
                 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
@@ -259,30 +266,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                             binding.btnHomeAddOwnerPlace.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-
-                                    // Add location to owner table
-                                    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-                                    DocumentReference docRef = firebaseFirestore.collection(Utils.key_owner_firestore).document(user_Id_string);
-                                    // Update the document with a new field
-                                    Map<String, Object> updates = new HashMap<>();
-                                    updates.put(Utils.map_key_owner_Location, latitude+","+longitude);
-
-                                    docRef.update(updates)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Log.d("test_response", "location added successfully");
-                                                    startActivity(new Intent(getActivity(), OwnerAddPlaceDetails.class));
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.w("test_response", "Error updating document", e);
-                                                }
-                                            });
-                                    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-                                }
+                                    add_latitude_and_longitude_to_firestore(latitude, longitude);
+                                     }
                             });
                             Log.i("test_response", "latitude : " + latitude + " longitude : " + longitude);
                         }
@@ -300,6 +285,37 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
 
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     }
+
+
+    // Add latitude and longitude into firestore
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    public void add_latitude_and_longitude_to_firestore(Double latitude, Double longitude){
+        // Add location to owner table
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        DocumentReference docRef = firebaseFirestore.collection(Utils.key_owner_firestore).document(user_Id_string);
+        // Update the document with a new field
+        Map<String, Object> updates = new HashMap<>();
+        updates.put(Utils.map_key_owner_Location, latitude+","+longitude);
+
+        docRef.update(updates)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("test_response", "location added successfully");
+                        startActivity(new Intent(getActivity(), OwnerAddPlaceDetails.class));
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("test_response", "Error updating document", e);
+                    }
+                });
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+    }
+
+    //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
     @Override
     public void onPause() {

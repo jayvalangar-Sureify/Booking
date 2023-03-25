@@ -84,4 +84,20 @@
     <string name="longitude_hint">XX.XXXXXXX</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
     
+    
+    <!-- Owner Add Place -->
+    <string name="enter_place_name">Enter Place Name</string>
+    <string name="hint_enter_place_name">Ganesh Ground</string>
+    <string name="enter_pincode">Enter Pincode</string>
+    <string name="hint_enter_pincode">123456</string>
+    <string name="enter_state_city_district">Country, City, District</string>
+    <string name="hint_state_city_district">India, Gujarat, Surat</string>
+    <string name="enter_address">Enter Place Address</string>
+    <string name="hint_enter_address">A/202, Vashi Plaza, Near Gopi tala</string>
+    <string name="enter_no_of_nets_Available">Enter No. of Nets available</string>
+    <string name="hint_enter_no_of_nets_Available">2</string>
+    <string name="enter_ground_stuff_number">Enter Ground Stuff Number</string>
+    <string name="hint_enter_ground_stuff_number">8879912345</string>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    
 </resources>
