@@ -36,6 +36,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class OwnerAddPlaceDetails extends AppCompatActivity {
 
+    Double owner_place_latitude, owner_place_longitude;
     ActivityOwnerAddPlaceDetailsBinding binding;
 
     FirebaseAuth firebaseAuth;
@@ -55,6 +56,14 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
+
+        // get latitude and longitude
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        Intent intent=getIntent();
+        owner_place_latitude = intent.getDoubleExtra(Utils.key_latitude, 0);
+        owner_place_longitude = intent.getDoubleExtra(Utils.key_longitude, 0);
+        Log.i("test_response", "");
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
         // Button Add Owner Place
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -124,16 +133,18 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                                     // Store data into FirebaseStore
                                     userID_string = firebaseAuth.getCurrentUser().getUid();
                                     DocumentReference documentReference = firebaseFirestore.collection(Utils.key_ownerplace_firestore).document(userID_string);
-                                    Map<String, Object> user_map = new HashMap<>();
-                                    user_map.put(Utils.map_key_owner_place_name, owner_place_name_String);
-                                    user_map.put(Utils.map_key_owner_place_address, owner_place_address_String);
-                                    user_map.put(Utils.map_key_owner_place_pincode, owner_place_pincode_String);
-                                    user_map.put(Utils.map_key_owner_place_ground_staff_number, owner_place_country_state_district_String);
-                                    user_map.put(Utils.map_key_owner_place_full_address, owner_place_address_String + "\n" + "Pincode : " +owner_place_pincode_String+ "\n" + owner_place_country_state_district_String);
-                                    user_map.put(Utils.map_key_owner_place_ground_staff_number, owner_place_staff_phone_number_string);
-                                    user_map.put(Utils.map_key_owner_place_total_nets, owner_place_total_nets_String);
+                                    Map<String, Object> owner_place_detail_map = new HashMap<>();
+                                    owner_place_detail_map.put(Utils.map_key_owner_place_name, owner_place_name_String);
+                                    owner_place_detail_map.put(Utils.map_key_owner_place_latitude, owner_place_latitude);
+                                    owner_place_detail_map.put(Utils.map_key_owner_place_longitude, owner_place_longitude);
+                                    owner_place_detail_map.put(Utils.map_key_owner_place_address, owner_place_address_String);
+                                    owner_place_detail_map.put(Utils.map_key_owner_place_pincode, owner_place_pincode_String);
+                                    owner_place_detail_map.put(Utils.map_key_owner_place_country_city_district, owner_place_country_state_district_String);
+                                    owner_place_detail_map.put(Utils.map_key_owner_place_full_address, owner_place_address_String + "\n" + "Pincode : " +owner_place_pincode_String+ "\n" + owner_place_country_state_district_String);
+                                    owner_place_detail_map.put(Utils.map_key_owner_place_ground_staff_number, owner_place_staff_phone_number_string);
+                                    owner_place_detail_map.put(Utils.map_key_owner_place_total_nets, owner_place_total_nets_String);
 
-                                    documentReference.set(user_map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    documentReference.set(owner_place_detail_map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
                                             Log.i("test_response", "Data added successfully entered on FIRESTORE");

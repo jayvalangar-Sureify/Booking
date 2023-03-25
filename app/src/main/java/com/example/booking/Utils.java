@@ -9,6 +9,10 @@ public class Utils {
     public static String user = "user";
     public static String owner = "owner";
 
+    // Location
+    public static String key_latitude = "latitude";
+    public static String key_longitude = "longitude";
+
     // Firestore User
     public static String key_users_firestore = "Users";
     public static String map_key_User_Name = "User_Name";
@@ -31,6 +35,8 @@ public class Utils {
     // Firestore OwnerPlace
     public static String key_ownerplace_firestore = "OwnerPlaces";
     public static String map_key_owner_place_name = "Owner_Place_Name";
+    public static String map_key_owner_place_latitude = "Owner_Place_Latitude";
+    public static String map_key_owner_place_longitude = "Owner_Place_Longitude";
     public static String map_key_owner_place_pincode = "Owner_Place_Pincode";
     public static String map_key_owner_place_country_city_district = "Owner_Place_Country_State_District";
     public static String map_key_owner_place_address = "Owner_Place_Address";

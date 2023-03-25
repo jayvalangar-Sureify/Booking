@@ -302,7 +302,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("test_response", "location added successfully");
-                        startActivity(new Intent(getActivity(), OwnerAddPlaceDetails.class));
+                        Intent intent = new Intent(getActivity(), OwnerAddPlaceDetails.class);
+                        intent.putExtra(Utils.key_latitude,latitude);
+                        intent.putExtra(Utils.key_longitude,longitude);
+                        startActivity(intent);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
