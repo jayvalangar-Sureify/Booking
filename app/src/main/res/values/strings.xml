@@ -88,16 +88,22 @@
     <!-- Owner Add Place -->
     <string name="enter_place_name">Enter Place Name</string>
     <string name="hint_enter_place_name">Ganesh Ground</string>
+    <string name="error_enter_place_name">Enter Valid Place Name</string>
     <string name="enter_pincode">Enter Pincode</string>
     <string name="hint_enter_pincode">123456</string>
-    <string name="enter_state_city_district">Country, City, District</string>
+    <string name="error_enter_pincode">Enter Valid Pincode</string>
+    <string name="enter_country_state_district">Country, State, District</string>
+    <string name="error_state_city_district">Enter Valid State, City, District</string>
     <string name="hint_state_city_district">India, Gujarat, Surat</string>
     <string name="enter_address">Enter Place Address</string>
     <string name="hint_enter_address">A/202, Vashi Plaza, Near Gopi tala</string>
-    <string name="enter_no_of_nets_Available">Enter No. of Nets available</string>
-    <string name="hint_enter_no_of_nets_Available">2</string>
-    <string name="enter_ground_stuff_number">Enter Ground Stuff Number</string>
-    <string name="hint_enter_ground_stuff_number">8879912345</string>
+    <string name="error_enter_address">Enter Valid Place Address</string>
+    <string name="enter_total_nets_Available">Enter Total Nets available</string>
+    <string name="hint_enter_total_nets_Available">2</string>
+    <string name="error_enter_total_nets_Available">Enter Valid Total Nets Available</string>
+    <string name="enter_ground_staff_number">Enter Ground Stuff Number</string>
+    <string name="hint_enter_ground_staff_number">8879912345</string>
+    <string name="error_enter_ground_staff_number">Enter Valid Staff Number</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
     
 </resources>

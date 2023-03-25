@@ -28,6 +28,19 @@ public class Utils {
     public static String map_key_owner_Location = "Owner_Place_Location";
 
 
+    // Firestore OwnerPlace
+    public static String key_ownerplace_firestore = "OwnerPlaces";
+    public static String map_key_owner_place_name = "Owner_Place_Name";
+    public static String map_key_owner_place_pincode = "Owner_Place_Pincode";
+    public static String map_key_owner_place_country_city_district = "Owner_Place_Country_State_District";
+    public static String map_key_owner_place_address = "Owner_Place_Address";
+    public static String map_key_owner_place_full_address = "Owner_Place_Full_Address";
+    public static String map_key_owner_place_ground_staff_number = "Owner_Place_Staff_Number";
+    public static String map_key_owner_place_total_nets = "Owner_Place_Total_Nets";
+
+
+
+
     // Key Hash-Map User
     public static String key_user_hashmap = "key_user_hashmap";
     public static String key_user_hashmap_data = "key_user_hashmap_data";
