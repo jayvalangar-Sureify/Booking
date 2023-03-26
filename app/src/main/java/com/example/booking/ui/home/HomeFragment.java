@@ -30,11 +30,15 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -100,7 +104,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
         mapView.getMapAsync(this);
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
@@ -126,6 +129,35 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
     public void onResume() {
         super.onResume();
         mapView.onResume();
+
+        // Adding places from database :  in hashmap
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        if(login_type_string.equals(Utils.user)){
+            firebaseFirestore.collection(Utils.key_ownerplace_firestore)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Double owner_place_latitude = (Double) document.getData().get(Utils.map_key_owner_place_latitude);
+                                    Double owner_place_longitude = (Double) document.getData().get(Utils.map_key_owner_place_longitude);
+                                    owner_places_hashmap.put(owner_place_latitude, owner_place_longitude);
+                                }
+                            } else {
+                                Log.i("test_response", "Error getting documents: ", task.getException());
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.i("test_response", "Error getting documents: "+e.getMessage());
+                        }
+                    });
+            //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+        }
+
 
     }
 
@@ -157,27 +189,28 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
             if(login_type_string.equals(Utils.user)) {
                 // Database Part : Add owner dummy location
                 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-                owner_places_hashmap.put(21.170240, 72.831062);
-                owner_places_hashmap.put(21.216820, 72.830269);
-                owner_places_hashmap.put(21.227830, 72.860000);
-                owner_places_hashmap.put(21.238887, 72.850289);
-                owner_places_hashmap.put(21.248828, 72.840899);
+//                owner_places_hashmap.put(21.170240, 72.831062);
+//                owner_places_hashmap.put(21.216820, 72.830269);
+//                owner_places_hashmap.put(21.227830, 72.860000);
+//                owner_places_hashmap.put(21.238887, 72.850289);
+//                owner_places_hashmap.put(21.248828, 72.840899);
                 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
                 // User : Add custom places on map
                 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-                if (location != null) {
+//                if (location != null) {
                     LatLng current_my_location = new LatLng(location.getLatitude(), location.getLongitude());
 
+                    Log.i("test_response", "owner_places_hashmap : "+owner_places_hashmap.size());
                     owner_places_hashmap.entrySet().forEach(entry -> {
                         LatLng set_owner_places_location = new LatLng(entry.getKey(), entry.getValue());
                         googleMap.addMarker(new MarkerOptions().position(set_owner_places_location).title("Custom Location")).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(set_owner_places_location, 11));
                     });
 
                     googleMap.addMarker(new MarkerOptions().position(current_my_location).title("My Location"));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current_my_location, 11));
-                }
+//                }
                 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
                 // USer : Clicked on location mark for place details
