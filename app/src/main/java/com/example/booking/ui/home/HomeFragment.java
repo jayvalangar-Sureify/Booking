@@ -40,7 +40,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HomeFragment extends Fragment implements OnMapReadyCallback,  GoogleMap.OnMapLoadedCallback {
@@ -56,6 +58,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
 
     // For user to show places location
     public HashMap<Double, Double> owner_places_hashmap = new HashMap<>();
+    public HashMap<String, String > owner_places_in_details_hashmap = new HashMap<>();
 
     String login_type_string;
 
@@ -140,9 +143,23 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
+                                    // Adding latitude and longitude to one hasmap
                                     Double owner_place_latitude = (Double) document.getData().get(Utils.map_key_owner_place_latitude);
                                     Double owner_place_longitude = (Double) document.getData().get(Utils.map_key_owner_place_longitude);
                                     owner_places_hashmap.put(owner_place_latitude, owner_place_longitude);
+
+                                    // Adding other details
+                                    String owner_place_name_string = (String) document.getData().get(Utils.map_key_owner_place_name);
+                                    String owner_place_full_address_string = (String) document.getData().get(Utils.map_key_owner_place_full_address);
+                                    String owner_place_staff_number_string = (String) document.getData().get(Utils.map_key_owner_place_ground_staff_number);
+                                    String owner_place_total_nets_string = (String) document.getData().get(Utils.map_key_owner_place_total_nets);
+                                    owner_places_in_details_hashmap.put(
+                                            ""+owner_place_latitude+","+owner_place_longitude,
+
+                                            "\n Place Name : "+owner_place_name_string
+                                            +"\n Address : "+owner_place_full_address_string
+                                            + "\n Owner Staff : " + owner_place_staff_number_string
+                                            + "\n Total Nets : " + owner_place_total_nets_string);
                                 }
                             } else {
                                 Log.i("test_response", "Error getting documents: ", task.getException());
@@ -203,9 +220,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                     LatLng current_my_location = new LatLng(location.getLatitude(), location.getLongitude());
 
                     Log.i("test_response", "owner_places_hashmap : "+owner_places_hashmap.size());
-                    owner_places_hashmap.entrySet().forEach(entry -> {
-                        LatLng set_owner_places_location = new LatLng(entry.getKey(), entry.getValue());
-                        googleMap.addMarker(new MarkerOptions().position(set_owner_places_location).title("Custom Location")).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                owner_places_in_details_hashmap.entrySet().forEach(entry -> {
+                        // seperating latitude and longitude from key
+                           String latitude_longitude_string = entry.getKey();
+                    List<String> individual_latitude_longitude_list = Arrays.asList(latitude_longitude_string.split(","));
+
+
+                        LatLng set_owner_places_location = new LatLng(Double.parseDouble(individual_latitude_longitude_list.get(0)), Double.parseDouble(individual_latitude_longitude_list.get(1)));
+                        googleMap.addMarker(new MarkerOptions().position(set_owner_places_location).title(""+entry.getValue())).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
                         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(set_owner_places_location, 11));
                     });
 
@@ -223,8 +245,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                             if (arg0 != null) ; // if marker  source is clicked
 
                             new AlertDialog.Builder(getActivity())
-                                    .setTitle("" + arg0.getTitle())
-                                    .setMessage("Book your place")
+                                    .setTitle("")
+                                    .setMessage(""+arg0.getTitle())
 
                                     // Specifying a listener allows you to take an action before dismissing the dialog.
                                     // The dialog is automatically dismissed when a dialog button is clicked.
