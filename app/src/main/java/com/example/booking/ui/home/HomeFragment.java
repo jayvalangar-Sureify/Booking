@@ -109,8 +109,12 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
 
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         criteria = new Criteria();
-        provider = locationManager.getBestProvider(criteria, false);
-        location = locationManager.getLastKnownLocation(provider);
+        try {
+            provider = locationManager.getBestProvider(criteria, false);
+            location = locationManager.getLastKnownLocation(provider);
+        }catch (Exception e){
+            e.getMessage();
+        }
 
         if(googleMap != null) { //prevent crashing if the map doesn't exist yet (eg. on starting activity)
             googleMap.clear();
@@ -132,6 +136,25 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
     public void onResume() {
         super.onResume();
         mapView.onResume();
+
+       // View visible and Gone based on Login Type
+       //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        if(login_type_string.equals(Utils.user)){
+            binding.llBottomLatitudeLongitude.setVisibility(View.GONE);
+        }
+
+        if(login_type_string.equals(Utils.owner)){
+
+            // Owner already added place
+            if(Utils.get_SharedPreference_owner_completed_add_placele_procedure(getActivity()).equals("1")){
+                binding.llBottomLatitudeLongitude.setVisibility(View.GONE);
+                binding.rlTop.setVisibility(View.GONE);
+            }else {
+                binding.llBottomLatitudeLongitude.setVisibility(View.VISIBLE);
+                binding.rlTop.setVisibility(View.VISIBLE);
+            }
+        }
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
         // Adding places from database :  in hashmap
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -216,7 +239,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
 
                 // User : Add custom places on map
                 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-//                if (location != null) {
+                if (location != null) {
                     LatLng current_my_location = new LatLng(location.getLatitude(), location.getLongitude());
 
                     Log.i("test_response", "owner_places_hashmap : "+owner_places_hashmap.size());
@@ -232,7 +255,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                     });
 
                     googleMap.addMarker(new MarkerOptions().position(current_my_location).title("My Location"));
-//                }
+                }
                 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
                 // USer : Clicked on location mark for place details

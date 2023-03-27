@@ -33,67 +33,71 @@
 
 
             <LinearLayout
+                android:id="@+id/ll_bottom_latitude_longitude"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:layout_marginTop="6dp"
-                android:textSize="20sp"
-                android:textColor="@color/combo_text_blue"
-                android:text="@string/latitude" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/latitude"
+                    android:textColor="@color/combo_text_blue"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/et_home_latitude"
-                android:nextFocusForward="@id/et_signup_enter_phone_number"
-                android:layout_width="fill_parent"
-                android:textColor="@color/combo_text_blue"
-                android:background="@drawable/et_style"
-                android:textStyle="bold"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:textSize="16sp"
-                android:padding="14dp"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:hint="@string/latitude_hint" />
+                <EditText
+                    android:id="@+id/et_home_latitude"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/et_style"
+                    android:hint="@string/latitude_hint"
+                    android:maxLines="1"
+                    android:nextFocusForward="@id/et_signup_enter_phone_number"
+                    android:padding="14dp"
+                    android:singleLine="true"
+                    android:textColor="@color/combo_text_blue"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:layout_marginTop="6dp"
-                android:textSize="20sp"
-                android:textColor="@color/combo_text_blue"
-                android:text="@string/longitude" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/longitude"
+                    android:textColor="@color/combo_text_blue"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/et_home_longitude"
-                android:nextFocusForward="@id/et_signup_enter_email"
-                android:layout_width="fill_parent"
-                android:textColor="@color/combo_text_blue"
-                android:background="@drawable/et_style"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:inputType="number"
-                android:layout_marginTop="6dp"
-                android:textSize="16sp"
-                android:padding="14dp"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:hint="@string/longitude_hint" />
+                <EditText
+                    android:id="@+id/et_home_longitude"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/et_style"
+                    android:hint="@string/longitude_hint"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:nextFocusForward="@id/et_signup_enter_email"
+                    android:padding="14dp"
+                    android:singleLine="true"
+                    android:textColor="@color/combo_text_blue"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/btn_home_add_owner_place"
-                    android:layout_below="@+id/signup_rl_input_fields"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/signup_rl_input_fields"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"

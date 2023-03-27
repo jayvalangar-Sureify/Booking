@@ -145,6 +145,36 @@ public class LoginScreenActivity extends AppCompatActivity {
                                     });
                             //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-==-=-=
 
+
+                            //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-==-=-=
+                            // Check owner already added place or not
+                            firebaseFirestore.collection(Utils.key_ownerplace_firestore)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    if((document.getId() != null) && (user_Id_string != null)){
+                                                        if(document.getId().equals(user_Id_string)){
+                                                            // OWNER ID FOUND, SET LOGIN TYPE == OWNER
+                                                            Utils.set_SharedPreference_owner_completed_add_placele_procedure("1", getApplicationContext());
+                                                            return;
+                                                        }
+                                                    }
+                                                }
+                                            } else {
+                                                Log.i("test_response", "Error getting documents: ", task.getException());
+                                            }
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.i("test_response", "Error getting documents: "+e.getMessage());
+                                        }
+                                    });
+                            //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-==-=-=
+
                             binding.loginProgressbar.setVisibility(View.VISIBLE);
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {

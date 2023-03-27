@@ -58,9 +58,11 @@ public class Utils {
     // sharedpreference key
     // splash activity
     public static String key_save_type_of_login = "key_save_type_of_login";
+    public static String key_owner_completed_place_adding_procedure = "key_owner_completed_place_adding_procedure";
 
 
 
+    // set login type
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     public static void set_SharedPreference_type_of_login(String type_of_login, Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences(key_save_type_of_login, MODE_PRIVATE);
@@ -73,4 +75,22 @@ public class Utils {
         return sharedPreferences.getString(key_save_type_of_login, "user");
     }
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+    // set if owner completed signup procedure
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    public static void set_SharedPreference_owner_completed_add_placele_procedure(String isCompleted, Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key_owner_completed_place_adding_procedure, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key_owner_completed_place_adding_procedure, isCompleted);
+        editor.commit();
+    }
+    public static String get_SharedPreference_owner_completed_add_placele_procedure(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key_owner_completed_place_adding_procedure, MODE_PRIVATE);
+        return sharedPreferences.getString(key_owner_completed_place_adding_procedure, "0");
+    }
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 }
+
+

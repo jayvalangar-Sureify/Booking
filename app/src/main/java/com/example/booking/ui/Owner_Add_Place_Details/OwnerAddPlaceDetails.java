@@ -148,26 +148,30 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Void unused) {
                                             Log.i("test_response", "Data added successfully entered on FIRESTORE");
+
+                                            Utils.set_SharedPreference_owner_completed_add_placele_procedure("1", getApplicationContext());
+                                            // Signing Successful Redirect to Dashboard
+                                            //------------------------------------------------------------------------------------------------------------------------------------
+                                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                            finish();
+                                            //------------------------------------------------------------------------------------------------------------------------------------
+
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
+                                            Utils.set_SharedPreference_owner_completed_add_placele_procedure("0", getApplicationContext());
                                             binding.tvOwnerAddError.setText("Error : " + e.getMessage());
                                             Log.i("test_response", "Error : " + e.getMessage());
                                         }
                                     });
 
                                 } catch (Exception e) {
+                                    Utils.set_SharedPreference_owner_completed_add_placele_procedure("0", getApplicationContext());
+                                    binding.tvOwnerAddError.setText("Error : " + e.getMessage());
                                     e.getMessage();
                                 }
                                 //------------------------------------------------------------------------------------------------------------------------------------
-
-
-                            // Signing Successful Redirect to Dashboard
-                            //------------------------------------------------------------------------------------------------------------------------------------
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            //------------------------------------------------------------------------------------------------------------------------------------
-
 
                         binding.addPlaceProgressBar.setVisibility(View.GONE);
                     }
