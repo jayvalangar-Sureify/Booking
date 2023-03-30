@@ -304,6 +304,17 @@
                     android:textCursorDrawable="@drawable/cursor_color"
                     android:hint="@string/hint_enter_place_default_per_hour_rent" />
 
+                <TextView
+                    android:id="@+id/tv_owner_add_place_change_rent_day_time_wise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp"
+                    android:textSize="20sp"
+                    android:gravity="end"
+                    android:textColor="@color/red"
+                    android:text="@string/change_rent_day_and_time_wise" />
+
                 <Button
                     android:id="@+id/btn_owner_add_place_submit"
                     android:layout_below="@+id/signup_rl_input_fields"

@@ -71,8 +71,8 @@
     <!-- Logout -->
     <string name="action_logout">Logout</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-    
-    
+
+
     <!-- Home -->
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
@@ -83,8 +83,8 @@
     <string name="latitude_hint">XX.XXXXXXX</string>
     <string name="longitude_hint">XX.XXXXXXX</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-    
-    
+
+
     <!-- Owner Add Place -->
     <string name="enter_place_name">Enter Place Name</string>
     <string name="hint_enter_place_name">Ganesh Ground</string>
@@ -113,7 +113,8 @@
     <string name="enter_place_default_per_hour_rent">Enter Place Per Hour Rent</string>
     <string name="hint_enter_place_default_per_hour_rent">1000</string>
     <string name="error_enter_place_default_per_hour_rent">Enter Valid Place Per Hour Rent</string>
+    <string name="change_rent_day_and_time_wise">Change Rent Day/Time Wise ?</string>
 
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-    
+
 </resources>

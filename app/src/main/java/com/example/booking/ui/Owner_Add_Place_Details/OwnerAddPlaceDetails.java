@@ -19,6 +19,7 @@ import com.example.booking.Utils;
 import com.example.booking.databinding.ActivityOwnerAddPlaceDetailsBinding;
 import com.example.booking.interfaces.PincodeApiServiceInterface;
 import com.example.booking.model.PincodeModel;
+import com.example.booking.ui.OwnerPlaceRentDayTime.OwnerPlaceRentDayTimeWise;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -89,6 +90,21 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
         owner_place_longitude = intent.getDoubleExtra(Utils.key_longitude, 0);
         Log.i("test_response", "");
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+         binding.tvOwnerAddPlaceChangeRentDayTimeWise.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Intent intent = new Intent(OwnerAddPlaceDetails.this, OwnerPlaceRentDayTimeWise.class);
+                 intent.putExtra(Utils.key_per_hour_rent,""+binding.etOwnerPlacePerHourRent.getText().toString());
+                 startActivity(intent);
+
+             }
+         });
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
 
         // Button Add Owner Place
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

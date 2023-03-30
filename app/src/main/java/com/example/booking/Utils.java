@@ -13,6 +13,18 @@ public class Utils {
     public static String key_latitude = "latitude";
     public static String key_longitude = "longitude";
 
+    // Place Rent
+    public static String key_per_hour_rent = "key_per_hour_rent";
+    public static String key_monday = "monday";
+    public static String key_tuesday = "tuesday";
+    public static String key_wednesday = "wednesday";
+    public static String key_thursday = "thursday";
+    public static String key_friday = "friday";
+    public static String key_saturday = "saturday";
+    public static String key_sunday = "sunday";
+
+
+
     // Firestore User
     public static String key_users_firestore = "Users";
     public static String map_key_User_Name = "User_Name";
