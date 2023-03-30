@@ -160,6 +160,8 @@ public class LoginScreenActivity extends AppCompatActivity {
                                                             // OWNER ID FOUND, SET LOGIN TYPE == OWNER
                                                             Utils.set_SharedPreference_owner_completed_add_placele_procedure("1", getApplicationContext());
                                                             return;
+                                                        }else{
+                                                            Utils.set_SharedPreference_owner_completed_add_placele_procedure("0", getApplicationContext());
                                                         }
                                                     }
                                                 }

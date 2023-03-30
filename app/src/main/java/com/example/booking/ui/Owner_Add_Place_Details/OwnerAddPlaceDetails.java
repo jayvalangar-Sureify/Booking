@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,6 +44,12 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     String userID_string;
 
+    String[] place_opening_time_spinner = {"12 AM", "01 AM", "02 AM", "03 AM", "04 AM", "05 AM", "06 AM", "07 AM", "08 AM", "09 AM", "10 AM", "11 AM", "12 AM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"};
+    String[] place_closing_time_spinner = {"12 AM", "01 AM", "02 AM", "03 AM", "04 AM", "05 AM", "06 AM", "07 AM", "08 AM", "09 AM", "10 AM", "11 AM", "12 AM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"};
+
+    ArrayAdapter<String> place_opening_time_spinner_adapter;
+    ArrayAdapter<String> place_closing_time_spinner_adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +62,24 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        // Create a new ArrayAdapter and set it as the adapter for the spinner
+        place_opening_time_spinner_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, place_opening_time_spinner);
+        place_closing_time_spinner_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, place_closing_time_spinner);
+
+        binding.ownerPlaceOpeningSpinner.setAdapter(place_opening_time_spinner_adapter);
+        binding.ownerPlaceClosingSpinner.setAdapter(place_closing_time_spinner_adapter);
+
+        // Set default time
+        binding.ownerPlaceOpeningSpinner.setSelection(7);
+        binding.ownerPlaceClosingSpinner.setSelection(23);
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+
+
 
 
         // get latitude and longitude
@@ -79,6 +104,9 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                 String owner_place_address_String = binding.etOwnerAddPlaceAddress.getText().toString();
                 String owner_place_staff_phone_number_string = binding.etOwnerAddPlaceStuffNumber.getText().toString();
                 String owner_place_total_nets_String = binding.etOwnerAddPlaceAvailableNets.getText().toString();
+                String owner_place_opening_time_String = binding.ownerPlaceOpeningSpinner.getSelectedItem().toString();
+                String owner_place_closing_time_String = binding.ownerPlaceClosingSpinner.getSelectedItem().toString();
+                String owner_place_per_hour_rent_String = binding.etOwnerPlacePerHourRent.getText().toString();
 
 
 
@@ -123,6 +151,25 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                     return;
                 }
 
+                if(TextUtils.isEmpty(owner_place_opening_time_String)){
+                    binding.tvOwnerAddError.setText(getString(R.string.error_enter_place_opening_time));
+                    binding.etOwnerAddPlaceAvailableNets.setError(getString(R.string.error_enter_total_nets_Available));
+                    return;
+                }
+
+                if(TextUtils.isEmpty(owner_place_closing_time_String)){
+                    binding.tvOwnerAddError.setText(getString(R.string.error_enter_place_close_time));
+                    binding.etOwnerAddPlaceAvailableNets.setError(getString(R.string.error_enter_total_nets_Available));
+                    return;
+                }
+
+                if(TextUtils.isEmpty(owner_place_per_hour_rent_String)){
+                    binding.tvOwnerAddError.setText(getString(R.string.error_enter_place_default_per_hour_rent));
+                    binding.etOwnerAddPlaceAvailableNets.setError(getString(R.string.error_enter_place_default_per_hour_rent));
+                    return;
+                }
+
+
                 // Now start progressbar
                 binding.addPlaceProgressBar.setVisibility(View.VISIBLE);
 
@@ -143,6 +190,9 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                                     owner_place_detail_map.put(Utils.map_key_owner_place_full_address, owner_place_address_String + "\n" + "Pincode : " +owner_place_pincode_String+ "\n" + owner_place_country_state_district_String);
                                     owner_place_detail_map.put(Utils.map_key_owner_place_ground_staff_number, owner_place_staff_phone_number_string);
                                     owner_place_detail_map.put(Utils.map_key_owner_place_total_nets, owner_place_total_nets_String);
+                                    owner_place_detail_map.put(Utils.map_key_owner_place_opening_time, owner_place_opening_time_String);
+                                    owner_place_detail_map.put(Utils.map_key_owner_place_closing_time, owner_place_closing_time_String);
+                                    owner_place_detail_map.put(Utils.map_key_owner_default_per_hour_rent, owner_place_per_hour_rent_String);
 
                                     documentReference.set(owner_place_detail_map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override

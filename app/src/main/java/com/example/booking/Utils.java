@@ -43,6 +43,9 @@ public class Utils {
     public static String map_key_owner_place_full_address = "Owner_Place_Full_Address";
     public static String map_key_owner_place_ground_staff_number = "Owner_Place_Staff_Number";
     public static String map_key_owner_place_total_nets = "Owner_Place_Total_Nets";
+    public static String map_key_owner_place_opening_time = "Owner_Place_Opening_Time";
+    public static String map_key_owner_place_closing_time = "Owner_Place_Closing_Time";
+    public static String map_key_owner_default_per_hour_rent = "Owner_Place_Default_Per_Hour_Rent";
 
 
 

@@ -2,6 +2,7 @@ package com.example.booking.ui.Signup;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -116,6 +117,8 @@ public class SignupScreen_User extends AppCompatActivity {
                 // Now start progressbar
                 binding.signupProgressbar.setVisibility(View.VISIBLE);
 
+                binding.btnSignup.setEnabled(false);
+
                 // Create User
                 firebaseAuth.createUserWithEmailAndPassword(email_String, password_String).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -141,6 +144,21 @@ public class SignupScreen_User extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Void unused) {
                                             Log.i("test_response", "Data added successfully entered on FIRESTORE");
+                                            Utils.set_SharedPreference_owner_completed_add_placele_procedure("0", getApplicationContext());
+
+                                            binding.signupProgressbar.setVisibility(View.VISIBLE);
+                                            Handler handler = new Handler();
+                                            handler.postDelayed(new Runnable() {
+                                                public void run() {
+                                                    binding.signupProgressbar.setVisibility(View.GONE);
+                                                    // Signing Successful Redirect to Dashboard
+                                                    //------------------------------------------------------------------------------------------------------------------------------------
+                                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                    //------------------------------------------------------------------------------------------------------------------------------------
+                                                    binding.btnSignup.setEnabled(true);
+                                                }
+                                            }, 3000);
+
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
@@ -173,10 +191,26 @@ public class SignupScreen_User extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Void unused) {
                                             Log.i("test_response", "Data added successfully entered on FIRESTORE");
+                                            Utils.set_SharedPreference_owner_completed_add_placele_procedure("0", getApplicationContext());
+
+                                            binding.signupProgressbar.setVisibility(View.VISIBLE);
+                                            Handler handler = new Handler();
+                                            handler.postDelayed(new Runnable() {
+                                                public void run() {
+                                                    binding.signupProgressbar.setVisibility(View.GONE);
+                                                    // Signing Successful Redirect to Dashboard
+                                                    //------------------------------------------------------------------------------------------------------------------------------------
+                                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                    //------------------------------------------------------------------------------------------------------------------------------------
+                                                    binding.btnSignup.setEnabled(true);
+                                                }
+                                            }, 3000);
+
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
+                                            binding.btnSignup.setEnabled(true);
                                             binding.tvSignupErrorDisplay.setText("Error : " + e.getMessage());
                                             Log.i("test_response", "Error : " + e.getMessage());
                                         }
@@ -184,18 +218,17 @@ public class SignupScreen_User extends AppCompatActivity {
 
                                 } catch (Exception e) {
                                     e.getMessage();
+                                    binding.btnSignup.setEnabled(true);
                                 }
                                 //------------------------------------------------------------------------------------------------------------------------------------
                               }
 
 
-                            // Signing Successful Redirect to Dashboard
-                            //------------------------------------------------------------------------------------------------------------------------------------
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            //------------------------------------------------------------------------------------------------------------------------------------
+
                         }else{
                             // set error
                             binding.tvSignupErrorDisplay.setText("Error : "+task.getException().getMessage());
+                            binding.btnSignup.setEnabled(true);
                         }
 
 

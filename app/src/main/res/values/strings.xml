@@ -104,6 +104,16 @@
     <string name="enter_ground_staff_number">Enter Ground Stuff Number</string>
     <string name="hint_enter_ground_staff_number">8879912345</string>
     <string name="error_enter_ground_staff_number">Enter Valid Staff Number</string>
+    <string name="enter_place_opening_time">Enter Place Opening Time</string>
+    <string name="hint_enter_place_opening_time">07 : 00 AM</string>
+    <string name="error_enter_place_opening_time">Enter Valid Place Opening Time</string>
+    <string name="enter_place_close_time">Enter Place Closing Time</string>
+    <string name="hint_enter_place_close_time">00 : 00 AM</string>
+    <string name="error_enter_place_close_time">Enter Valid Place Closing Time</string>
+    <string name="enter_place_default_per_hour_rent">Enter Place Per Hour Rent</string>
+    <string name="hint_enter_place_default_per_hour_rent">1000</string>
+    <string name="error_enter_place_default_per_hour_rent">Enter Valid Place Per Hour Rent</string>
+
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
     
 </resources>
