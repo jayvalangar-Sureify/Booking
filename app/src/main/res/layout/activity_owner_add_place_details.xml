@@ -188,6 +188,7 @@
                     android:textColor="@color/combo_text_blue"
                     android:background="@drawable/et_style"
                     android:layout_height="wrap_content"
+                    android:inputType="number"
                     android:textStyle="bold"
                     android:maxLines="1"
                     android:singleLine="true"

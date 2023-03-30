@@ -44,8 +44,8 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
     FirebaseFirestore firebaseFirestore;
     String userID_string;
 
-    String[] place_opening_time_spinner = {"12 AM", "01 AM", "02 AM", "03 AM", "04 AM", "05 AM", "06 AM", "07 AM", "08 AM", "09 AM", "10 AM", "11 AM", "12 AM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"};
-    String[] place_closing_time_spinner = {"12 AM", "01 AM", "02 AM", "03 AM", "04 AM", "05 AM", "06 AM", "07 AM", "08 AM", "09 AM", "10 AM", "11 AM", "12 AM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"};
+    String[] place_opening_time_spinner = {"12 AM", "01 AM", "02 AM", "03 AM", "04 AM", "05 AM", "06 AM", "07 AM", "08 AM", "09 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"};
+    String[] place_closing_time_spinner = {"12 AM", "01 AM", "02 AM", "03 AM", "04 AM", "05 AM", "06 AM", "07 AM", "08 AM", "09 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM", "9 PM", "10 PM", "11 PM"};
 
     ArrayAdapter<String> place_opening_time_spinner_adapter;
     ArrayAdapter<String> place_closing_time_spinner_adapter;
@@ -170,6 +170,19 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                 }
 
 
+
+                int opening_time_index = binding.ownerPlaceOpeningSpinner.getSelectedItemPosition();
+                int closing_time_index = binding.ownerPlaceClosingSpinner.getSelectedItemPosition();
+
+                int total_hours_place_is_open_int = 0;
+                if(closing_time_index > opening_time_index){
+                    total_hours_place_is_open_int = (closing_time_index - opening_time_index);
+                }else{
+                    total_hours_place_is_open_int = 24 + (closing_time_index - opening_time_index);
+                }
+
+
+
                 // Now start progressbar
                 binding.addPlaceProgressBar.setVisibility(View.VISIBLE);
 
@@ -193,6 +206,7 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                                     owner_place_detail_map.put(Utils.map_key_owner_place_opening_time, owner_place_opening_time_String);
                                     owner_place_detail_map.put(Utils.map_key_owner_place_closing_time, owner_place_closing_time_String);
                                     owner_place_detail_map.put(Utils.map_key_owner_default_per_hour_rent, owner_place_per_hour_rent_String);
+                                    owner_place_detail_map.put(Utils.map_key_owner_place_total_hours_open, total_hours_place_is_open_int);
 
                                     documentReference.set(owner_place_detail_map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
