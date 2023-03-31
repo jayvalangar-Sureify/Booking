@@ -15,13 +15,13 @@ public class Utils {
 
     // Place Rent
     public static String key_per_hour_rent = "key_per_hour_rent";
-    public static String key_monday = "monday";
-    public static String key_tuesday = "tuesday";
-    public static String key_wednesday = "wednesday";
-    public static String key_thursday = "thursday";
-    public static String key_friday = "friday";
-    public static String key_saturday = "saturday";
-    public static String key_sunday = "sunday";
+    public static String key_monday = "Mon";
+    public static String key_tuesday = "Tue";
+    public static String key_wednesday = "Wed";
+    public static String key_thursday = "Thur";
+    public static String key_friday = "Fri";
+    public static String key_saturday = "Sat";
+    public static String key_sunday = "Sun";
 
 
 

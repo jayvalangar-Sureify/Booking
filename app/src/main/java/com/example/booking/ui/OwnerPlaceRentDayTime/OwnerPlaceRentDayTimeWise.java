@@ -19,6 +19,7 @@ import com.example.booking.R;
 import com.example.booking.Utils;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
 
@@ -26,14 +27,17 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
 
     String per_hour_defauly_rent_String = "0";
 
+
     //-----------------------------------------------------------------------------------------------------------------------------
     TextView tv_rent_per_hour_monday, tv_rent_per_hour_tuesday, tv_rent_per_hour_wednesday, tv_rent_per_hour_thursay, tv_rent_per_hour_friday, tv_rent_per_hour_saturday, tv_rent_per_hour_sunday;
     CardView cv_rent_per_hour_monday, cv_rent_per_hour_tuesday, cv_rent_per_hour_wednesday, cv_rent_per_hour_thursay, cv_rent_per_hour_friday, cv_rent_per_hour_saturday, cv_rent_per_hour_sunday;
     EditText et_place_rent_00a_01a, et_place_rent_01a_02a, et_place_rent_02a_03a, et_place_rent_03a_04a, et_place_rent_04a_05a, et_place_rent_05a_06a, et_place_rent_06a_07a, et_place_rent_07a_08a, et_place_rent_08a_09a, et_place_rent_09a_10a, et_place_rent_10a_11a, et_place_rent_11a_12p, et_place_rent_12p_01p, et_place_rent_01p_02p, et_place_rent_02p_03p, et_place_rent_03p_04p, et_place_rent_04p_05p, et_place_rent_05p_06p, et_place_rent_06p_07p, et_place_rent_07p_08p, et_place_rent_08p_09p, et_place_rent_09p_10p, et_place_rent_10p_11p, et_place_rent_11p_12a;
 
+    TextView tv_place_rent_selected_days;
 
     Button btn_add_place_rent;
-    HashMap<String, Integer> days_selected_hashmap = new HashMap<>();
+    public static HashMap<String, Integer> days_selected_hashmap = new HashMap<>();
+    public static String selected_day_string = "";
     //-----------------------------------------------------------------------------------------------------------------------------
 
     @Override
@@ -63,6 +67,7 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
         days_selected_hashmap.put(Utils.key_saturday, 1);
         days_selected_hashmap.put(Utils.key_sunday, 1);
 
+        tv_place_rent_selected_days = findViewById(R.id.tv_place_rent_selected_days);
 
         tv_rent_per_hour_monday = findViewById(R.id.tv_rent_per_hour_monday);
         tv_rent_per_hour_tuesday = findViewById(R.id.tv_rent_per_hour_tuesday);
@@ -135,6 +140,13 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
         et_place_rent_09p_10p.setText(per_hour_defauly_rent_String);
         et_place_rent_10p_11p.setText(per_hour_defauly_rent_String);
         et_place_rent_11p_12a.setText(per_hour_defauly_rent_String);
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+        // by default
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        selected_day_string = getString(R.string.monday)+","+getString(R.string.tuesday)+","+getString(R.string.wednesday)+","+getString(R.string.thursday)+","+getString(R.string.friday)+","+getString(R.string.saturday)+","+getString(R.string.sunday);
+        tv_place_rent_selected_days.setText(selected_day_string);
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
@@ -287,11 +299,13 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
                     v.setSelected(false);
                     is_tv_selected(tv_rent_per_hour_monday, cv_rent_per_hour_monday, true, getApplicationContext());
                     days_selected_hashmap.put(Utils.key_monday, 1);
+                    tv_place_rent_selected_days.setText(get_selected_days());
                 } else {
                     // Set the TextView to the selected state
                     v.setSelected(true);
                     is_tv_selected(tv_rent_per_hour_monday, cv_rent_per_hour_monday, false, getApplicationContext());
                     days_selected_hashmap.put(Utils.key_monday, 0);
+                    tv_place_rent_selected_days.setText(get_selected_days());
                 }
 
             }
@@ -309,11 +323,13 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
                     v.setSelected(false);
                     is_tv_selected(tv_rent_per_hour_tuesday, cv_rent_per_hour_tuesday, true, getApplicationContext());
                     days_selected_hashmap.put(Utils.key_tuesday, 1);
+                    tv_place_rent_selected_days.setText(get_selected_days());
                 } else {
                     // Set the TextView to the selected state
                     v.setSelected(true);
                     is_tv_selected(tv_rent_per_hour_tuesday, cv_rent_per_hour_tuesday, false, getApplicationContext());
                     days_selected_hashmap.put(Utils.key_tuesday, 0);
+                    tv_place_rent_selected_days.setText(get_selected_days());
                 }
 
             }
@@ -331,11 +347,13 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
                     v.setSelected(false);
                     is_tv_selected(tv_rent_per_hour_wednesday, cv_rent_per_hour_wednesday, true, getApplicationContext());
                     days_selected_hashmap.put(Utils.key_wednesday, 1);
+                    tv_place_rent_selected_days.setText(get_selected_days());
                 } else {
                     // Set the TextView to the selected state
                     v.setSelected(true);
                     is_tv_selected(tv_rent_per_hour_wednesday, cv_rent_per_hour_wednesday, false, getApplicationContext());
                     days_selected_hashmap.put(Utils.key_wednesday, 0);
+                    tv_place_rent_selected_days.setText(get_selected_days());
                 }
 
             }
@@ -353,11 +371,13 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
                     v.setSelected(false);
                     is_tv_selected(tv_rent_per_hour_thursay, cv_rent_per_hour_thursay, true, getApplicationContext());
                     days_selected_hashmap.put(Utils.key_thursday, 1);
+                    tv_place_rent_selected_days.setText(get_selected_days());
                 } else {
                     // Set the TextView to the selected state
                     v.setSelected(true);
                     is_tv_selected(tv_rent_per_hour_thursay, cv_rent_per_hour_thursay, false, getApplicationContext());
                     days_selected_hashmap.put(Utils.key_thursday, 0);
+                    tv_place_rent_selected_days.setText(get_selected_days());
                 }
 
             }
@@ -375,11 +395,13 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
                     v.setSelected(false);
                     is_tv_selected(tv_rent_per_hour_friday, cv_rent_per_hour_friday, true, getApplicationContext());
                     days_selected_hashmap.put(Utils.key_friday, 1);
+                    tv_place_rent_selected_days.setText(get_selected_days());
                 } else {
                     // Set the TextView to the selected state
                     v.setSelected(true);
                     is_tv_selected(tv_rent_per_hour_friday, cv_rent_per_hour_friday, false, getApplicationContext());
                     days_selected_hashmap.put(Utils.key_friday, 0);
+                    tv_place_rent_selected_days.setText(get_selected_days());
                 }
 
             }
@@ -397,11 +419,13 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
                     v.setSelected(false);
                     is_tv_selected(tv_rent_per_hour_saturday, cv_rent_per_hour_saturday, true, getApplicationContext());
                     days_selected_hashmap.put(Utils.key_saturday, 1);
+                    tv_place_rent_selected_days.setText(get_selected_days());
                 } else {
                     // Set the TextView to the selected state
                     v.setSelected(true);
                     is_tv_selected(tv_rent_per_hour_saturday, cv_rent_per_hour_saturday, false, getApplicationContext());
                     days_selected_hashmap.put(Utils.key_saturday, 0);
+                    tv_place_rent_selected_days.setText(get_selected_days());
                 }
 
             }
@@ -419,11 +443,13 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
                     v.setSelected(false);
                     is_tv_selected(tv_rent_per_hour_sunday, cv_rent_per_hour_sunday, true, getApplicationContext());
                     days_selected_hashmap.put(Utils.key_sunday, 1);
+                    tv_place_rent_selected_days.setText(get_selected_days());
                 } else {
                     // Set the TextView to the selected state
                     v.setSelected(true);
                     is_tv_selected(tv_rent_per_hour_sunday, cv_rent_per_hour_sunday, false, getApplicationContext());
                     days_selected_hashmap.put(Utils.key_sunday, 0);
+                    tv_place_rent_selected_days.setText(get_selected_days());
                 }
 
             }
@@ -444,5 +470,24 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
             tv.setTextColor(ContextCompat.getColor(context, R.color.combo_text_blue));
             cv.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));
         }
+    }
+
+
+    public static String get_selected_days(){
+        selected_day_string = "";
+
+        for (Map.Entry<String, Integer> entry : days_selected_hashmap.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+
+            if(entry.getValue() == 1){
+                if(selected_day_string.isEmpty()){
+                    selected_day_string = entry.getKey();
+                }else{
+                    selected_day_string = selected_day_string+","+entry.getKey();
+                }
+
+            }
+        }
+        return  selected_day_string;
     }
 }
