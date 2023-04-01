@@ -11,9 +11,11 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -151,6 +153,21 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                 binding.rlTop.setVisibility(View.GONE);
             }else {
                 binding.llBottomLatitudeLongitude.setVisibility(View.VISIBLE);
+
+                // convert flot to dp
+                float heightInDp = 500; // the height value in dp
+                float heightInPixels = TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP, // the unit type (dp in this case)
+                        heightInDp, // the value to convert
+                        getResources().getDisplayMetrics() // the display metrics
+                );
+
+                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT, // width
+                        (int) heightInPixels // height
+                );
+
+                binding.rlTop.setLayoutParams(layoutParams);
                 binding.rlTop.setVisibility(View.VISIBLE);
             }
         }
