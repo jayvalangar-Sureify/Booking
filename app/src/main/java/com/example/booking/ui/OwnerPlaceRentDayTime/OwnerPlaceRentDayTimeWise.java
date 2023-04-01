@@ -1,43 +1,72 @@
 package com.example.booking.ui.OwnerPlaceRentDayTime;
 
-import static com.example.booking.Utils.key_per_hour_rent;
-
-import android.content.Context;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.ArrayMap;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 
 import com.example.booking.R;
 import com.example.booking.Utils;
+import com.example.booking.ui.Owner_Add_Place_Details.OwnerAddPlaceDetails;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
 
+    public Dialog review_all_Day_rent_dialog;
+
+    HashMap<String, ArrayMap<String, Integer>> submit_day_wise_rent_hashmap = new HashMap<>();
+    ArrayMap<String, Integer> monday_day_time_rent_arrayhashmap = new ArrayMap<>();
+    ArrayMap<String, Integer> tuesday_day_time_rent_arrayhashmap = new ArrayMap<>();
+    ArrayMap<String, Integer> wednesday_day_time_rent_arrayhashmap = new ArrayMap<>();
+    ArrayMap<String, Integer> thursday_day_time_rent_arrayhashmap = new ArrayMap<>();
+    ArrayMap<String, Integer> friday_day_time_rent_arrayhashmap = new ArrayMap<>();
+    ArrayMap<String, Integer> saturday_day_time_rent_arrayhashmap = new ArrayMap<>();
+    ArrayMap<String, Integer> sunday_day_time_rent_arrayhashmap = new ArrayMap<>();
 
 
+    Double owner_place_latitude, owner_place_longitude;
     String per_hour_defauly_rent_String = "0";
 
 
     //-----------------------------------------------------------------------------------------------------------------------------
-    TextView tv_rent_per_hour_monday, tv_rent_per_hour_tuesday, tv_rent_per_hour_wednesday, tv_rent_per_hour_thursay, tv_rent_per_hour_friday, tv_rent_per_hour_saturday, tv_rent_per_hour_sunday;
-    CardView cv_rent_per_hour_monday, cv_rent_per_hour_tuesday, cv_rent_per_hour_wednesday, cv_rent_per_hour_thursay, cv_rent_per_hour_friday, cv_rent_per_hour_saturday, cv_rent_per_hour_sunday;
-    EditText et_place_rent_00a_01a, et_place_rent_01a_02a, et_place_rent_02a_03a, et_place_rent_03a_04a, et_place_rent_04a_05a, et_place_rent_05a_06a, et_place_rent_06a_07a, et_place_rent_07a_08a, et_place_rent_08a_09a, et_place_rent_09a_10a, et_place_rent_10a_11a, et_place_rent_11a_12p, et_place_rent_12p_01p, et_place_rent_01p_02p, et_place_rent_02p_03p, et_place_rent_03p_04p, et_place_rent_04p_05p, et_place_rent_05p_06p, et_place_rent_06p_07p, et_place_rent_07p_08p, et_place_rent_08p_09p, et_place_rent_09p_10p, et_place_rent_10p_11p, et_place_rent_11p_12a;
-
-    TextView tv_place_rent_selected_days;
-
-    Button btn_add_place_rent;
+    EditText et_default_rent, et_place_rent_00a_01a, et_place_rent_01a_02a, et_place_rent_02a_03a, et_place_rent_03a_04a, et_place_rent_04a_05a, et_place_rent_05a_06a, et_place_rent_06a_07a, et_place_rent_07a_08a, et_place_rent_08a_09a, et_place_rent_09a_10a, et_place_rent_10a_11a, et_place_rent_11a_12p, et_place_rent_12p_01p, et_place_rent_01p_02p, et_place_rent_02p_03p, et_place_rent_03p_04p, et_place_rent_04p_05p, et_place_rent_05p_06p, et_place_rent_06p_07p, et_place_rent_07p_08p, et_place_rent_08p_09p, et_place_rent_09p_10p, et_place_rent_10p_11p, et_place_rent_11p_12a;
+    TextView tv_error_rent_hour_dat_activity;
+    ProgressBar progressbar_rent_hour_day;
+    Button btn_add_place_rent, btn_done_save_all_Rent, btn_review_all_day_rents;
     public static HashMap<String, Integer> days_selected_hashmap = new HashMap<>();
-    public static String selected_day_string = "";
+    //-----------------------------------------------------------------------------------------------------------------------------
+
+
+    //-----------------------------------------------------------------------------------------------------------------------------
+    ArrayAdapter<String> place_rent_day_spinner_adapter;
+    Spinner place_rent_day_spinner;
+    String[] day_wise_spinner = {
+            "Add Same Rent For All Days",
+            "Add Rent For Monday",
+            "Add Rent For Tuesday",
+            "Add Rent For Wednesday",
+            "Add Rent For Thursday",
+            "Add Rent For Friday",
+            "Add Rent For Saturday",
+            "Add Rent For Sunday"
+    };
     //-----------------------------------------------------------------------------------------------------------------------------
 
     @Override
@@ -45,14 +74,12 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_rent_hour_day_time);
 
-        // get per hour rent
+        // get latitude and longitude
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         Intent intent=getIntent();
-        per_hour_defauly_rent_String = intent.getStringExtra(key_per_hour_rent);
-
-        if(per_hour_defauly_rent_String == null ){
-            per_hour_defauly_rent_String = "0";
-        }
+        owner_place_latitude = intent.getDoubleExtra(Utils.key_latitude, 0);
+        owner_place_longitude = intent.getDoubleExtra(Utils.key_longitude, 0);
+        Log.i("test_response", "");
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
@@ -67,26 +94,20 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
         days_selected_hashmap.put(Utils.key_saturday, 1);
         days_selected_hashmap.put(Utils.key_sunday, 1);
 
-        tv_place_rent_selected_days = findViewById(R.id.tv_place_rent_selected_days);
 
-        tv_rent_per_hour_monday = findViewById(R.id.tv_rent_per_hour_monday);
-        tv_rent_per_hour_tuesday = findViewById(R.id.tv_rent_per_hour_tuesday);
-        tv_rent_per_hour_wednesday = findViewById(R.id.tv_rent_per_hour_wednesday);
-        tv_rent_per_hour_thursay = findViewById(R.id.tv_rent_per_hour_thursay);
-        tv_rent_per_hour_friday = findViewById(R.id.tv_rent_per_hour_friday);
-        tv_rent_per_hour_saturday = findViewById(R.id.tv_rent_per_hour_saturday);
-        tv_rent_per_hour_sunday = findViewById(R.id.tv_rent_per_hour_sunday);
+        place_rent_day_spinner = findViewById(R.id.place_rent_day_spinner);
+        place_rent_day_spinner_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, day_wise_spinner);
 
-        cv_rent_per_hour_monday = findViewById(R.id.cv_rent_per_hour_monday);
-        cv_rent_per_hour_tuesday = findViewById(R.id.cv_rent_per_hour_tuesday);
-        cv_rent_per_hour_wednesday = findViewById(R.id.cv_rent_per_hour_wednesday);
-        cv_rent_per_hour_thursay = findViewById(R.id.cv_rent_per_hour_thursay);
-        cv_rent_per_hour_friday = findViewById(R.id.cv_rent_per_hour_friday);
-        cv_rent_per_hour_saturday = findViewById(R.id.cv_rent_per_hour_saturday);
-        cv_rent_per_hour_sunday = findViewById(R.id.cv_rent_per_hour_sunday);
 
         btn_add_place_rent = findViewById(R.id.btn_add_place_rent);
+        btn_done_save_all_Rent = findViewById(R.id.btn_done_save_all_Rent);
+        btn_review_all_day_rents = findViewById(R.id.btn_review_all_day_rents);
 
+        tv_error_rent_hour_dat_activity = findViewById(R.id.tv_error_rent_hour_dat_activity);
+
+        progressbar_rent_hour_day = findViewById(R.id.progressbar_rent_hour_day);
+
+        et_default_rent = findViewById(R.id.et_default_rent);
         et_place_rent_00a_01a = findViewById(R.id.et_place_rent_00a_01a);
         et_place_rent_01a_02a = findViewById(R.id.et_place_rent_01a_02a);
         et_place_rent_02a_03a = findViewById(R.id.et_place_rent_02a_03a);
@@ -143,17 +164,188 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
-        // by default
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-        selected_day_string = getString(R.string.monday)+","+getString(R.string.tuesday)+","+getString(R.string.wednesday)+","+getString(R.string.thursday)+","+getString(R.string.friday)+","+getString(R.string.saturday)+","+getString(R.string.sunday);
-        tv_place_rent_selected_days.setText(selected_day_string);
+        // Create a new ArrayAdapter and set it as the adapter for the spinner
+        place_rent_day_spinner_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, day_wise_spinner);
+        place_rent_day_spinner_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, day_wise_spinner);
+
+        place_rent_day_spinner.setAdapter(place_rent_day_spinner_adapter);
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
+        tv_error_rent_hour_dat_activity.setVisibility(View.GONE);
+        if(submit_day_wise_rent_hashmap.isEmpty()){
+            saveDayWiseRentInHashmap(monday_day_time_rent_arrayhashmap, getString(R.string.monday));
+            saveDayWiseRentInHashmap(tuesday_day_time_rent_arrayhashmap, getString(R.string.tuesday));
+            saveDayWiseRentInHashmap(wednesday_day_time_rent_arrayhashmap, getString(R.string.wednesday));
+            saveDayWiseRentInHashmap(thursday_day_time_rent_arrayhashmap, getString(R.string.thursday));
+            saveDayWiseRentInHashmap(friday_day_time_rent_arrayhashmap, getString(R.string.friday));
+            saveDayWiseRentInHashmap(saturday_day_time_rent_arrayhashmap, getString(R.string.saturday));
+            saveDayWiseRentInHashmap(sunday_day_time_rent_arrayhashmap, getString(R.string.sunday));
+
+        }
+
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        place_rent_day_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+            {
+                String selectedItem = parent.getItemAtPosition(position).toString();
+
+                        switch(selectedItem) {
+                            case "Add Same Rent For All Days":
+                                btn_add_place_rent.setText(getResources().getString(R.string.save_all_day_rent));
+                                break;
+                            case "Add Rent For Monday":
+                                btn_add_place_rent.setText(getResources().getString(R.string.save_monday_rent));
+                                break;
+                            case "Add Rent For Tuesday":
+                                btn_add_place_rent.setText(getResources().getString(R.string.save_tuesday_rent));
+                                break;
+                            case "Add Rent For Wednesday":
+                                btn_add_place_rent.setText(getResources().getString(R.string.save_wednesday_rent));
+                                break;
+                            case "Add Rent For Thursday":
+                                btn_add_place_rent.setText(getResources().getString(R.string.save_thursday_rent));
+                                break;
+                            case "Add Rent For Friday":
+                                btn_add_place_rent.setText(getResources().getString(R.string.save_friday_rent));
+                                break;
+                            case "Add Rent For Saturday":
+                                btn_add_place_rent.setText(getResources().getString(R.string.save_saturday_rent));
+                                break;
+                            case "Add Rent For Sunday":
+                                btn_add_place_rent.setText(getResources().getString(R.string.save_sunday_rent));
+                                break;
+
+                            default:
+                                break;
+                        }
+
+            }
+            public void onNothingSelected(AdapterView<?> parent)
+            {
+
+            }
+        });
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        btn_review_all_day_rents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Create the custom dialog
+                review_all_Day_rent_dialog = new Dialog(OwnerPlaceRentDayTimeWise.this);
+                review_all_Day_rent_dialog.setContentView(R.layout.review_all_day_rent_custom_dialog);
+                review_all_Day_rent_dialog.setCancelable(true);
+
+                TextView tv_monday_value_review = (TextView) review_all_Day_rent_dialog.findViewById(R.id.tv_monday_value_review);
+                TextView tv_tuesday_value_review = (TextView) review_all_Day_rent_dialog.findViewById(R.id.tv_tuesday_value_review);
+                TextView tv_wednesday_value_review = (TextView) review_all_Day_rent_dialog.findViewById(R.id.tv_wednesday_value_review);
+                TextView tv_thursday_value_review = (TextView) review_all_Day_rent_dialog.findViewById(R.id.tv_thursday_value_review);
+                TextView tv_friday_value_review = (TextView) review_all_Day_rent_dialog.findViewById(R.id.tv_friday_value_review);
+                TextView tv_saturday_value_review = (TextView) review_all_Day_rent_dialog.findViewById(R.id.tv_saturday_value_review);
+                TextView tv_sunday_value_review = (TextView) review_all_Day_rent_dialog.findViewById(R.id.tv_sunday_value_review);
+
+                Button btn_close_review_dialog = (Button) review_all_Day_rent_dialog.findViewById(R.id.btn_close_review_dialog);
+
+
+
+                // Print out the keys and values
+                for (String key : submit_day_wise_rent_hashmap.keySet()) {
+
+                    switch (key) {
+                        case "Mon":
+                            tv_monday_value_review.setText("" + getPrintData(key));
+                            break;
+                        case "Tue":
+                            tv_tuesday_value_review.setText("" + getPrintData(key));
+                            break;
+                        case "Wed":
+                            tv_wednesday_value_review.setText("" + getPrintData(key));
+                            break;
+                        case "Thu":
+                            tv_thursday_value_review.setText("" + getPrintData(key));
+                            break;
+                        case "Fri":
+                            tv_friday_value_review.setText("" + getPrintData(key));
+                            break;
+                        case "Sat":
+                            tv_saturday_value_review.setText("" + getPrintData(key));
+                            break;
+                        case "Sun":
+                            tv_sunday_value_review.setText("" + getPrintData(key));
+                            break;
+                    }
+                }
+
+
+                btn_close_review_dialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        review_all_Day_rent_dialog.dismiss();
+                    }
+                });
+
+                // Show the custom dialog
+                review_all_Day_rent_dialog.show();
+
+        }
+
+            });
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        btn_done_save_all_Rent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(submit_day_wise_rent_hashmap.isEmpty()){
+                    tv_error_rent_hour_dat_activity.setVisibility(View.VISIBLE);
+                    tv_error_rent_hour_dat_activity.setText("Plase Enter Default Rent and Click on Save Button");
+                }else{
+                    tv_error_rent_hour_dat_activity.setVisibility(View.GONE);
+                    Intent intent = new Intent(OwnerPlaceRentDayTimeWise.this, OwnerAddPlaceDetails.class);
+                    intent.putExtra(Utils.key_latitude,owner_place_latitude);
+                    intent.putExtra(Utils.key_longitude,owner_place_longitude);
+                    String submit_day_wise_rent_hashmap_json_String = new Gson().toJson(submit_day_wise_rent_hashmap);
+                    intent.putExtra(Utils.map_key_owner_place_day_hour_rent_hashmap, submit_day_wise_rent_hashmap_json_String);
+                    startActivity(intent);
+                    finish();
+                }
+
+            }
+        });
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        et_default_rent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s != null){
+                    setDefaultValueForAllSlots(s.toString());
+                }
+            }
+        });
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         btn_add_place_rent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String et_place_rent_00a_01a_string = et_place_rent_00a_01a.getText().toString();
                 String et_place_rent_01a_02a_string = et_place_rent_01a_02a.getText().toString();
                 String et_place_rent_02a_03a_string = et_place_rent_02a_03a.getText().toString();
@@ -277,217 +469,185 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
                 }
 
 
+                progressbar_rent_hour_day.setVisibility(View.VISIBLE);
+
+                String current_text_on_button = btn_add_place_rent.getText().toString();
 
 
 
+
+                switch (current_text_on_button){
+
+                    case "Save All Day Rent" :
+                        monday_day_time_rent_arrayhashmap = new ArrayMap<>();
+                        tuesday_day_time_rent_arrayhashmap = new ArrayMap<>();
+                        wednesday_day_time_rent_arrayhashmap = new ArrayMap<>();
+                        thursday_day_time_rent_arrayhashmap = new ArrayMap<>();
+                        friday_day_time_rent_arrayhashmap = new ArrayMap<>();
+                        saturday_day_time_rent_arrayhashmap = new ArrayMap<>();
+                        sunday_day_time_rent_arrayhashmap = new ArrayMap<>();
+                        saveDayWiseRentInHashmap(monday_day_time_rent_arrayhashmap, getString(R.string.monday));
+                        saveDayWiseRentInHashmap(tuesday_day_time_rent_arrayhashmap, getString(R.string.tuesday));
+                        saveDayWiseRentInHashmap(wednesday_day_time_rent_arrayhashmap, getString(R.string.wednesday));
+                        saveDayWiseRentInHashmap(thursday_day_time_rent_arrayhashmap, getString(R.string.thursday));
+                        saveDayWiseRentInHashmap(friday_day_time_rent_arrayhashmap, getString(R.string.friday));
+                        saveDayWiseRentInHashmap(saturday_day_time_rent_arrayhashmap, getString(R.string.saturday));
+                        saveDayWiseRentInHashmap(sunday_day_time_rent_arrayhashmap, getString(R.string.sunday));
+                         break;
+
+                    case "Save Monday Rent" :
+                        monday_day_time_rent_arrayhashmap = new ArrayMap<>();
+                        saveDayWiseRentInHashmap(monday_day_time_rent_arrayhashmap, getString(R.string.monday));
+                         break;
+
+                    case "Save Tuesday Rent" :
+                        tuesday_day_time_rent_arrayhashmap = new ArrayMap<>();
+                        saveDayWiseRentInHashmap(tuesday_day_time_rent_arrayhashmap, getString(R.string.tuesday));
+                        break;
+
+                    case "Save Wednesday Rent" :
+                        wednesday_day_time_rent_arrayhashmap = new ArrayMap<>();
+                        saveDayWiseRentInHashmap(wednesday_day_time_rent_arrayhashmap, getString(R.string.wednesday));
+                        break;
+
+                    case "Save Thursday Rent" :
+                        thursday_day_time_rent_arrayhashmap = new ArrayMap<>();
+                        saveDayWiseRentInHashmap(thursday_day_time_rent_arrayhashmap, getString(R.string.thursday));
+                        break;
+
+                    case "Save Friday Rent" :
+                        friday_day_time_rent_arrayhashmap = new ArrayMap<>();
+                        saveDayWiseRentInHashmap(friday_day_time_rent_arrayhashmap, getString(R.string.friday));
+                        break;
+
+                    case "Save Saturday Rent" :
+                        saturday_day_time_rent_arrayhashmap = new ArrayMap<>();
+                        saveDayWiseRentInHashmap(saturday_day_time_rent_arrayhashmap, getString(R.string.saturday));
+                        break;
+
+                    case "Save Sunday Rent" :
+                        sunday_day_time_rent_arrayhashmap = new ArrayMap<>();
+                        saveDayWiseRentInHashmap(sunday_day_time_rent_arrayhashmap, getString(R.string.sunday));
+                        break;
+                    default:
+                }
+
+
+                Toast.makeText(getApplicationContext(), "Data Added Successfully !", Toast.LENGTH_LONG).show();
+                progressbar_rent_hour_day.setVisibility(View.GONE);
             }
         });
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-
-
-        // Textview Days State select unselect
-        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
-        // monday
-        //-----------------------------------------------------------------------------------------------------------------------------
-        tv_rent_per_hour_monday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.isSelected()) {
-                    // Set the TextView to the unselected state
-                    v.setSelected(false);
-                    is_tv_selected(tv_rent_per_hour_monday, cv_rent_per_hour_monday, true, getApplicationContext());
-                    days_selected_hashmap.put(Utils.key_monday, 1);
-                    tv_place_rent_selected_days.setText(get_selected_days());
-                } else {
-                    // Set the TextView to the selected state
-                    v.setSelected(true);
-                    is_tv_selected(tv_rent_per_hour_monday, cv_rent_per_hour_monday, false, getApplicationContext());
-                    days_selected_hashmap.put(Utils.key_monday, 0);
-                    tv_place_rent_selected_days.setText(get_selected_days());
-                }
-
-            }
-        });
-        //-----------------------------------------------------------------------------------------------------------------------------
-
-
-        // tuesday
-        //-----------------------------------------------------------------------------------------------------------------------------
-        tv_rent_per_hour_tuesday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.isSelected()) {
-                    // Set the TextView to the unselected state
-                    v.setSelected(false);
-                    is_tv_selected(tv_rent_per_hour_tuesday, cv_rent_per_hour_tuesday, true, getApplicationContext());
-                    days_selected_hashmap.put(Utils.key_tuesday, 1);
-                    tv_place_rent_selected_days.setText(get_selected_days());
-                } else {
-                    // Set the TextView to the selected state
-                    v.setSelected(true);
-                    is_tv_selected(tv_rent_per_hour_tuesday, cv_rent_per_hour_tuesday, false, getApplicationContext());
-                    days_selected_hashmap.put(Utils.key_tuesday, 0);
-                    tv_place_rent_selected_days.setText(get_selected_days());
-                }
-
-            }
-        });
-        //-----------------------------------------------------------------------------------------------------------------------------
-
-
-        // wednesday
-        //-----------------------------------------------------------------------------------------------------------------------------
-        tv_rent_per_hour_wednesday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.isSelected()) {
-                    // Set the TextView to the unselected state
-                    v.setSelected(false);
-                    is_tv_selected(tv_rent_per_hour_wednesday, cv_rent_per_hour_wednesday, true, getApplicationContext());
-                    days_selected_hashmap.put(Utils.key_wednesday, 1);
-                    tv_place_rent_selected_days.setText(get_selected_days());
-                } else {
-                    // Set the TextView to the selected state
-                    v.setSelected(true);
-                    is_tv_selected(tv_rent_per_hour_wednesday, cv_rent_per_hour_wednesday, false, getApplicationContext());
-                    days_selected_hashmap.put(Utils.key_wednesday, 0);
-                    tv_place_rent_selected_days.setText(get_selected_days());
-                }
-
-            }
-        });
-        //-----------------------------------------------------------------------------------------------------------------------------
-
-
-        // thursday
-        //-----------------------------------------------------------------------------------------------------------------------------
-        tv_rent_per_hour_thursay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.isSelected()) {
-                    // Set the TextView to the unselected state
-                    v.setSelected(false);
-                    is_tv_selected(tv_rent_per_hour_thursay, cv_rent_per_hour_thursay, true, getApplicationContext());
-                    days_selected_hashmap.put(Utils.key_thursday, 1);
-                    tv_place_rent_selected_days.setText(get_selected_days());
-                } else {
-                    // Set the TextView to the selected state
-                    v.setSelected(true);
-                    is_tv_selected(tv_rent_per_hour_thursay, cv_rent_per_hour_thursay, false, getApplicationContext());
-                    days_selected_hashmap.put(Utils.key_thursday, 0);
-                    tv_place_rent_selected_days.setText(get_selected_days());
-                }
-
-            }
-        });
-        //-----------------------------------------------------------------------------------------------------------------------------
-
-
-        // friday
-        //-----------------------------------------------------------------------------------------------------------------------------
-        tv_rent_per_hour_friday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.isSelected()) {
-                    // Set the TextView to the unselected state
-                    v.setSelected(false);
-                    is_tv_selected(tv_rent_per_hour_friday, cv_rent_per_hour_friday, true, getApplicationContext());
-                    days_selected_hashmap.put(Utils.key_friday, 1);
-                    tv_place_rent_selected_days.setText(get_selected_days());
-                } else {
-                    // Set the TextView to the selected state
-                    v.setSelected(true);
-                    is_tv_selected(tv_rent_per_hour_friday, cv_rent_per_hour_friday, false, getApplicationContext());
-                    days_selected_hashmap.put(Utils.key_friday, 0);
-                    tv_place_rent_selected_days.setText(get_selected_days());
-                }
-
-            }
-        });
-        //-----------------------------------------------------------------------------------------------------------------------------
-
-
-        // saturday
-        //-----------------------------------------------------------------------------------------------------------------------------
-        tv_rent_per_hour_saturday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.isSelected()) {
-                    // Set the TextView to the unselected state
-                    v.setSelected(false);
-                    is_tv_selected(tv_rent_per_hour_saturday, cv_rent_per_hour_saturday, true, getApplicationContext());
-                    days_selected_hashmap.put(Utils.key_saturday, 1);
-                    tv_place_rent_selected_days.setText(get_selected_days());
-                } else {
-                    // Set the TextView to the selected state
-                    v.setSelected(true);
-                    is_tv_selected(tv_rent_per_hour_saturday, cv_rent_per_hour_saturday, false, getApplicationContext());
-                    days_selected_hashmap.put(Utils.key_saturday, 0);
-                    tv_place_rent_selected_days.setText(get_selected_days());
-                }
-
-            }
-        });
-        //-----------------------------------------------------------------------------------------------------------------------------
-
-
-        // Sunday
-        //-----------------------------------------------------------------------------------------------------------------------------
-        tv_rent_per_hour_sunday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (v.isSelected()) {
-                    // Set the TextView to the unselected state
-                    v.setSelected(false);
-                    is_tv_selected(tv_rent_per_hour_sunday, cv_rent_per_hour_sunday, true, getApplicationContext());
-                    days_selected_hashmap.put(Utils.key_sunday, 1);
-                    tv_place_rent_selected_days.setText(get_selected_days());
-                } else {
-                    // Set the TextView to the selected state
-                    v.setSelected(true);
-                    is_tv_selected(tv_rent_per_hour_sunday, cv_rent_per_hour_sunday, false, getApplicationContext());
-                    days_selected_hashmap.put(Utils.key_sunday, 0);
-                    tv_place_rent_selected_days.setText(get_selected_days());
-                }
-
-            }
-        });
-        //-----------------------------------------------------------------------------------------------------------------------------
 
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
     }
 
+    public void setDefaultValueForAllSlots(String dafault_value){
 
-    public static void is_tv_selected(TextView tv, CardView cv, Boolean isSelected, Context context){
+        et_place_rent_00a_01a.setText(dafault_value);
+        et_place_rent_01a_02a.setText(dafault_value);
+        et_place_rent_02a_03a.setText(dafault_value);
+        et_place_rent_03a_04a.setText(dafault_value);
+        et_place_rent_04a_05a.setText(dafault_value);
+        et_place_rent_05a_06a.setText(dafault_value);
+        et_place_rent_06a_07a.setText(dafault_value);
+        et_place_rent_07a_08a.setText(dafault_value);
+        et_place_rent_08a_09a.setText(dafault_value);
+        et_place_rent_09a_10a.setText(dafault_value);
+        et_place_rent_10a_11a.setText(dafault_value);
+        et_place_rent_11a_12p.setText(dafault_value);
+        et_place_rent_12p_01p.setText(dafault_value);
+        et_place_rent_01p_02p.setText(dafault_value);
+        et_place_rent_02p_03p.setText(dafault_value);
+        et_place_rent_03p_04p.setText(dafault_value);
+        et_place_rent_04p_05p.setText(dafault_value);
+        et_place_rent_05p_06p.setText(dafault_value);
+        et_place_rent_06p_07p.setText(dafault_value);
+        et_place_rent_07p_08p.setText(dafault_value);
+        et_place_rent_08p_09p.setText(dafault_value);
+        et_place_rent_09p_10p.setText(dafault_value);
+        et_place_rent_10p_11p.setText(dafault_value);
+        et_place_rent_11p_12a.setText(dafault_value);
 
-        if(isSelected){
-            tv.setTextColor(ContextCompat.getColor(context, R.color.combo_text_green));
-            cv.setCardBackgroundColor(ContextCompat.getColor(context, R.color.combo_background_green));
+
+    }
+
+
+    public void saveDayWiseRentInHashmap(ArrayMap<String, Integer> day_arrayMap, String key_for_submit_hash_map){
+
+        String et_place_rent_00a_01a_string = et_place_rent_00a_01a.getText().toString();
+        String et_place_rent_01a_02a_string = et_place_rent_01a_02a.getText().toString();
+        String et_place_rent_02a_03a_string = et_place_rent_02a_03a.getText().toString();
+        String et_place_rent_03a_04a_string = et_place_rent_03a_04a.getText().toString();
+        String et_place_rent_04a_05a_string = et_place_rent_04a_05a.getText().toString();
+        String et_place_rent_05a_06a_string =  et_place_rent_05a_06a.getText().toString();
+        String et_place_rent_06a_07a_string =  et_place_rent_06a_07a.getText().toString();
+        String et_place_rent_07a_08a_string =   et_place_rent_07a_08a.getText().toString();
+        String et_place_rent_08a_09a_string =  et_place_rent_08a_09a.getText().toString();
+        String et_place_rent_09a_10a_string = et_place_rent_09a_10a.getText().toString();
+        String et_place_rent_10a_11a_string = et_place_rent_10a_11a.getText().toString();
+        String et_place_rent_11a_12p_string =  et_place_rent_11a_12p.getText().toString();
+        String et_place_rent_12p_01p_string =   et_place_rent_12p_01p.getText().toString();
+        String et_place_rent_01p_02p_string =  et_place_rent_01p_02p.getText().toString();
+        String et_place_rent_02p_03p_string =  et_place_rent_02p_03p.getText().toString();
+        String et_place_rent_03p_04p_string =  et_place_rent_03p_04p.getText().toString();
+        String et_place_rent_04p_05p_string =  et_place_rent_04p_05p.getText().toString();
+        String et_place_rent_05p_06p_string = et_place_rent_05p_06p.getText().toString();
+        String et_place_rent_06p_07p_string = et_place_rent_06p_07p.getText().toString();
+        String et_place_rent_07p_08p_string = et_place_rent_07p_08p.getText().toString();
+        String et_place_rent_08p_09p_string = et_place_rent_08p_09p.getText().toString();
+        String et_place_rent_09p_10p_string = et_place_rent_09p_10p.getText().toString();
+        String et_place_rent_10p_11p_string = et_place_rent_10p_11p.getText().toString();
+        String et_place_rent_11p_12a_string = et_place_rent_11p_12a.getText().toString();
+
+
+        day_arrayMap.put(getString(R.string.slot_12A_01A), Integer.parseInt(et_place_rent_00a_01a_string));
+        day_arrayMap.put(getString(R.string.slot_01A_02A), Integer.parseInt(et_place_rent_01a_02a_string));
+        day_arrayMap.put(getString(R.string.slot_02A_03P), Integer.parseInt(et_place_rent_02a_03a_string));
+        day_arrayMap.put(getString(R.string.slot_03A_04A), Integer.parseInt(et_place_rent_03a_04a_string));
+        day_arrayMap.put(getString(R.string.slot_04A_05A), Integer.parseInt(et_place_rent_04a_05a_string));
+        day_arrayMap.put(getString(R.string.slot_05A_06A), Integer.parseInt(et_place_rent_05a_06a_string));
+        day_arrayMap.put(getString(R.string.slot_06A_07A), Integer.parseInt(et_place_rent_06a_07a_string));
+        day_arrayMap.put(getString(R.string.slot_07A_08A), Integer.parseInt(et_place_rent_07a_08a_string));
+        day_arrayMap.put(getString(R.string.slot_08A_09A), Integer.parseInt(et_place_rent_08a_09a_string));
+        day_arrayMap.put(getString(R.string.slot_09A_10A), Integer.parseInt(et_place_rent_09a_10a_string));
+        day_arrayMap.put(getString(R.string.slot_10A_11A), Integer.parseInt(et_place_rent_10a_11a_string));
+        day_arrayMap.put(getString(R.string.slot_11A_12P), Integer.parseInt(et_place_rent_11a_12p_string));
+        day_arrayMap.put(getString(R.string.slot_12P_01P), Integer.parseInt(et_place_rent_12p_01p_string));
+        day_arrayMap.put(getString(R.string.slot_01P_02P), Integer.parseInt(et_place_rent_01p_02p_string));
+        day_arrayMap.put(getString(R.string.slot_02P_03P), Integer.parseInt(et_place_rent_02p_03p_string));
+        day_arrayMap.put(getString(R.string.slot_03P_04P), Integer.parseInt(et_place_rent_03p_04p_string));
+        day_arrayMap.put(getString(R.string.slot_04P_05P), Integer.parseInt(et_place_rent_04p_05p_string));
+        day_arrayMap.put(getString(R.string.slot_05P_06P), Integer.parseInt(et_place_rent_05p_06p_string));
+        day_arrayMap.put(getString(R.string.slot_06P_07P), Integer.parseInt(et_place_rent_06p_07p_string));
+        day_arrayMap.put(getString(R.string.slot_07P_08P), Integer.parseInt(et_place_rent_07p_08p_string));
+        day_arrayMap.put(getString(R.string.slot_08P_09P), Integer.parseInt(et_place_rent_08p_09p_string));
+        day_arrayMap.put(getString(R.string.slot_09P_10P), Integer.parseInt(et_place_rent_09p_10p_string));
+        day_arrayMap.put(getString(R.string.slot_10P_11P), Integer.parseInt(et_place_rent_10p_11p_string));
+        day_arrayMap.put(getString(R.string.slot_11P_12A), Integer.parseInt(et_place_rent_11p_12a_string));
+
+        submit_day_wise_rent_hashmap.put(key_for_submit_hash_map, day_arrayMap);
+    }
+
+
+    private String getPrintData(String key) {
+        String print_data = "";
+        ArrayMap<String, Integer> subMap = submit_day_wise_rent_hashmap.get(key);
+        for (String slots_key : subMap.keySet()) {
+            Integer slots_price_value = subMap.get(slots_key);
+            print_data = print_data + "\n" +  slots_key + "-->" + slots_price_value + "Rs";
+        }
+        if(print_data.isEmpty() ){
+            print_data = "Please Add "+key+" Data !";
         }else{
-            tv.setTextColor(ContextCompat.getColor(context, R.color.combo_text_blue));
-            cv.setCardBackgroundColor(ContextCompat.getColor(context, R.color.white));
-        }
-    }
-
-
-    public static String get_selected_days(){
-        selected_day_string = "";
-
-        for (Map.Entry<String, Integer> entry : days_selected_hashmap.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-
-            if(entry.getValue() == 1){
-                if(selected_day_string.isEmpty()){
-                    selected_day_string = entry.getKey();
-                }else{
-                    selected_day_string = selected_day_string+","+entry.getKey();
-                }
-
+            if(print_data.contains("{}")){
+                print_data = "Please Add "+key+" Data !";
             }
         }
-        return  selected_day_string;
+
+        return print_data;
     }
+
 }

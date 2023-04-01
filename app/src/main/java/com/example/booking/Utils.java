@@ -18,7 +18,7 @@ public class Utils {
     public static String key_monday = "Mon";
     public static String key_tuesday = "Tue";
     public static String key_wednesday = "Wed";
-    public static String key_thursday = "Thur";
+    public static String key_thursday = "Thu";
     public static String key_friday = "Fri";
     public static String key_saturday = "Sat";
     public static String key_sunday = "Sun";

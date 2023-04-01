@@ -20,12 +20,13 @@ import com.example.booking.Utils;
 import com.example.booking.databinding.ActivityOwnerAddPlaceDetailsBinding;
 import com.example.booking.interfaces.PincodeApiServiceInterface;
 import com.example.booking.model.PincodeModel;
-import com.example.booking.ui.OwnerPlaceRentDayTime.OwnerPlaceRentDayTimeWise;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.common.reflect.TypeToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +40,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class OwnerAddPlaceDetails extends AppCompatActivity {
 
+    HashMap<String, ArrayMap<String, Integer>> submit_day_wise_rent_hashmap = new HashMap<>();
     Double owner_place_latitude, owner_place_longitude;
     ActivityOwnerAddPlaceDetailsBinding binding;
 
@@ -91,20 +93,9 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
         Intent intent=getIntent();
         owner_place_latitude = intent.getDoubleExtra(Utils.key_latitude, 0);
         owner_place_longitude = intent.getDoubleExtra(Utils.key_longitude, 0);
-        Log.i("test_response", "");
-        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
-
-        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-         binding.tvOwnerAddPlaceChangeRentDayTimeWise.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent intent = new Intent(OwnerAddPlaceDetails.this, OwnerPlaceRentDayTimeWise.class);
-                 intent.putExtra(Utils.key_per_hour_rent,""+binding.etOwnerPlacePerHourRent.getText().toString());
-                 startActivity(intent);
-
-             }
-         });
+        String jsonString = getIntent().getStringExtra(Utils.map_key_owner_place_day_hour_rent_hashmap);
+        submit_day_wise_rent_hashmap = new Gson().fromJson(jsonString, new TypeToken<HashMap<String, ArrayMap<String, Integer>>>(){}.getType());
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
@@ -125,7 +116,7 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                 String owner_place_total_nets_String = binding.etOwnerAddPlaceAvailableNets.getText().toString();
                 String owner_place_opening_time_String = binding.ownerPlaceOpeningSpinner.getSelectedItem().toString();
                 String owner_place_closing_time_String = binding.ownerPlaceClosingSpinner.getSelectedItem().toString();
-                String owner_place_per_hour_rent_String = binding.etOwnerPlacePerHourRent.getText().toString();
+
 
 
 
@@ -182,11 +173,6 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                     return;
                 }
 
-                if(TextUtils.isEmpty(owner_place_per_hour_rent_String)){
-                    binding.tvOwnerAddError.setText(getString(R.string.error_enter_place_default_per_hour_rent));
-                    binding.etOwnerAddPlaceAvailableNets.setError(getString(R.string.error_enter_place_default_per_hour_rent));
-                    return;
-                }
 
 
 
@@ -201,39 +187,6 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                 }
 
 
-                ArrayMap<String, Integer> monday_day_time_rent_arrayhashmap = new ArrayMap<>();
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_12A_01A), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_01A_02A), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_02A_03P), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_03A_04A), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_04A_05A), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_05A_06A), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_06A_07A), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_07A_08A), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_08A_09A), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_09A_10A), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_10A_11A), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_11A_12P), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_12P_01P), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_01P_02P), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_02P_03P), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_03P_04P), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_04P_05P), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_05P_06P), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_06P_07P), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_07P_08P), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_08P_09P), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_09P_10P), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_10P_11P), Integer.parseInt(owner_place_per_hour_rent_String));
-                monday_day_time_rent_arrayhashmap.put(getString(R.string.slot_11P_12A), Integer.parseInt(owner_place_per_hour_rent_String));
-
-                day_hour_wise_hashmap.put(getString(R.string.monday), monday_day_time_rent_arrayhashmap);
-                day_hour_wise_hashmap.put(getString(R.string.tuesday), monday_day_time_rent_arrayhashmap);
-                day_hour_wise_hashmap.put(getString(R.string.wednesday), monday_day_time_rent_arrayhashmap);
-                day_hour_wise_hashmap.put(getString(R.string.thursday), monday_day_time_rent_arrayhashmap);
-                day_hour_wise_hashmap.put(getString(R.string.friday), monday_day_time_rent_arrayhashmap);
-                day_hour_wise_hashmap.put(getString(R.string.saturday), monday_day_time_rent_arrayhashmap);
-                day_hour_wise_hashmap.put(getString(R.string.sunday), monday_day_time_rent_arrayhashmap);
 
                 // Now start progressbar
                 binding.addPlaceProgressBar.setVisibility(View.VISIBLE);
@@ -257,9 +210,9 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                                     owner_place_detail_map.put(Utils.map_key_owner_place_total_nets, owner_place_total_nets_String);
                                     owner_place_detail_map.put(Utils.map_key_owner_place_opening_time, owner_place_opening_time_String);
                                     owner_place_detail_map.put(Utils.map_key_owner_place_closing_time, owner_place_closing_time_String);
-                                    owner_place_detail_map.put(Utils.map_key_owner_default_per_hour_rent, owner_place_per_hour_rent_String);
                                     owner_place_detail_map.put(Utils.map_key_owner_place_total_hours_open, total_hours_place_is_open_int);
-                                    owner_place_detail_map.put(Utils.map_key_owner_place_day_hour_rent_hashmap, day_hour_wise_hashmap);
+                                    owner_place_detail_map.put(Utils.map_key_owner_place_day_hour_rent_hashmap, submit_day_wise_rent_hashmap);
+
 
                                     documentReference.set(owner_place_detail_map).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override

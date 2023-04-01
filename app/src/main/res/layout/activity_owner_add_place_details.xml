@@ -253,7 +253,6 @@
 
                     <EditText
                         android:id="@+id/et_owner_place_closing_time"
-                        android:nextFocusForward="@id/et_owner_place_per_hour_rent"
                         android:layout_width="fill_parent"
                         android:textColor="@color/combo_text_blue"
                         android:background="@drawable/et_style"
@@ -277,43 +276,6 @@
 
                 </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:layout_marginTop="6dp"
-                    android:textSize="20sp"
-                    android:textColor="@color/combo_text_blue"
-                    android:text="@string/enter_place_default_per_hour_rent" />
-
-                <EditText
-                    android:id="@+id/et_owner_place_per_hour_rent"
-                    android:nextFocusForward="@id/btn_owner_add_place_submit"
-                    android:layout_width="fill_parent"
-                    android:textColor="@color/combo_text_blue"
-                    android:background="@drawable/et_style"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:maxLines="1"
-                    android:maxLength="6"
-                    android:singleLine="true"
-                    android:inputType="number"
-                    android:layout_marginTop="6dp"
-                    android:textSize="16sp"
-                    android:padding="14dp"
-                    android:textCursorDrawable="@drawable/cursor_color"
-                    android:hint="@string/hint_enter_place_default_per_hour_rent" />
-
-                <TextView
-                    android:id="@+id/tv_owner_add_place_change_rent_day_time_wise"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:layout_marginTop="6dp"
-                    android:textSize="20sp"
-                    android:gravity="end"
-                    android:textColor="@color/red"
-                    android:text="@string/change_rent_day_and_time_wise" />
 
                 <Button
                     android:id="@+id/btn_owner_add_place_submit"

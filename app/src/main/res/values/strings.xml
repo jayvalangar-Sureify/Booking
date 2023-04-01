@@ -73,6 +73,10 @@
     <string name="action_logout">Logout</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
+    <!-- Manifest Label -->
+    <string name="add_your_place_details">Add Your Place Details</string>
+    <string name="add_your_place_rent">Add Your Place Rent</string>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
     <!-- Home -->
     <string name="latitude">Latitude</string>
@@ -199,12 +203,48 @@
     <string name="set_all_day_same_rent">Set All Day Same Rent</string>
 
     <string name="monday">Mon</string>
-    <string name="tuesday">Tues</string>
+    <string name="empty_monday">Empty monday data</string>
+    <string name="tuesday">Tue</string>
+    <string name="empty_tuesday">Empty tuesday data</string>
     <string name="wednesday">Wed</string>
-    <string name="thursday">Thur</string>
+    <string name="empty_wednesday">Empty wednesday data</string>
+    <string name="thursday">Thu</string>
+    <string name="empty_thursday">Empty thursday data</string>
     <string name="friday">Fri</string>
+    <string name="empty_friday">Empty friday data</string>
     <string name="saturday">Sat</string>
+    <string name="empty_saturday">Empty saturday data</string>
     <string name="sunday">Sun</string>
+    <string name="empty_sunday">Empty sunday data</string>
+    <string name="change_day">Change Day</string>
+    <string name="all_day_same_rent">All day same rent</string>
+
+
+    <string name="review_all">Review All</string>
+    <string name="check_your_all_rent">Check Your All Rent</string>
+
+    <string name="default_rent_for_all_days">Default Rent For All Days</string>
+
+    <string name="add_all_day_rent">Add All Day Same Rent</string>
+    <string name="save_mon_rent">Add Mon Rent</string>
+    <string name="save_tue_rent">Add Tue Rent</string>
+    <string name="save_wed_rent">Add Wed Rent</string>
+    <string name="save_thu_rent">Add Thu Rent</string>
+    <string name="save_fri_rent">Add Fri Rent</string>
+    <string name="save_sat_rent">Add Sat Rent</string>
+    <string name="save_sun_rent">Add Sun Rent</string>
+
+    <string name="close">Close</string>
+    <string name="done">Done</string>
+    <string name="save_all_day_rent">Save All Day Rent</string>
+    <string name="save_monday_rent">Save Monday Rent</string>
+    <string name="save_tuesday_rent">Save Tuesday Rent</string>
+    <string name="save_wednesday_rent">Save Wednesday Rent</string>
+    <string name="save_thursday_rent">Save Thursday Rent</string>
+    <string name="save_friday_rent">Save Friday Rent</string>
+    <string name="save_saturday_rent">Save Saturday Rent</string>
+    <string name="save_sunday_rent">Save Sunday Rent</string>
+
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
 </resources>

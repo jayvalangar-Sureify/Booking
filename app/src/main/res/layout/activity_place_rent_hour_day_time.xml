@@ -7,172 +7,165 @@
     android:layout_height="match_parent"
     tools:context=".ui.OwnerPlaceRentDayTime.OwnerPlaceRentDayTimeWise">
 
+    <ProgressBar
+        android:id="@+id/progressbar_rent_hour_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:padding="20dp"
+        android:background="@color/combo_background_blue"
+        android:indeterminateTint="@color/combo_text_blue"
+        />
 
-    <!-- ================================================== -->
-    <HorizontalScrollView
-        android:id="@+id/hs_top"
+    <LinearLayout
+        android:id="@+id/ll_place_rent_top"
+        android:layout_above="@+id/ll_bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_error_rent_hour_dat_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:background="@color/combo_background_blue"
+            android:text=""
+            android:visibility="gone"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="7">
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            android:textSize="16sp" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_rent_per_hour_monday"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="@color/combo_background_green"
-                app:cardElevation="4dp">
 
-                <TextView
-                    android:id="@+id/tv_rent_per_hour_monday"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="M"
-                    android:textColor="@color/combo_text_blue"
-                    android:textSize="18sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_rent_per_hour_tuesday"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="@color/combo_background_green"
-                app:cardElevation="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:gravity="center"
+                android:weightSum="2"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_rent_per_hour_tuesday"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/default_rent_for_all_days"
                     android:gravity="center"
-                    android:text="T"
                     android:textColor="@color/combo_text_blue"
-                    android:textSize="18sp" />
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
 
-            </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_rent_per_hour_wednesday"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="@color/combo_background_green"
-                app:cardElevation="4dp">
+
+                <EditText
+                    android:id="@+id/et_default_rent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:inputType="number"
+                    android:background="@drawable/et_style"
+                    android:nextFocusForward="@id/et_owner_place_closing_time"
+                    android:padding="14dp"
+                    android:textColor="@color/combo_text_blue"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:weightSum="2"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_rent_per_hour_wednesday"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/check_your_all_rent"
                     android:gravity="center"
-                    android:text="W"
                     android:textColor="@color/combo_text_blue"
-                    android:textSize="18sp" />
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
 
-            </androidx.cardview.widget.CardView>
-
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_rent_per_hour_thursay"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="@color/combo_background_green"
-                app:cardElevation="4dp">
-
-                <TextView
-                    android:id="@+id/tv_rent_per_hour_thursay"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="T"
-                    android:textColor="@color/combo_text_blue"
-                    android:textSize="18sp" />
-
-            </androidx.cardview.widget.CardView>
+                <Button
+                    android:id="@+id/btn_review_all_day_rents"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_state_wise_styling"
+                    android:drawableEnd="@drawable/icon_right_corner_24"
+                    android:enabled="true"
+                    android:text="@string/review_all"
+                    android:textAllCaps="false"
+                    android:textSize="16sp" />
 
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_rent_per_hour_friday"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="@color/combo_background_green"
-                app:cardElevation="4dp">
+            </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_rent_per_hour_friday"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="F"
-                    android:textColor="@color/combo_text_blue"
-                    android:textSize="18sp" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_rent_per_hour_saturday"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="@color/combo_background_green"
-                app:cardElevation="4dp">
-
-                <TextView
-                    android:id="@+id/tv_rent_per_hour_saturday"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="S"
-                    android:textColor="@color/combo_text_blue"
-                    android:textSize="18sp" />
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_rent_per_hour_sunday"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="16dp"
-                app:cardBackgroundColor="@color/combo_background_green"
-                app:cardElevation="4dp">
-
-                <TextView
-                    android:id="@+id/tv_rent_per_hour_sunday"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="S"
-                    android:textColor="@color/combo_text_blue"
-                    android:textSize="18sp" />
-
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-    </HorizontalScrollView>
-
-    <!-- ================================================== -->
+        </RelativeLayout>
 
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <EditText
+                android:id="@+id/et_owner_place_opening_time"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/et_style"
+                android:nextFocusForward="@id/et_owner_place_closing_time"
+                android:padding="14dp"
+                android:textColor="@color/combo_text_blue"
+                android:textCursorDrawable="@drawable/cursor_color"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/place_rent_day_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="10dp"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/grey_6"
+            />
 
     <!-- ================================================== -->
     <ScrollView
@@ -1604,21 +1597,46 @@
 
     <!-- ================================================== -->
 
-    <Button
-        android:id="@+id/btn_add_place_rent"
-        android:layout_alignParentBottom="true"
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/button_state_wise_styling"
-        android:drawableEnd="@drawable/icon_right_corner_24"
-        android:enabled="true"
-        android:text="@string/btn_add_place_rent"
-        android:textAllCaps="false"
-        android:textSize="18sp" />
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_add_place_rent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_state_wise_styling"
+            android:enabled="true"
+            android:text="@string/save_all_day_rent"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_done_save_all_Rent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_state_wise_styling"
+            android:drawableEnd="@drawable/icon_right_corner_24"
+            android:enabled="true"
+            android:text="@string/done"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
 
 
 </RelativeLayout>

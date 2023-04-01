@@ -21,7 +21,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.booking.Utils;
 import com.example.booking.databinding.FragmentHomeBinding;
-import com.example.booking.ui.Owner_Add_Place_Details.OwnerAddPlaceDetails;
+import com.example.booking.ui.OwnerPlaceRentDayTime.OwnerPlaceRentDayTimeWise;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -368,6 +368,10 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
     // Add latitude and longitude into firestore
     //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     public void add_latitude_and_longitude_to_firestore(Double latitude, Double longitude){
+
+        binding.btnHomeAddOwnerPlace.setEnabled(false);
+        binding.progressbarHomeFragment.setVisibility(View.VISIBLE);
+
         // Add location to owner table
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         DocumentReference docRef = firebaseFirestore.collection(Utils.key_owner_firestore).document(user_Id_string);
@@ -380,15 +384,19 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("test_response", "location added successfully");
-                        Intent intent = new Intent(getActivity(), OwnerAddPlaceDetails.class);
+                        Intent intent = new Intent(getActivity(), OwnerPlaceRentDayTimeWise.class);
                         intent.putExtra(Utils.key_latitude,latitude);
                         intent.putExtra(Utils.key_longitude,longitude);
                         startActivity(intent);
+                        binding.btnHomeAddOwnerPlace.setEnabled(true);
+                        binding.progressbarHomeFragment.setVisibility(View.GONE);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        binding.btnHomeAddOwnerPlace.setEnabled(true);
+                        binding.progressbarHomeFragment.setVisibility(View.GONE);
                         Log.w("test_response", "Error updating document", e);
                     }
                 });
