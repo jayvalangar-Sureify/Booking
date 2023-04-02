@@ -1,15 +1,14 @@
 package com.example.booking.ui.home;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -24,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import com.example.booking.Utils;
 import com.example.booking.databinding.FragmentHomeBinding;
 import com.example.booking.ui.OwnerPlaceRentDayTime.OwnerPlaceRentDayTimeWise;
+import com.example.booking.ui.UserClickOnMap.UserClickOnMapShowThatPlaceAllDetails;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -61,6 +61,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
     // For user to show places location
     public HashMap<Double, Double> owner_places_hashmap = new HashMap<>();
     public HashMap<String, String > owner_places_in_details_hashmap = new HashMap<>();
+    public HashMap<String, ArrayMap<String, Integer>> owner_places_time_slots_hashmap = new HashMap<>();
 
     String login_type_string;
 
@@ -186,20 +187,45 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                                     // Adding latitude and longitude to one hasmap
                                     Double owner_place_latitude = (Double) document.getData().get(Utils.map_key_owner_place_latitude);
                                     Double owner_place_longitude = (Double) document.getData().get(Utils.map_key_owner_place_longitude);
-                                    owner_places_hashmap.put(owner_place_latitude, owner_place_longitude);
 
                                     // Adding other details
                                     String owner_place_name_string = (String) document.getData().get(Utils.map_key_owner_place_name);
                                     String owner_place_full_address_string = (String) document.getData().get(Utils.map_key_owner_place_full_address);
                                     String owner_place_staff_number_string = (String) document.getData().get(Utils.map_key_owner_place_ground_staff_number);
                                     String owner_place_total_nets_string = (String) document.getData().get(Utils.map_key_owner_place_total_nets);
-                                    owner_places_in_details_hashmap.put(
-                                            ""+owner_place_latitude+","+owner_place_longitude,
+                                    //String map_key_owner_default_per_hour_rent_string = (String) document.getData().get(Utils.map_key_owner_default_per_hour_rent);
+                                    //String map_key_owner_place_total_hours_open_string = (String) document.getData().get(Utils.map_key_owner_place_total_hours_open);
+                                    String map_key_owner_place_pincode_string = (String) document.getData().get(Utils.map_key_owner_place_pincode);
+                                    String map_key_owner_place_opening_time_string = (String) document.getData().get(Utils.map_key_owner_place_opening_time);
+                                    String map_key_owner_place_closing_time_string = (String) document.getData().get(Utils.map_key_owner_place_closing_time);
+                                   // Converting time slots into string
+                                    //-------------------------------------------------------------------------------------------------------------------------------------
+                                    HashMap<String, ArrayMap<String, Integer>> map_key_owner_place_day_hour_rent_hashmap = (HashMap<String, ArrayMap<String, Integer>>)  document.getData().get(Utils.map_key_owner_place_day_hour_rent_hashmap);
+                                    String time_slots_converting_hashmap_to_string = Utils.hashMap_StringArraymap_ToString(map_key_owner_place_day_hour_rent_hashmap);
+                                    //-------------------------------------------------------------------------------------------------------------------------------------
 
-                                            "\n Place Name : "+owner_place_name_string
-                                            +"\n Address : "+owner_place_full_address_string
-                                            + "\n Owner Staff : " + owner_place_staff_number_string
-                                            + "\n Total Nets : " + owner_place_total_nets_string);
+
+                                    // storing whole place details into hashmap
+                                    //-------------------------------------------------------------------------------------------------------------------------------------
+                                    HashMap<String, String> temp_data_taking_in_hashmap = new HashMap<>();
+                                    temp_data_taking_in_hashmap.put("owner_place_id_string", document.getId());
+                                    temp_data_taking_in_hashmap.put("owner_place_name_string", owner_place_name_string);
+                                    temp_data_taking_in_hashmap.put("owner_place_full_address_string", owner_place_full_address_string);
+                                    temp_data_taking_in_hashmap.put("map_key_owner_place_pincode_string", map_key_owner_place_pincode_string);
+                                    temp_data_taking_in_hashmap.put("owner_place_latitude", String.valueOf(owner_place_latitude));
+                                    temp_data_taking_in_hashmap.put("owner_place_longitude", String.valueOf(owner_place_longitude));
+                                    temp_data_taking_in_hashmap.put("map_key_owner_place_opening_time_string", map_key_owner_place_opening_time_string);
+                                    temp_data_taking_in_hashmap.put("map_key_owner_place_closing_time_string", map_key_owner_place_closing_time_string);
+                                    temp_data_taking_in_hashmap.put("owner_place_total_nets_string", owner_place_total_nets_string);
+                                    temp_data_taking_in_hashmap.put("owner_place_staff_number_string", owner_place_staff_number_string);
+                                    temp_data_taking_in_hashmap.put("time_slots_converting_hashmap_to_string", time_slots_converting_hashmap_to_string);
+                                    //-------------------------------------------------------------------------------------------------------------------------------------
+
+
+                                    String create_temp_lat_long_key = ""+owner_place_latitude+","+owner_place_longitude;
+                                    // Storing Final Entire data into one key, pair, key = owner_place_id and value= place whole details
+                                    owner_places_in_details_hashmap.put(create_temp_lat_long_key, Utils.convertHashMap_StringStringToString(temp_data_taking_in_hashmap));
+
                                 }
                             } else {
                                 Log.i("test_response", "Error getting documents: ", task.getException());
@@ -263,7 +289,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                 owner_places_in_details_hashmap.entrySet().forEach(entry -> {
                         // seperating latitude and longitude from key
                            String latitude_longitude_string = entry.getKey();
-                    List<String> individual_latitude_longitude_list = Arrays.asList(latitude_longitude_string.split(","));
+                           List<String> individual_latitude_longitude_list = Arrays.asList(latitude_longitude_string.split(","));
 
 
                         LatLng set_owner_places_location = new LatLng(Double.parseDouble(individual_latitude_longitude_list.get(0)), Double.parseDouble(individual_latitude_longitude_list.get(1)));
@@ -284,23 +310,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                         public boolean onMarkerClick(Marker arg0) {
                             if (arg0 != null) ; // if marker  source is clicked
 
-                            new AlertDialog.Builder(getActivity())
-                                    .setTitle("")
-                                    .setMessage(""+arg0.getTitle())
+                            Intent intent = new Intent(getActivity(), UserClickOnMapShowThatPlaceAllDetails.class);
+                            intent.putExtra(Utils.key_whole_place_details, arg0.getTitle());
+                            startActivity(intent);
 
-                                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                                    // The dialog is automatically dismissed when a dialog button is clicked.
-                                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            // Continue with delete operation
-                                            dialog.dismiss();
-                                        }
-                                    })
 
-                                    // A null listener allows the button to dismiss the dialog and take no further action.
-                                    .setNegativeButton(android.R.string.no, null)
-                                    .setIcon(android.R.drawable.ic_menu_mylocation)
-                                    .show();
                             return true;
                         }
 

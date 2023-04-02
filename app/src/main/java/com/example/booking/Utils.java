@@ -4,10 +4,26 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.ArrayMap;
+import android.util.Log;
+
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
 
 public class Utils {
     public static String user = "user";
     public static String owner = "owner";
+
+    // Intent key
+    public static String key_whole_place_details = "key_whole_place_details";
+
 
     // Location
     public static String key_latitude = "latitude";
@@ -79,6 +95,73 @@ public class Utils {
 
 
 
+    // Convert a HashMap<String, ArrayMap<String, Integer>> to a String
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    public static String hashMap_StringArraymap_ToString(HashMap<String, ArrayMap<String, Integer>> hashMap) {
+        try {
+            JSONObject json = new JSONObject(hashMap);
+            return json.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+    // Convert a String to a HashMap<String, ArrayMap<String, Integer>>
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    public static HashMap<String, ArrayMap<String, Integer>> stringToHashMap_StringArraymap(String jsonString) {
+        try {
+            JSONObject json = new JSONObject(jsonString);
+            HashMap<String, ArrayMap<String, Integer>> hashMap = new HashMap<>();
+            JSONArray keys = json.names();
+            for (int i = 0; i < keys.length(); i++) {
+                String key = keys.getString(i);
+                ArrayMap<String, Integer> value = new ArrayMap<>();
+                JSONArray subArray = json.getJSONArray(key);
+                for (int j = 0; j < subArray.length(); j++) {
+                    JSONObject subObject = subArray.getJSONObject(j);
+                    String subKey = subObject.getString("key");
+                    int subValue = subObject.getInt("value");
+                    value.put(subKey, subValue);
+                }
+                hashMap.put(key, value);
+            }
+
+            return hashMap;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.i("test_response", ""+e.getMessage());
+            return null;
+        }
+    }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+
+    // Convert a HashMap<String, ArrayMap<String, Integer>> to a String
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    public static String convertHashMap_StringStringToString(HashMap<String, String> hashMap) {
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(hashMap);
+        return jsonString;
+    }
+
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+    // Convert a String to a HashMap<String, String>
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+    public static HashMap<String, String> convertStringToHashMap_StringString(String jsonString) {
+        Gson gson = new Gson();
+        Type type = new TypeToken<HashMap<String, String>>(){}.getType();
+        HashMap<String, String> hashMap = gson.fromJson(jsonString, type);
+        return hashMap;
+    }
+//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
     // set login type
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     public static void set_SharedPreference_type_of_login(String type_of_login, Context context){
@@ -107,6 +190,51 @@ public class Utils {
         return sharedPreferences.getString(key_owner_completed_place_adding_procedure, "0");
     }
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+    public static HashMap<String, HashMap<String, Integer>> stringToHashMap(String str) {
+        HashMap<String, HashMap<String, Integer>> result = new HashMap<>();
+
+        // Remove curly braces and split the string by commas
+        String[] pairs = str.replaceAll("[{}]", "").split(",");
+
+        // Loop through each key-value pair
+        for (String pair : pairs) {
+            // Split the key and value by the colon
+            String[] keyValue = pair.split(":");
+
+            // Extract the day of the week from the key
+            String dayOfWeek = keyValue[0].replaceAll("\"", "");
+
+            // Extract the time slots and values from the value
+            String[] timeSlotsAndValues = keyValue[1].replaceAll("[{}\"]", "").split(",");
+
+            // Create a new HashMap to store the time slots and values
+            HashMap<String, Integer> timeSlots = new HashMap<>();
+
+            // Loop through each time slot and value
+            for (String timeSlotAndValue : timeSlotsAndValues) {
+                // Split the time slot and value by the colon
+                String[] timeSlotAndValueArray = timeSlotAndValue.split(":");
+
+                // Extract the time slot and value
+                String timeSlot = timeSlotAndValueArray[0].trim();
+                try {
+                    int value = Integer.parseInt(timeSlotAndValueArray[1].trim());
+
+                    // Add the time slot and value to the HashMap
+                    timeSlots.put(timeSlot, value);
+                }catch (Exception e){
+                    e.getMessage();
+                }
+            }
+
+            // Add the day of the week and time slots to the result HashMap
+            result.put(dayOfWeek, timeSlots);
+        }
+
+        return result;
+    }
 
 }
 

@@ -76,6 +76,7 @@
     <!-- Manifest Label -->
     <string name="add_your_place_details">Add Your Place Details</string>
     <string name="add_your_place_rent">Add Your Place Rent</string>
+    <string name="place_details">Place Details</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
     <!-- Home -->
@@ -245,6 +246,17 @@
     <string name="save_saturday_rent">Save Saturday Rent</string>
     <string name="save_sunday_rent">Save Sunday Rent</string>
 
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    
+    
+    <!-- UserClickOnMapShowThatPlaceAllDetails -->
+    <string name="place_name">Place Name</string>
+    <string name="place_address">Address</string>
+    <string name="available">Available</string>
+    <string name="booked">Booked</string>
+    <string name="book">Book</string>
+    <string name="price">Price</string>
+    <string name="date">01 May 23</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
 </resources>
