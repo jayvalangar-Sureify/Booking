@@ -3,6 +3,7 @@ package com.example.booking.ui.UserClickOnMap;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -27,6 +28,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
     private UserClickOnMapSlotsAdapter userClickOnMapSlotsAdapter;
     private RecyclerView recycleview_show_available_time_day_slots;
 
+    TextView tv_place_name_user_click_on_map, tv_place_full_address_user_click_on_map;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,25 +38,34 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
         String getHashmapPlaceWholeData_String = intent.getStringExtra(Utils.key_whole_place_details);
         place_whole_details_hashmap = Utils.convertStringToHashMap_StringString(getHashmapPlaceWholeData_String);
 
-        int maxLogSize = 1000;
-        for(int i = 0; i <= getHashmapPlaceWholeData_String.length() / maxLogSize; i++) {
-            int start = i * maxLogSize;
-            int end = (i+1) * maxLogSize;
-            end = end > getHashmapPlaceWholeData_String.length() ? getHashmapPlaceWholeData_String.length() : end;
-            Log.v("test_response", getHashmapPlaceWholeData_String.substring(start, end));
-        }
+        tv_place_name_user_click_on_map = (TextView) findViewById(R.id.tv_place_name_user_click_on_map);
+        tv_place_full_address_user_click_on_map = (TextView) findViewById(R.id.tv_place_full_address_user_click_on_map);
+
 
         place_whole_details_hashmap.entrySet().forEach(entry -> {
             // seperating latitude and longitude from key
             String key = entry.getKey();
+            String remove_forward_space_value = entry.getValue().replace("/", "");
+            String without_slash_value = remove_forward_space_value.replace("\\", "");
+
+
+            Log.i("test_response", "KEY : "+key);
+            Log.i("test_response", "VALUE : "+without_slash_value);
 
             if(key.equals("time_slots_converting_hashmap_to_string")){
-                String remove_forward_space_value = entry.getValue().replace("/", "");
-                String remove_backward_space_value = remove_forward_space_value.replace("\\", "");
                 Gson gson = new Gson();
                 Type typeOfHashMap = new TypeToken<HashMap<String, HashMap<String, Integer>>>() {}.getType();
-                map = gson.fromJson(remove_backward_space_value, typeOfHashMap);
+                map = gson.fromJson(without_slash_value, typeOfHashMap);
 
+            }
+
+
+            if(key.equals("owner_place_name_string")){
+                tv_place_name_user_click_on_map.setText(remove_forward_space_value);
+            }
+
+            if(key.equals("owner_place_full_address_string")){
+                tv_place_full_address_user_click_on_map.setText(remove_forward_space_value);
             }
         });
 
@@ -99,12 +110,14 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
             }
 
 
+            if(time_slots_with_price != null) {
 
 //         //Initialize RecyclerView and Adapter
-            recycleview_show_available_time_day_slots = findViewById(R.id.recycleview_show_available_time_day_slots);
-            userClickOnMapSlotsAdapter = new UserClickOnMapSlotsAdapter(time_slots_with_price);
-            recycleview_show_available_time_day_slots.setAdapter(userClickOnMapSlotsAdapter);
-            recycleview_show_available_time_day_slots.setLayoutManager(new GridLayoutManager(this, 2));
+                recycleview_show_available_time_day_slots = findViewById(R.id.recycleview_show_available_time_day_slots);
+                userClickOnMapSlotsAdapter = new UserClickOnMapSlotsAdapter(time_slots_with_price);
+                recycleview_show_available_time_day_slots.setAdapter(userClickOnMapSlotsAdapter);
+                recycleview_show_available_time_day_slots.setLayoutManager(new GridLayoutManager(this, 2));
+            }
         }
     }
 }
