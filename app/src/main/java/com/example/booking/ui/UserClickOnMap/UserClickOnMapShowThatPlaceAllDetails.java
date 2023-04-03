@@ -15,11 +15,13 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
+import java.util.Calendar;
 import java.util.HashMap;
 
 
 public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
 
+    HashMap<String, Integer> time_slots_with_price;
     public HashMap<String, String> place_whole_details_hashmap = new HashMap<>();
     HashMap<String, HashMap<String, Integer>> map;
     private UserClickOnMapSlotsAdapter userClickOnMapSlotsAdapter;
@@ -59,9 +61,48 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
 
         if(map != null) {
 
+
+            // Get today's date
+            Calendar calendar = Calendar.getInstance();
+            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+           // Use switch-case to determine the day of the week
+            switch (dayOfWeek) {
+                case Calendar.SUNDAY:
+                    // Code for Sunday
+                    time_slots_with_price = map.get("Sunday");
+                    break;
+                case Calendar.MONDAY:
+                    // Code for Monday
+                    time_slots_with_price = map.get("Monday");
+                    break;
+                case Calendar.TUESDAY:
+                    // Code for Tuesday
+                    time_slots_with_price = map.get("Tuesday");
+                    break;
+                case Calendar.WEDNESDAY:
+                    // Code for Wednesday
+                    time_slots_with_price = map.get("Wednesday");
+                    break;
+                case Calendar.THURSDAY:
+                    // Code for Thursday
+                    time_slots_with_price = map.get("Thursday");
+                    break;
+                case Calendar.FRIDAY:
+                    // Code for Friday
+                    time_slots_with_price = map.get("Friday");
+                    break;
+                case Calendar.SATURDAY:
+                    // Code for Saturday
+                    time_slots_with_price = map.get("Saturday");
+                    break;
+            }
+
+
+
 //         //Initialize RecyclerView and Adapter
             recycleview_show_available_time_day_slots = findViewById(R.id.recycleview_show_available_time_day_slots);
-            userClickOnMapSlotsAdapter = new UserClickOnMapSlotsAdapter(map);
+            userClickOnMapSlotsAdapter = new UserClickOnMapSlotsAdapter(time_slots_with_price);
             recycleview_show_available_time_day_slots.setAdapter(userClickOnMapSlotsAdapter);
             recycleview_show_available_time_day_slots.setLayoutManager(new GridLayoutManager(this, 2));
         }

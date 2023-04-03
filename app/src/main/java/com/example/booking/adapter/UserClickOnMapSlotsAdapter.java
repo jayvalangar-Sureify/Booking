@@ -13,13 +13,13 @@ import java.util.HashMap;
 
 public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOnMapSlotsAdapter.ViewHolder> {
 
-    private HashMap<String, HashMap<String, Integer>> place_slots_details_hashmap;
+    private HashMap<String, Integer> place_slots_details_hashmap;
 
-    public UserClickOnMapSlotsAdapter(HashMap<String, HashMap<String, Integer>> hasmapData) {
+    public UserClickOnMapSlotsAdapter(HashMap<String, Integer> hasmapData) {
         place_slots_details_hashmap = hasmapData;
     }
 
-    public void setData(HashMap<String, HashMap<String, Integer>> hasMapdata) {
+    public void setData(HashMap<String, Integer> hasMapdata) {
         place_slots_details_hashmap = hasMapdata;
         notifyDataSetChanged();
     }
@@ -32,14 +32,13 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String key = (String) place_slots_details_hashmap.keySet().toArray()[position];
-        HashMap<String, Integer> values = place_slots_details_hashmap.get(key);
+        String time_slots_key = (String) place_slots_details_hashmap.keySet().toArray()[position];
+        Integer price_value = place_slots_details_hashmap.get(time_slots_key);
 
 
 
-        holder.tv_show_place_time_slots.setText(key);
-
-        holder.tv_show_place_date_slots.setText(values.toString());
+        holder.tv_show_place_time_slots.setText(time_slots_key);
+        holder.tv_show_place_time_slots_price.setText(price_value.toString() + " Rs");
     }
 
     @Override
@@ -48,13 +47,13 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_show_place_date_slots;
+        public TextView tv_show_place_time_slots_price;
         public TextView tv_show_place_time_slots;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            tv_show_place_date_slots = (TextView) itemView.findViewById(R.id.tv_show_place_date_slots);
+            tv_show_place_time_slots_price = (TextView) itemView.findViewById(R.id.tv_show_place_time_slots_price);
             tv_show_place_time_slots = (TextView) itemView.findViewById(R.id.tv_show_place_time_slots);
         }
     }

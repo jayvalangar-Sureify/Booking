@@ -14,17 +14,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_show_place_date_slots"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:layout_marginTop="6dp"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:textColor="@color/combo_text_blue"
-            android:text="@string/date" />
-
-        <TextView
             android:id="@+id/tv_show_place_time_slots"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,6 +21,7 @@
             android:layout_marginTop="6dp"
             android:textSize="16sp"
             android:gravity="center"
+            android:padding="8dp"
             android:textColor="@color/combo_text_blue"
             android:text="@string/slot_05P_06P" />
 
