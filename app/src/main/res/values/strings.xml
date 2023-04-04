@@ -259,4 +259,13 @@
     <string name="date">01 May 23</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
+
+    <!-- booking review dialog -->
+    <string name="booking_review">Booking Review</string>
+    <string name="payment">Payment</string>
+    <string name="cancel">Cancel</string>
+    <string name="selected_time_slot">Selected Time Slots</string>
+    <string name="total_bill">Total Bill</string>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
 </resources>

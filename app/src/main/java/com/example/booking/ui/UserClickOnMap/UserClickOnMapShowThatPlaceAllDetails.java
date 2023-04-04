@@ -1,10 +1,12 @@
 package com.example.booking.ui.UserClickOnMap;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -27,10 +29,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity implements user_timeslot_Selected_OnclickListner {
 
+    int total_price = 0;
     String show_selected_date_data = "";
     HashMap<String, Integer> time_slots_with_price;
     public HashMap<String, String> place_whole_details_hashmap = new HashMap<>();
@@ -134,7 +138,9 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         btn_book_place_from_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String get_selected_key = getSelectedTimeSlotsKey();
+                showCustomDialog(get_selected_key, "= "+total_price+" Rs");
+                total_price = 0;
             }
         });
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -148,6 +154,33 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
             int dayOfWeek = Utils.getDayfromDate(show_selected_date_data);
             setHashmapdata(dayOfWeek);
         }
+    }
+
+    public String getSelectedTimeSlotsKey() {
+        String selected_time_slots_key = "";
+        int i = 0;
+        // Loop through the HashMap to check each value
+        for (Map.Entry<String, Boolean> entry : mSelectedItems_hashmap.entrySet()) {
+            String key = entry.getKey();
+            Boolean value = entry.getValue();
+
+            if (value) { // If the value matches the one you are looking for
+                i = i + 1;
+                selected_time_slots_key =
+                        "\n"
+                        + selected_time_slots_key
+                        + "\n"
+                        + i+") "
+                        + key
+                        + " = "
+                        +time_slots_with_price.get(key)
+                        + " Rs"
+                        + "\n -=--=--=--=-=-=-=-=-=-=-=-=-==-= ";
+                Integer slot_price_integer = time_slots_with_price.get(key);
+                total_price = total_price + slot_price_integer;
+            }
+        }
+        return selected_time_slots_key.trim();
     }
 
 
@@ -237,4 +270,49 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         mSelectedItems_hashmap = hashMap;
     }
     //=====================================================================================
+
+
+
+    //=====================================================================================
+    public void showCustomDialog(String selected_time_slots, String total_bill) {
+        Dialog dialog = new Dialog(UserClickOnMapShowThatPlaceAllDetails.this);
+        dialog.setContentView(R.layout.booking_review_dialog);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.setCancelable(true);
+
+        //-------------------------------------------------------------------------------
+        TextView tv_booking_review_total_bill, tv_booking_review_selected_time_Slots;
+        Button booking_review_dialog_payment, booking_review_dialog_cancel;
+
+        tv_booking_review_selected_time_Slots = (TextView) dialog.findViewById(R.id.tv_booking_review_selected_time_Slots);
+        tv_booking_review_total_bill = (TextView) dialog.findViewById(R.id.tv_booking_review_total_bill);
+        booking_review_dialog_cancel = (Button) dialog.findViewById(R.id.booking_review_dialog_cancel);
+        booking_review_dialog_payment = (Button) dialog.findViewById(R.id.booking_review_dialog_payment);
+        //-------------------------------------------------------------------------------
+
+
+        tv_booking_review_selected_time_Slots.setText(selected_time_slots);
+        tv_booking_review_total_bill.setText(total_bill);
+
+        booking_review_dialog_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+
+        booking_review_dialog_payment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+    //=====================================================================================
+
+
+
 }
