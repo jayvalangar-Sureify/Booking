@@ -20,14 +20,15 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 
 public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
 
-    // Declare class variables
-    private Calendar selectedCalendar;
 
     HashMap<String, Integer> time_slots_with_price;
     public HashMap<String, String> place_whole_details_hashmap = new HashMap<>();
@@ -50,7 +51,13 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
         tv_place_full_address_user_click_on_map = (TextView) findViewById(R.id.tv_place_full_address_user_click_on_map);
         tv_show_calendar_date = (TextView) findViewById(R.id.tv_show_calendar_date);
         iv_user_select_calendar = (ImageView) findViewById(R.id.iv_user_select_calendar);
-        selectedCalendar = Calendar.getInstance();
+
+
+        // Initially give today's date
+        Calendar calendars = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+        String todayDate = dateFormat.format(calendars.getTime());
+        tv_show_calendar_date.setText(todayDate);
 
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         iv_user_select_calendar.setOnClickListener(new View.OnClickListener() {
@@ -64,16 +71,15 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(UserClickOnMapShowThatPlaceAllDetails.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        // Set the chosen date in the TextView
-                        String date = String.format("%02d/%02d/%04d", dayOfMonth, month+1, year);
-                        tv_show_calendar_date.setText(date);
+                        String selectedDate = String.format("%02d %s %04d", dayOfMonth, new DateFormatSymbols().getShortMonths()[month], year);
+                        tv_show_calendar_date.setText(selectedDate);
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 //                datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis() - 1000);
                 datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis() - 1000);
                 calendar.add(Calendar.DATE, 10);
                 datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis() - 1000);
-// Show the Date Picker Dialog
+
                 datePickerDialog.show();
 
             }
