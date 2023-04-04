@@ -1,8 +1,12 @@
 package com.example.booking.ui.UserClickOnMap;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,13 +26,17 @@ import java.util.HashMap;
 
 public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
 
+    // Declare class variables
+    private Calendar selectedCalendar;
+
     HashMap<String, Integer> time_slots_with_price;
     public HashMap<String, String> place_whole_details_hashmap = new HashMap<>();
     HashMap<String, HashMap<String, Integer>> map;
     private UserClickOnMapSlotsAdapter userClickOnMapSlotsAdapter;
     private RecyclerView recycleview_show_available_time_day_slots;
 
-    TextView tv_place_name_user_click_on_map, tv_place_full_address_user_click_on_map;
+    TextView tv_place_name_user_click_on_map, tv_place_full_address_user_click_on_map, tv_show_calendar_date;
+    ImageView iv_user_select_calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +48,38 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
 
         tv_place_name_user_click_on_map = (TextView) findViewById(R.id.tv_place_name_user_click_on_map);
         tv_place_full_address_user_click_on_map = (TextView) findViewById(R.id.tv_place_full_address_user_click_on_map);
+        tv_show_calendar_date = (TextView) findViewById(R.id.tv_show_calendar_date);
+        iv_user_select_calendar = (ImageView) findViewById(R.id.iv_user_select_calendar);
+        selectedCalendar = Calendar.getInstance();
+
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        iv_user_select_calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Initialize calendar instance
+                Calendar calendar = Calendar.getInstance();
+
+// Create a Date Picker Dialog and set the date range
+                DatePickerDialog datePickerDialog = new DatePickerDialog(UserClickOnMapShowThatPlaceAllDetails.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        // Set the chosen date in the TextView
+                        String date = String.format("%02d/%02d/%04d", dayOfMonth, month+1, year);
+                        tv_show_calendar_date.setText(date);
+                    }
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+//                datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis() - 1000);
+                datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis() - 1000);
+                calendar.add(Calendar.DATE, 10);
+                datePickerDialog.getDatePicker().setMaxDate(calendar.getTimeInMillis() - 1000);
+// Show the Date Picker Dialog
+                datePickerDialog.show();
+
+            }
+        });
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 
 
         place_whole_details_hashmap.entrySet().forEach(entry -> {
