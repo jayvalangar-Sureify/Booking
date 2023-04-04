@@ -10,16 +10,20 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.booking.R;
+import com.example.booking.interfaces.user_timeslot_Selected_OnclickListner;
 
 import java.util.HashMap;
 
-public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOnMapSlotsAdapter.ViewHolder> {
+public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOnMapSlotsAdapter.ViewHolder> implements user_timeslot_Selected_OnclickListner {
 
     private HashMap<String, Integer> place_slots_details_hashmap;
     private HashMap<String, Boolean> mSelectedItems = new HashMap<>();
 
-    public UserClickOnMapSlotsAdapter(HashMap<String, Integer> hasmapData) {
+    private user_timeslot_Selected_OnclickListner mListener;
+
+    public UserClickOnMapSlotsAdapter(HashMap<String, Integer> hasmapData, user_timeslot_Selected_OnclickListner listener) {
         place_slots_details_hashmap = hasmapData;
+        mListener = listener;
 
         for (String key : place_slots_details_hashmap.keySet()) {
             mSelectedItems.put(key, false);
@@ -71,6 +75,8 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
                 } else {
                     holder.card_view_show_user_time_slots.setBackgroundColor(light_green_color);
                 }
+
+                mListener.onHashMapClick(mSelectedItems);
             }
         });
     }
@@ -78,6 +84,11 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
     @Override
     public int getItemCount() {
         return place_slots_details_hashmap.size();
+    }
+
+    @Override
+    public void onHashMapClick(HashMap<String, Boolean> hashMap) {
+
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

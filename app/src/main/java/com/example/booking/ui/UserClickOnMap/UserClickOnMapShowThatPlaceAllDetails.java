@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.booking.R;
 import com.example.booking.Utils;
 import com.example.booking.adapter.UserClickOnMapSlotsAdapter;
+import com.example.booking.interfaces.user_timeslot_Selected_OnclickListner;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
@@ -27,7 +29,7 @@ import java.util.HashMap;
 import java.util.Locale;
 
 
-public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
+public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity implements user_timeslot_Selected_OnclickListner {
 
     String show_selected_date_data = "";
     HashMap<String, Integer> time_slots_with_price;
@@ -38,6 +40,10 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
 
     TextView tv_place_name_user_click_on_map, tv_place_full_address_user_click_on_map, tv_show_calendar_date;
     ImageView iv_user_select_calendar;
+
+    Button btn_book_place_from_user;
+
+    private HashMap<String, Boolean> mSelectedItems_hashmap = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +58,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
         tv_place_full_address_user_click_on_map = (TextView) findViewById(R.id.tv_place_full_address_user_click_on_map);
         tv_show_calendar_date = (TextView) findViewById(R.id.tv_show_calendar_date);
         iv_user_select_calendar = (ImageView) findViewById(R.id.iv_user_select_calendar);
+        btn_book_place_from_user = (Button) findViewById(R.id.btn_book_place_from_user);
 
 
         // Initially give today's date
@@ -122,7 +129,15 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 
+        // Button book
+      //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        btn_book_place_from_user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 
 
@@ -136,17 +151,21 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
     }
 
 
+    //=====================================================================================
     @Override
     protected void onResume() {
         super.onResume();
         refreshRecycleview();
     }
+    //=====================================================================================
 
+
+    //=====================================================================================
     public void refreshRecycleview(){
         if(time_slots_with_price != null) {
 
 //         //Initialize RecyclerView and Adapter
-            userClickOnMapSlotsAdapter = new UserClickOnMapSlotsAdapter(time_slots_with_price);
+            userClickOnMapSlotsAdapter = new UserClickOnMapSlotsAdapter(time_slots_with_price, this);
             recycleview_show_available_time_day_slots.setAdapter(userClickOnMapSlotsAdapter);
             recycleview_show_available_time_day_slots.setLayoutManager(new GridLayoutManager(this, 2));
 // Call notifyDataSetChanged() on the adapter to refresh the data displayed in the RecyclerView
@@ -156,8 +175,10 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
 
         }
     }
+    //=====================================================================================
 
 
+    //=====================================================================================
     public void setHashmapdata(int dayOfWeek){
         if(map != null) {
             Log.i("test_response", "map.tostring : "+map.toString());
@@ -206,4 +227,14 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
 
         }
     }
+    //=====================================================================================
+
+
+    //=====================================================================================
+    @Override
+    public void onHashMapClick(HashMap<String, Boolean> hashMap) {
+        // Do something with the HashMap object here
+        mSelectedItems_hashmap = hashMap;
+    }
+    //=====================================================================================
 }
