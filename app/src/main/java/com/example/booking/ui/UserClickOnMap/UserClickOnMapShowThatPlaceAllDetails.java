@@ -29,7 +29,7 @@ import java.util.Locale;
 
 public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
 
-
+    String show_selected_date_data = "";
     HashMap<String, Integer> time_slots_with_price;
     public HashMap<String, String> place_whole_details_hashmap = new HashMap<>();
     HashMap<String, HashMap<String, Integer>> map;
@@ -47,6 +47,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
         String getHashmapPlaceWholeData_String = intent.getStringExtra(Utils.key_whole_place_details);
         place_whole_details_hashmap = Utils.convertStringToHashMap_StringString(getHashmapPlaceWholeData_String);
 
+        recycleview_show_available_time_day_slots = findViewById(R.id.recycleview_show_available_time_day_slots);
         tv_place_name_user_click_on_map = (TextView) findViewById(R.id.tv_place_name_user_click_on_map);
         tv_place_full_address_user_click_on_map = (TextView) findViewById(R.id.tv_place_full_address_user_click_on_map);
         tv_show_calendar_date = (TextView) findViewById(R.id.tv_show_calendar_date);
@@ -58,6 +59,37 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
         String todayDate = dateFormat.format(calendars.getTime());
         tv_show_calendar_date.setText(todayDate);
+
+        show_selected_date_data = todayDate;
+
+       //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        place_whole_details_hashmap.entrySet().forEach(entry -> {
+            // seperating latitude and longitude from key
+            String key = entry.getKey();
+            String remove_forward_space_value = entry.getValue().replace("/", "");
+            String without_slash_value = remove_forward_space_value.replace("\\", "");
+
+            Log.i("test_response", "KEY : "+key);
+            Log.i("test_response", "VALUE : "+without_slash_value);
+
+            if(key.equals("time_slots_converting_hashmap_to_string")){
+                Gson gson = new Gson();
+                Type typeOfHashMap = new TypeToken<HashMap<String, HashMap<String, Integer>>>() {}.getType();
+                map = gson.fromJson(without_slash_value, typeOfHashMap);
+
+            }
+
+            if(key.equals("owner_place_name_string")){
+                tv_place_name_user_click_on_map.setText(remove_forward_space_value);
+            }
+
+            if(key.equals("owner_place_full_address_string")){
+                tv_place_full_address_user_click_on_map.setText(remove_forward_space_value);
+            }
+        });
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
 
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         iv_user_select_calendar.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +105,9 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         String selectedDate = String.format("%02d %s %04d", dayOfMonth, new DateFormatSymbols().getShortMonths()[month], year);
                         tv_show_calendar_date.setText(selectedDate);
+                        show_selected_date_data = selectedDate;
+
+                        setHashmapdata(Utils.getDayfromDate(show_selected_date_data));
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 //                datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis() - 1000);
@@ -88,82 +123,87 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity {
 
 
 
-        place_whole_details_hashmap.entrySet().forEach(entry -> {
-            // seperating latitude and longitude from key
-            String key = entry.getKey();
-            String remove_forward_space_value = entry.getValue().replace("/", "");
-            String without_slash_value = remove_forward_space_value.replace("\\", "");
 
-
-            Log.i("test_response", "KEY : "+key);
-            Log.i("test_response", "VALUE : "+without_slash_value);
-
-            if(key.equals("time_slots_converting_hashmap_to_string")){
-                Gson gson = new Gson();
-                Type typeOfHashMap = new TypeToken<HashMap<String, HashMap<String, Integer>>>() {}.getType();
-                map = gson.fromJson(without_slash_value, typeOfHashMap);
-
-            }
-
-
-            if(key.equals("owner_place_name_string")){
-                tv_place_name_user_click_on_map.setText(remove_forward_space_value);
-            }
-
-            if(key.equals("owner_place_full_address_string")){
-                tv_place_full_address_user_click_on_map.setText(remove_forward_space_value);
-            }
-        });
 
 
         if(map != null) {
+            Log.i("test_response", "map.tostring : "+map.toString());
+
+            // get todays date
+            int dayOfWeek = Utils.getDayfromDate(show_selected_date_data);
+            setHashmapdata(dayOfWeek);
+        }
+    }
 
 
-            // Get today's date
-            Calendar calendar = Calendar.getInstance();
-            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshRecycleview();
+    }
 
-           // Use switch-case to determine the day of the week
+    public void refreshRecycleview(){
+        if(time_slots_with_price != null) {
+
+//         //Initialize RecyclerView and Adapter
+            userClickOnMapSlotsAdapter = new UserClickOnMapSlotsAdapter(time_slots_with_price);
+            recycleview_show_available_time_day_slots.setAdapter(userClickOnMapSlotsAdapter);
+            recycleview_show_available_time_day_slots.setLayoutManager(new GridLayoutManager(this, 2));
+// Call notifyDataSetChanged() on the adapter to refresh the data displayed in the RecyclerView
+            userClickOnMapSlotsAdapter.notifyDataSetChanged();
+// Call invalidate() on the RecyclerView to force it to redraw itself
+            recycleview_show_available_time_day_slots.invalidate();
+
+        }
+    }
+
+
+    public void setHashmapdata(int dayOfWeek){
+        if(map != null) {
+            Log.i("test_response", "map.tostring : "+map.toString());
+
+            // Use switch-case to determine the day of the week
             switch (dayOfWeek) {
                 case Calendar.SUNDAY:
                     // Code for Sunday
-                    time_slots_with_price = map.get("Sunday");
+                    time_slots_with_price = map.get("Sun");
+                    refreshRecycleview();
                     break;
                 case Calendar.MONDAY:
                     // Code for Monday
-                    time_slots_with_price = map.get("Monday");
+                    time_slots_with_price = map.get("Mon");
+                    refreshRecycleview();
                     break;
                 case Calendar.TUESDAY:
                     // Code for Tuesday
-                    time_slots_with_price = map.get("Tuesday");
+                    time_slots_with_price = map.get("Tue");
+                    refreshRecycleview();
                     break;
                 case Calendar.WEDNESDAY:
                     // Code for Wednesday
-                    time_slots_with_price = map.get("Wednesday");
+                    time_slots_with_price = map.get("Wed");
+                    refreshRecycleview();
                     break;
                 case Calendar.THURSDAY:
                     // Code for Thursday
-                    time_slots_with_price = map.get("Thursday");
+                    time_slots_with_price = map.get("Thu");
+                    refreshRecycleview();
                     break;
                 case Calendar.FRIDAY:
                     // Code for Friday
-                    time_slots_with_price = map.get("Friday");
+                    time_slots_with_price = map.get("Fri");
+                    refreshRecycleview();
                     break;
                 case Calendar.SATURDAY:
                     // Code for Saturday
-                    time_slots_with_price = map.get("Saturday");
+                    time_slots_with_price = map.get("Sat");
+                    refreshRecycleview();
+
                     break;
             }
 
 
-            if(time_slots_with_price != null) {
 
-//         //Initialize RecyclerView and Adapter
-                recycleview_show_available_time_day_slots = findViewById(R.id.recycleview_show_available_time_day_slots);
-                userClickOnMapSlotsAdapter = new UserClickOnMapSlotsAdapter(time_slots_with_price);
-                recycleview_show_available_time_day_slots.setAdapter(userClickOnMapSlotsAdapter);
-                recycleview_show_available_time_day_slots.setLayoutManager(new GridLayoutManager(this, 2));
-            }
         }
     }
 }
