@@ -4,6 +4,9 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.BackgroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -283,9 +286,27 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         //-------------------------------------------------------------------------------
 
 
+
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Split the string data into lines
+        String[] lines = selected_time_slots.split("\n");
+
+// Create a SpannableString to store the formatted text
+        SpannableString spannableString = new SpannableString(selected_time_slots);
+
+// Loop through the lines and apply formatting to each line
+        int startIndex = 0;
+        for (String line : lines) {
+            int endIndex = startIndex + line.length(); // calculate the end index of the line
+            // Apply formatting to the line (e.g., draw a rectangle)
+            spannableString.setSpan(new BackgroundColorSpan(getColor(R.color.combo_background_green)), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            startIndex = endIndex + 1; // move the start index to the next line
+        }
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-
+
         tv_selected_date_show_review_dialog.setText(show_selected_date_data);
         tv_booking_review_total_bill.setText(total_bill);
-        tv_booking_review_selected_time_Slots.setText(selected_time_slots);
+        tv_booking_review_selected_time_Slots.setText(spannableString);
 
         booking_review_dialog_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
