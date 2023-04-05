@@ -46,9 +46,21 @@
 
 
         <TextView
+            android:id="@+id/tv_selected_date_show_review_dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="6dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:background="@color/combo_background_green"
+            android:textColor="@color/combo_text_green"
+            android:text="@string/selected_time_slot"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp"
             android:textStyle="bold"
             android:gravity="center"
             android:background="@color/combo_background_green"

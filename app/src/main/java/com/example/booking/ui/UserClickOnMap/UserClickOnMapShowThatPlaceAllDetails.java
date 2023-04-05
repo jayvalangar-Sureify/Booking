@@ -139,7 +139,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
             @Override
             public void onClick(View v) {
                 String get_selected_key = getSelectedTimeSlotsKey();
-                showCustomDialog(get_selected_key, "= "+total_price+" Rs");
+                showCustomDialog(get_selected_key, "= "+total_price+" Rs", show_selected_date_data);
                 total_price = 0;
             }
         });
@@ -157,30 +157,21 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
     }
 
     public String getSelectedTimeSlotsKey() {
-        String selected_time_slots_key = "";
+        StringBuilder stringBuilder = new StringBuilder();
         int i = 0;
         // Loop through the HashMap to check each value
         for (Map.Entry<String, Boolean> entry : mSelectedItems_hashmap.entrySet()) {
             String key = entry.getKey();
             Boolean value = entry.getValue();
+            int slot_price_integer = time_slots_with_price.get(key);
 
             if (value) { // If the value matches the one you are looking for
-                i = i + 1;
-                selected_time_slots_key =
-                        "\n"
-                        + selected_time_slots_key
-                        + "\n"
-                        + i+") "
-                        + key
-                        + " = "
-                        +time_slots_with_price.get(key)
-                        + " Rs"
-                        + "\n -=--=--=--=-=-=-=-=-=-=-=-=-==-= ";
-                Integer slot_price_integer = time_slots_with_price.get(key);
+                    stringBuilder.append(entry.getKey() + " = " +slot_price_integer);
+                    stringBuilder.append("\n"); // Append a newline character to create a new line
                 total_price = total_price + slot_price_integer;
             }
         }
-        return selected_time_slots_key.trim();
+        return stringBuilder.toString();
     }
 
 
@@ -274,16 +265,17 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
 
     //=====================================================================================
-    public void showCustomDialog(String selected_time_slots, String total_bill) {
+    public void showCustomDialog(String selected_time_slots, String total_bill, String show_selected_date_data) {
         Dialog dialog = new Dialog(UserClickOnMapShowThatPlaceAllDetails.this);
         dialog.setContentView(R.layout.booking_review_dialog);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.setCancelable(true);
 
         //-------------------------------------------------------------------------------
-        TextView tv_booking_review_total_bill, tv_booking_review_selected_time_Slots;
+        TextView tv_booking_review_total_bill, tv_booking_review_selected_time_Slots, tv_selected_date_show_review_dialog;
         Button booking_review_dialog_payment, booking_review_dialog_cancel;
 
+        tv_selected_date_show_review_dialog = (TextView) dialog.findViewById(R.id.tv_selected_date_show_review_dialog);
         tv_booking_review_selected_time_Slots = (TextView) dialog.findViewById(R.id.tv_booking_review_selected_time_Slots);
         tv_booking_review_total_bill = (TextView) dialog.findViewById(R.id.tv_booking_review_total_bill);
         booking_review_dialog_cancel = (Button) dialog.findViewById(R.id.booking_review_dialog_cancel);
@@ -291,8 +283,9 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         //-------------------------------------------------------------------------------
 
 
-        tv_booking_review_selected_time_Slots.setText(selected_time_slots);
+        tv_selected_date_show_review_dialog.setText(show_selected_date_data);
         tv_booking_review_total_bill.setText(total_bill);
+        tv_booking_review_selected_time_Slots.setText(selected_time_slots);
 
         booking_review_dialog_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
