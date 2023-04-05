@@ -179,7 +179,13 @@ public class Utils {
     public static HashMap<String, String> convertStringToHashMap_StringString(String jsonString) {
         Gson gson = new Gson();
         Type type = new TypeToken<HashMap<String, String>>(){}.getType();
-        HashMap<String, String> hashMap = gson.fromJson(jsonString, type);
+        HashMap<String, String> hashMap = new HashMap<>();
+        try {
+            hashMap = gson.fromJson(jsonString, type);
+        }catch (Exception e){
+            e.getMessage();
+        }
+
         return hashMap;
     }
 //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
