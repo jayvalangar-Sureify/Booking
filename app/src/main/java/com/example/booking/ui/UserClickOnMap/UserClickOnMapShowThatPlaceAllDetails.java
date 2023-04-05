@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +24,13 @@ import com.example.booking.R;
 import com.example.booking.Utils;
 import com.example.booking.adapter.UserClickOnMapSlotsAdapter;
 import com.example.booking.interfaces.user_timeslot_Selected_OnclickListner;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.common.reflect.TypeToken;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
@@ -31,6 +38,7 @@ import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -50,6 +58,29 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
     Button btn_book_place_from_user;
 
+    //----------------------------------------------------------------------------------------------
+    String value_booking_user_name = "";
+    String value_booking_user_number = "";
+    String value_booking_owner_name = "";
+    String value_booking_time_slot = "";
+    String value_booking_staff_number = "";
+    String value_booking_place_name = "";
+    String value_booking_place_address = "";
+    String value_booking_place_latitude = "";
+    String value_booking_place_longitude = "";
+    //----------------------------------------------------------------------------------------------
+
+
+    //----------------------------------------------------------------------------------------------
+    String get_type_of_login;
+    String userID_string = "", owner_place_ID_string = "";
+    FirebaseAuth firebaseAuth;
+    FirebaseFirestore firebaseFirestore;
+
+    // document_id ==> userid_ownerid_date_time, Hashmap_key ==> time_slot, Hashmap_value ==> whole_details
+    public HashMap<String, HashMap<String, String>> submit_booking_data_from_user_hashmap;
+    //----------------------------------------------------------------------------------------------
+
     private HashMap<String, Boolean> mSelectedItems_hashmap = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +90,13 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         Intent intent=getIntent();
         String getHashmapPlaceWholeData_String = intent.getStringExtra(Utils.key_whole_place_details);
         place_whole_details_hashmap = Utils.convertStringToHashMap_StringString(getHashmapPlaceWholeData_String);
+
+        //----------------------------------------------------------------------------------------------
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        get_type_of_login = Utils.get_SharedPreference_type_of_login(getApplicationContext());
+        userID_string = firebaseAuth.getCurrentUser().getUid();
+        //----------------------------------------------------------------------------------------------
 
         recycleview_show_available_time_day_slots = findViewById(R.id.recycleview_show_available_time_day_slots);
         tv_place_name_user_click_on_map = (TextView) findViewById(R.id.tv_place_name_user_click_on_map);
@@ -80,26 +118,46 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         place_whole_details_hashmap.entrySet().forEach(entry -> {
             // seperating latitude and longitude from key
             String key = entry.getKey();
-            String remove_forward_space_value = entry.getValue().replace("/", "");
-            String without_slash_value = remove_forward_space_value.replace("\\", "");
+            String remove_forward_space = entry.getValue().replace("/", "");
+            String without_slash_hashmap_value = remove_forward_space.replace("\\", "");
 
             Log.i("test_response", "KEY : "+key);
-            Log.i("test_response", "VALUE : "+without_slash_value);
+            Log.i("test_response", "VALUE : "+without_slash_hashmap_value);
 
             if(key.equals("time_slots_converting_hashmap_to_string")){
                 Gson gson = new Gson();
                 Type typeOfHashMap = new TypeToken<HashMap<String, HashMap<String, Integer>>>() {}.getType();
-                map = gson.fromJson(without_slash_value, typeOfHashMap);
+                map = gson.fromJson(without_slash_hashmap_value, typeOfHashMap);
 
+            }
+
+            if(key.equals("owner_place_id_string")){
+                owner_place_ID_string = without_slash_hashmap_value;
             }
 
             if(key.equals("owner_place_name_string")){
-                tv_place_name_user_click_on_map.setText(remove_forward_space_value);
+                tv_place_name_user_click_on_map.setText(without_slash_hashmap_value);
+                value_booking_place_name = without_slash_hashmap_value;
             }
 
             if(key.equals("owner_place_full_address_string")){
-                tv_place_full_address_user_click_on_map.setText(remove_forward_space_value);
+                tv_place_full_address_user_click_on_map.setText(without_slash_hashmap_value);
+                value_booking_place_address = without_slash_hashmap_value;
             }
+
+            if(key.equals("owner_place_latitude")){
+                value_booking_place_latitude = without_slash_hashmap_value;
+            }
+
+            if(key.equals("owner_place_longitude")){
+                value_booking_place_longitude = without_slash_hashmap_value;
+            }
+
+            if(key.equals("owner_place_staff_number_string")){
+                value_booking_staff_number = without_slash_hashmap_value;
+            }
+
+
         });
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -289,14 +347,14 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
         //-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-
 // Split the string data into lines
-        String[] lines = selected_time_slots.split("\n");
+        String[] time_slots_line_by_line_array = selected_time_slots.split("\n");
 
 // Create a SpannableString to store the formatted text
         SpannableString spannableString = new SpannableString(selected_time_slots);
 
 // Loop through the lines and apply formatting to each line
         int startIndex = 0;
-        for (String line : lines) {
+        for (String line : time_slots_line_by_line_array) {
             int endIndex = startIndex + line.length(); // calculate the end index of the line
             // Apply formatting to the line (e.g., draw a rectangle)
             spannableString.setSpan(new BackgroundColorSpan(getColor(R.color.combo_background_green)), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -319,6 +377,32 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         booking_review_dialog_payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String user_id_string = userID_string;
+                String owner_id_string = owner_place_ID_string;
+                String booking_id_string =  owner_id_string+"_"+show_selected_date_data;
+                //----------------------------------------------------------------------------------------------------------
+                LinkedHashMap<String, String> user_owner_place_booking_details_linkedhashmap = new LinkedHashMap<>();
+                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_user_id, booking_id_string);
+                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_owner_id, owner_id_string);
+                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_date, show_selected_date_data);
+                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_staff_number, value_booking_staff_number);
+                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_place_name, value_booking_place_name);
+                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_place_address, value_booking_place_address);
+                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_place_latitude, value_booking_place_latitude);
+                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_place_longitude,value_booking_place_longitude );
+                //----------------------------------------------------------------------------------------------------------
+
+
+                //----------------------------------------------------------------------------------------------------------
+                LinkedHashMap<String, LinkedHashMap<String, String>> linked_hash_map_userid = new LinkedHashMap();
+                linked_hash_map_userid.put(user_id_string, user_owner_place_booking_details_linkedhashmap);
+                //----------------------------------------------------------------------------------------------------------
+
+                //==========================================================================================================
+                submit_booking_details(booking_id_string, show_selected_date_data, time_slots_line_by_line_array, linked_hash_map_userid, user_id_string, owner_id_string);
+                //==========================================================================================================
+
+
                 dialog.dismiss();
             }
         });
@@ -327,6 +411,40 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
     }
     //=====================================================================================
 
+
+
+    //======================================================================================================================================================
+     public void submit_booking_details(String booking_id, String date_string, String[] time_slots_line_by_line_array, LinkedHashMap<String, LinkedHashMap<String,String>> linked_hash_map_userid, String user_id_string, String owner_id_string) {
+
+      //LinkedHashMap< date , LinkedHashMap < time_slots, LinkedHashMap <user_id, LinkedHashMap < String, String>>>>;
+        LinkedHashMap< String , LinkedHashMap < String, LinkedHashMap <String, LinkedHashMap < String, String>>>> document_main_hashMap = new LinkedHashMap<>();
+
+
+         DocumentReference documentRef = firebaseFirestore.collection(Utils.key_place_booking_firestore).document(booking_id);
+
+         // time slots --> userid --> detail_data
+         LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String,String>>> data = new LinkedHashMap<>();
+         for(int i = 0 ; i < time_slots_line_by_line_array.length; i++){
+             data.put(time_slots_line_by_line_array[i], linked_hash_map_userid);
+         }
+
+
+
+         documentRef.set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
+             @Override
+             public void onSuccess(Void aVoid) {
+                 Log.d("TAG", "Document updated/created successfully!");
+             }
+         }).addOnFailureListener(new OnFailureListener() {
+             @Override
+             public void onFailure(@NonNull Exception e) {
+                 Log.d("TAG", "Error updating/creating document: ", e);
+             }
+         });
+
+
+     }
+    //======================================================================================================================================================
 
 
 }

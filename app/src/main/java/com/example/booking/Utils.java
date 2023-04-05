@@ -45,6 +45,23 @@ public class Utils {
     public static String key_sunday = "Sun";
 
 
+    // Booking
+    public static String key_place_booking_firestore = "PlaceBookingDetails";
+    public static String key_booking_user_id = "key_booking_user_id";
+    public static String key_booking_owner_id = "key_booking_user_id";
+    public static String key_booking_date = "key_booking_date";
+    public static String key_booking_user_name = "key_booking_user_name";
+    public static String key_booking_user_number = "key_booking_user_number";
+    public static String key_booking_owner_name = "key_booking_owner_name";
+    public static String key_booking_staff_number = "key_booking_staff_number";
+    public static String key_booking_time_slot = "key_booking_time_slot";
+    public static String key_booking_place_name = "key_booking_place_name";
+    public static String key_booking_place_address = "key_booking_place_address";
+    public static String key_booking_place_latitude = "key_booking_place_latitude";
+    public static String key_booking_place_longitude = "key_booking_place_longitude";
+
+
+
 
     // Firestore User
     public static String key_users_firestore = "Users";
