@@ -268,4 +268,10 @@
     <string name="total_bill">Total Bill</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
+
+    <!--booking details and History -->
+    <string name="upcoming">Upcoming</string>
+    <string name="history">History</string>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
 </resources>
