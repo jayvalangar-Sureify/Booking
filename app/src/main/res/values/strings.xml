@@ -102,12 +102,12 @@
     <string name="error_state_city_district">Enter Valid State, City, District</string>
     <string name="hint_state_city_district">India, Gujarat, Surat</string>
     <string name="enter_address">Enter Place Address</string>
-    <string name="hint_enter_address">A/202, Vashi Plaza, Near Gopi tala</string>
+    <string name="hint_enter_address">A/202, Vashi Plaza, Near Gopi talav</string>
     <string name="error_enter_address">Enter Valid Place Address</string>
     <string name="enter_total_nets_Available">Enter Total Nets available</string>
     <string name="hint_enter_total_nets_Available">2</string>
     <string name="error_enter_total_nets_Available">Enter Valid Total Nets Available</string>
-    <string name="enter_ground_staff_number">Enter Ground Stuff Number</string>
+    <string name="enter_ground_staff_number">Enter Ground Staff Number</string>
     <string name="hint_enter_ground_staff_number">8879912345</string>
     <string name="error_enter_ground_staff_number">Enter Valid Staff Number</string>
     <string name="enter_place_opening_time">Enter Place Opening Time</string>
@@ -256,6 +256,7 @@
     <string name="booked">Booked</string>
     <string name="book">Book</string>
     <string name="price">Price</string>
+    <string name="date_in_word">Date : </string>
     <string name="date">01 May 23</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 

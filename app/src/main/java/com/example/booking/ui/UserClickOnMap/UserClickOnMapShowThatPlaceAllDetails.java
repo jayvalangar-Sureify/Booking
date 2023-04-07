@@ -13,10 +13,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,8 +55,12 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
     private UserClickOnMapSlotsAdapter userClickOnMapSlotsAdapter;
     private RecyclerView recycleview_show_available_time_day_slots;
 
-    TextView tv_place_name_user_click_on_map, tv_place_full_address_user_click_on_map, tv_show_calendar_date;
+    CardView card_view_address;
+
+    TextView tv_place_name_user_click_on_map, tv_address_header, tv_place_name_header, tv_place_full_address_user_click_on_map, tv_show_calendar_date;
     ImageView iv_user_select_calendar;
+
+    LinearLayout ll_address_header, ll_place_name_header, ll_calendar_header;
 
     Button btn_book_place_from_user;
 
@@ -102,9 +108,14 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         tv_place_name_user_click_on_map = (TextView) findViewById(R.id.tv_place_name_user_click_on_map);
         tv_place_full_address_user_click_on_map = (TextView) findViewById(R.id.tv_place_full_address_user_click_on_map);
         tv_show_calendar_date = (TextView) findViewById(R.id.tv_show_calendar_date);
+        tv_place_name_header = (TextView) findViewById(R.id.tv_place_name_header);
         iv_user_select_calendar = (ImageView) findViewById(R.id.iv_user_select_calendar);
         btn_book_place_from_user = (Button) findViewById(R.id.btn_book_place_from_user);
-
+        tv_address_header = (TextView) findViewById(R.id.tv_address_header);
+        card_view_address = (CardView) findViewById(R.id.card_view_address);
+        ll_address_header = (LinearLayout) findViewById(R.id.ll_address_header);
+        ll_place_name_header = (LinearLayout) findViewById(R.id.ll_place_name_header);
+        ll_calendar_header = (LinearLayout) findViewById(R.id.ll_calendar_header);
 
         // Initially give today's date
         Calendar calendars = Calendar.getInstance();
@@ -162,17 +173,44 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        ll_address_header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tv_place_full_address_user_click_on_map.getVisibility() == View.VISIBLE) {
+                    tv_place_full_address_user_click_on_map.setVisibility(View.GONE);
+                } else {
+                    tv_place_full_address_user_click_on_map.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-        iv_user_select_calendar.setOnClickListener(new View.OnClickListener() {
+        ll_place_name_header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tv_place_name_user_click_on_map.getVisibility() == View.VISIBLE) {
+                    tv_place_name_user_click_on_map.setVisibility(View.GONE);
+                } else {
+                    tv_place_name_user_click_on_map.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        ll_calendar_header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 // Initialize calendar instance
                 Calendar calendar = Calendar.getInstance();
 
+
 // Create a Date Picker Dialog and set the date range
-                DatePickerDialog datePickerDialog = new DatePickerDialog(UserClickOnMapShowThatPlaceAllDetails.this, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(UserClickOnMapShowThatPlaceAllDetails.this, R.style.MyDatePickerDialogTheme, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         String selectedDate = String.format("%02d %s %04d", dayOfMonth, new DateFormatSymbols().getShortMonths()[month], year);
@@ -252,7 +290,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 //         //Initialize RecyclerView and Adapter
             userClickOnMapSlotsAdapter = new UserClickOnMapSlotsAdapter(time_slots_with_price, this);
             recycleview_show_available_time_day_slots.setAdapter(userClickOnMapSlotsAdapter);
-            recycleview_show_available_time_day_slots.setLayoutManager(new GridLayoutManager(this, 2));
+            recycleview_show_available_time_day_slots.setLayoutManager(new GridLayoutManager(this, 3));
 // Call notifyDataSetChanged() on the adapter to refresh the data displayed in the RecyclerView
             userClickOnMapSlotsAdapter.notifyDataSetChanged();
 // Call invalidate() on the RecyclerView to force it to redraw itself

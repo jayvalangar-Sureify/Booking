@@ -24,21 +24,25 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@color/combo_background_blue"
+                    app:cardBackgroundColor="@color/combo_text_blue"
                     app:cardCornerRadius="10dp">
 
                     <LinearLayout
+                        android:id="@+id/ll_place_name_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
                         android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_place_name_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
+                        android:drawableRight="@drawable/icon_arrow_down_24"
+                        android:layout_marginStart="4dp"
                         android:textSize="18sp"
-                        android:textColor="@color/combo_text_green"
+                        android:textColor="@color/white"
                         android:text="@string/place_name" />
 
                         <TextView
@@ -47,6 +51,8 @@
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:textSize="18sp"
+                            android:visibility="gone"
+                            android:layout_marginStart="4dp"
                             android:padding="4dp"
                             android:layout_marginTop="4dp"
                             android:background="@color/white"
@@ -61,24 +67,29 @@
 
                 <!-- ============================================================== -->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/card_view_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@color/combo_background_blue"
+                    app:cardBackgroundColor="@color/combo_text_blue"
                     android:layout_marginTop="6dp"
                     app:cardCornerRadius="10dp">
 
                     <LinearLayout
+                        android:id="@+id/ll_address_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="6dp"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_address_header"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textStyle="bold"
                             android:textSize="18sp"
-                            android:textColor="@color/combo_text_green"
+                            android:drawableRight="@drawable/icon_arrow_down_24"
+                            android:layout_marginStart="4dp"
+                            android:textColor="@color/white"
                             android:text="@string/place_address" />
 
                         <TextView
@@ -88,6 +99,8 @@
                             android:textStyle="bold"
                             android:textSize="18sp"
                             android:padding="4dp"
+                            android:visibility="gone"
+                            android:layout_marginStart="4dp"
                             android:layout_marginTop="4dp"
                             android:background="@color/white"
                             android:textColor="@color/combo_text_blue"
@@ -103,35 +116,41 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/combo_background_blue"
+                app:cardBackgroundColor="@color/combo_text_blue"
                 android:layout_marginTop="6dp"
                 app:cardCornerRadius="10dp">
 
             <LinearLayout
+                android:id="@+id/ll_calendar_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="6dp"
+                android:padding="2dp"
                 android:weightSum="3"
                 android:gravity="center"
                 android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_user_select_calendar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/icon_calendar_24"
+                    app:tint="@color/white" />
 
                 <TextView
                     android:id="@+id/tv_show_calendar_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
+                    android:padding="4dp"
                     android:textSize="18sp"
+                    android:gravity="start"
+                    android:drawableRight="@drawable/icon_arrow_down_24"
                     android:layout_weight="2"
-                    android:textColor="@color/combo_text_green"
+                    android:textColor="@color/white"
                     android:text="@string/date" />
 
-                <ImageView
-                    android:id="@+id/iv_user_select_calendar"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/icon_calendar_24"
-                    app:tint="@color/combo_text_blue" />
 
             </LinearLayout>
 
