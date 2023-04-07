@@ -1,37 +1,31 @@
 package com.example.booking.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.booking.R;
-import com.example.booking.interfaces.user_timeslot_Selected_OnclickListner;
+import com.example.booking.Utils;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 
-public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAdapter.ViewHolder> implements user_timeslot_Selected_OnclickListner {
+public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAdapter.ViewHolder> {
 
-    private HashMap<String, Integer> place_slots_details_hashmap;
-    private HashMap<String, Boolean> mSelectedItems = new HashMap<>();
+    private LinkedHashMap<String, Object> place_slots_details_linkedhashmap;
 
-    private user_timeslot_Selected_OnclickListner mListener;
-
-    public BookingDetailsAdapter(HashMap<String, Integer> hasmapData, user_timeslot_Selected_OnclickListner listener) {
-        place_slots_details_hashmap = hasmapData;
-        mListener = listener;
-
-        for (String key : place_slots_details_hashmap.keySet()) {
-            mSelectedItems.put(key, false);
-        }
+    public BookingDetailsAdapter(LinkedHashMap<String, Object> hasmapData) {
+        place_slots_details_linkedhashmap = hasmapData;
     }
 
-    public void setData(HashMap<String, Integer> hasMapdata) {
-        place_slots_details_hashmap = hasMapdata;
+    public void setData(LinkedHashMap<String, Object> hasMapdata) {
+        place_slots_details_linkedhashmap = hasMapdata;
         notifyDataSetChanged();
     }
 
@@ -42,27 +36,67 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
     }
 
     public String getItem(int position) {
-        return place_slots_details_hashmap.keySet().toArray(new String[0])[position];
+        return place_slots_details_linkedhashmap.keySet().toArray(new String[0])[position];
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        int light_green_color = ContextCompat.getColor(holder.itemView.getContext(), R.color.combo_background_green);
-        int light_red_color = ContextCompat.getColor(holder.itemView.getContext(), R.color.background_red);
+        String time_slots_key = (String) place_slots_details_linkedhashmap.keySet().toArray()[position];
+        HashMap<String, String> internal_details = (HashMap<String, String>) place_slots_details_linkedhashmap.get(time_slots_key);
 
-        String time_slots_key = (String) place_slots_details_hashmap.keySet().toArray()[position];
-        Integer price_value = place_slots_details_hashmap.get(time_slots_key);
+
+            holder.tv_booking_details_place_time_slots.setText(time_slots_key);
+
+
+        for (Map.Entry<String, String> entry : internal_details.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+
+
+            if(key.contains(Utils.key_booking_user_id)){
+
+            }
+            if(key.contains(Utils.key_booking_owner_id)){
+
+            }
+            if(key.contains(Utils.key_booking_date)){
+                Log.i("test_date_response", ""+value);
+
+                // Split the date string by space
+                String[] dateParts = value.split(" ");
+
+                // Assign day, month, and year variables
+                String day = dateParts[0];
+                String month = dateParts[1];
+                String year = dateParts[2];
+                holder.tv_date_day.setText(day);
+                holder.tv_date_month.setText(month);
+                holder.tv_date_year.setText(year);
+            }
+            if(key.contains(Utils.key_booking_staff_number)){
+              holder.tv_booking_details_staff_number.setText(value);
+            }
+            if(key.contains(Utils.key_booking_place_name)){
+
+            }
+            if(key.contains(Utils.key_booking_place_address)){
+             holder.tv_booking_details_place_address.setText(value);
+            }
+            if(key.contains(Utils.key_booking_place_latitude)){
+
+            }
+            if(key.contains(Utils.key_booking_place_longitude)){
+
+            }
+
+        }
+
 
     }
 
     @Override
     public int getItemCount() {
-        return place_slots_details_hashmap.size();
-    }
-
-    @Override
-    public void onHashMapClick(HashMap<String, Boolean> hashMap) {
-
+        return place_slots_details_linkedhashmap.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

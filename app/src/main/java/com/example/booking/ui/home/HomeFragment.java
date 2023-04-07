@@ -89,6 +89,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         user_Id_string = firebaseAuth.getCurrentUser().getUid();
+        Log.i("test_response", "HOME FRAGMENT : "+user_Id_string);
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
         // Check user permission

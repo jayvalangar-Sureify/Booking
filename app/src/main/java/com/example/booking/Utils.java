@@ -26,6 +26,16 @@ public class Utils {
     public static String user = "user";
     public static String owner = "owner";
 
+    // booking Details
+//    public static String key_get_Set_booking_user_id = "key_get_Set_booking_user_id";
+//    public static String key_get_Set_booking_place_name = "key_get_Set_booking_place_name";
+//    public static String key_get_Set_booking_place_latitude = "key_get_Set_booking_place_latitude";
+//    public static String key_get_Set_booking_place_longitude = "key_get_Set_booking_place_longitude";
+//    public static String key_get_Set_booking_staff_number = "key_get_Set_booking_staff_number";
+//    public static String key_get_Set_booking_place_address = "key_get_Set_booking_place_address";
+//    public static String key_get_Set_booking_date = "key_get_Set_booking_date";
+
+
     // Intent key
     public static String key_whole_place_details = "key_whole_place_details";
 

@@ -8,20 +8,29 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.booking.Utils;
+import com.example.booking.adapter.BookingDetailsAdapter;
 import com.example.booking.databinding.FragmentBookingDetailsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 
 public class BookingDetailsFragment extends Fragment {
+
+    boolean is_data_taken_from_server = false;
+    boolean is_data_filtering_done = false;
+
+    LinkedHashMap<String, Object> loggedIn_user_data_linked_hashmap = new LinkedHashMap<>();
 
     private FragmentBookingDetailsBinding binding;
 
@@ -50,13 +59,26 @@ public class BookingDetailsFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                            List<DocumentSnapshot> documentSnapshots = task.getResult().getDocuments();
+                            getAllBookingIdData(documentSnapshots);
 
-                                String booking_id = documentSnapshot.getId();
+                            int lastIndex = task.getResult().size() - 1;
+//                            for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+//
+//                                String booking_id = documentSnapshot.getId();
+//
+////                                getAllBookingIdData(documentSnapshot);
+//
+//                                Log.i("test_index_response", ""+documentSnapshots.indexOf(documentSnapshot));
+//
+//
+//                                // Check if this is the last iteration
+//                                if (documentSnapshots.indexOf(documentSnapshot) == lastIndex) {
+//                                    is_data_taken_from_server = true;
+//                                }
+//
+//                            }
 
-                                getAllBookingIdData(documentSnapshot);
-
-                            }
                         } else {
                             Log.i("test_response", "Error getting documents: ", task.getException());
                         }
@@ -129,56 +151,75 @@ public class BookingDetailsFragment extends Fragment {
 //                });
 //        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-==-=-=
 
-
-        //------------------------------------------------------------------------------------------
-//        BookingDetailsAdapter adapter = new BookingDetailsAdapter(data);
-//        binding.bookingDetailsRecycleView.setAdapter(adapter);
-        //------------------------------------------------------------------------------------------
-
-        return root;
+            return root;
     }
 
 
 
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-    private void getAllBookingIdData(QueryDocumentSnapshot documentSnapshot) {
+    private void getAllBookingIdData(List<DocumentSnapshot> documentSnapshot) {
         //------------------------------------------------------------------------------------
-        Map<String, Object> bookingData = documentSnapshot.getData();
-        for (Map.Entry<String, Object> bookingEntry : bookingData.entrySet()) {
-            // Get the booking time slot
-            String timeSlot = bookingEntry.getKey();
-            Log.d("TAG", "Time slot: " + timeSlot);
+       for(int i = 0; i < documentSnapshot.size(); i++) {
+           Map<String, Object> bookingData = documentSnapshot.get(i).getData();
+           for (Map.Entry<String, Object> bookingEntry : bookingData.entrySet()) {
+               // Get the booking time slot
+               String timeSlot = bookingEntry.getKey();
+               Log.d("TAG", "Time slot: " + timeSlot);
 
-            // Get the nested booking data
-            Map<String, Object> bookingDetails = (Map<String, Object>) bookingEntry.getValue();
-            for (Map.Entry<String, Object> bookingDetailsEntry : bookingDetails.entrySet()) {
-                // Get the booking ID
-                String bookingId = bookingDetailsEntry.getKey();
-                Log.d("TAG", "Booking ID: " + bookingId);
+               // Get the nested booking data
+               Map<String, Object> bookingDetails = (Map<String, Object>) bookingEntry.getValue();
+               for (Map.Entry<String, Object> bookingDetailsEntry : bookingDetails.entrySet()) {
+                   // Get the booking ID
+                   String bookingId = bookingDetailsEntry.getKey();
+                   Log.d("test_special_response", "USERRRRRR_IDDDDDDDDDDDD :- " + bookingId);
 
-                // Get the nested booking data
-                Map<String, Object> booking = (Map<String, Object>) bookingDetailsEntry.getValue();
-
-                // Get the booking fields
-                String userId = (String) booking.get("key_booking_user_id");
-                String placeName = (String) booking.get("key_booking_place_name");
-                Double latitude = Double.valueOf((String) booking.get("key_booking_place_latitude"));
-                Double longitude = Double.valueOf((String) booking.get("key_booking_place_longitude"));
-                String staffNumber = (String) booking.get("key_booking_staff_number");
-                String placeAddress = (String) booking.get("key_booking_place_address");
-                String bookingDate = (String) booking.get("key_booking_date");
+                   // Get the nested booking data
+                   Map<String, Object> booking = (Map<String, Object>) bookingDetailsEntry.getValue();
 
 
-                // Log the booking fields
-                Log.d("TAG", "User ID: " + userId);
-                Log.d("TAG", "Place Name: " + placeName);
-                Log.d("TAG", "Latitude: " + latitude);
-                Log.d("TAG", "Longitude: " + longitude);
-                Log.d("TAG", "Staff Number: " + staffNumber);
-                Log.d("TAG", "Place Address: " + placeAddress);
-                Log.d("TAG", "Booking Date: " + bookingDate);
-            }
-        }
+                   Log.d("sajahfsal", "user_Id_string = " + user_Id_string);
+                   Log.d("sajahfsal", "bookingId = " + bookingId);
+
+                   if (user_Id_string.contains(bookingId)) {
+                       loggedIn_user_data_linked_hashmap.put(timeSlot, booking);
+                   }
+
+
+                   // Get the booking fields
+                   String userId = (String) booking.get("key_booking_user_id");
+                   String placeName = (String) booking.get("key_booking_place_name");
+                   Double latitude = Double.valueOf((String) booking.get("key_booking_place_latitude"));
+                   Double longitude = Double.valueOf((String) booking.get("key_booking_place_longitude"));
+                   String staffNumber = (String) booking.get("key_booking_staff_number");
+                   String placeAddress = (String) booking.get("key_booking_place_address");
+                   String bookingDate = (String) booking.get("key_booking_date");
+
+
+                   Log.d("test_response", user_Id_string + " == " + userId);
+
+                   // Log the booking fields
+                   Log.d("TAG", "User ID: " + userId);
+                   Log.d("TAG", "Place Name: " + placeName);
+                   Log.d("TAG", "Latitude: " + latitude);
+                   Log.d("TAG", "Longitude: " + longitude);
+                   Log.d("TAG", "Staff Number: " + staffNumber);
+                   Log.d("TAG", "Place Address: " + placeAddress);
+                   Log.d("TAG", "Booking Date: " + bookingDate);
+               }
+           }
+       }
+
+        //------------------------------------------------------------------------------------------
+        BookingDetailsAdapter adapter = new BookingDetailsAdapter(loggedIn_user_data_linked_hashmap);
+        binding.bookingDetailsRecycleView.setAdapter(adapter);
+        binding.bookingDetailsRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+// Call notifyDataSetChanged() on the adapter to refresh the data displayed in the RecyclerView
+        adapter.notifyDataSetChanged();
+// Call invalidate() on the RecyclerView to force it to redraw itself
+        binding.bookingDetailsRecycleView.invalidate();
+        //------------------------------------------------------------------------------------------
+
+
 
         //------------------------------------------------------------------------------------
     }
