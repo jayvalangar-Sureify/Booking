@@ -44,8 +44,12 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
         String time_slots_key = (String) place_slots_details_linkedhashmap.keySet().toArray()[position];
         HashMap<String, String> internal_details = (HashMap<String, String>) place_slots_details_linkedhashmap.get(time_slots_key);
 
+        String[] parts = time_slots_key.split(" = ");
+        String timeRange = parts[0];
+        String price = parts[1];
 
-            holder.tv_booking_details_place_time_slots.setText(time_slots_key);
+
+        holder.tv_booking_details_place_time_slots.setText(timeRange + " (" + price +" Rs)");
 
 
         for (Map.Entry<String, String> entry : internal_details.entrySet()) {

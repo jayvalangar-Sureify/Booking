@@ -274,6 +274,7 @@
     <!--booking details and History -->
     <string name="upcoming">Upcoming</string>
     <string name="history">History</string>
+    <string name="contact_details">Contact</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
 </resources>

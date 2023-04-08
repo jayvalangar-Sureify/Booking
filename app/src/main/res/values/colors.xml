@@ -25,6 +25,8 @@
     <color name="combo_text_blue">#00264D</color>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
+    <color name="spring_green">#00FF7F</color>
+
     <!-- Grey -->
     <color name="grey_1">#a6a6a6</color>
     <color name="grey_2">#999999</color>
