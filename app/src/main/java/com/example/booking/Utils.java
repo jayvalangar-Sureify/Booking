@@ -108,6 +108,7 @@ public class Utils {
     public static String map_key_owner_default_per_hour_rent = "Owner_Place_Default_Per_Hour_Rent";
     public static String map_key_owner_place_total_hours_open = "Owner_Place_Total_Hours_Open";
     public static String map_key_owner_place_day_hour_rent_hashmap = "Owner_Place_day_hour_rent";
+    public static String key_owner_PlaceBookingDateTimeUserDetails_hashmap= "PlaceBookingDateTimeUserDetails";
 
 
 

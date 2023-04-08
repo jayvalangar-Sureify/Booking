@@ -460,10 +460,19 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
          DocumentReference documentRef = firebaseFirestore.collection(Utils.key_place_booking_firestore).document(booking_id);
 
+         //-----------------------------------------------------------------------------------------------------------
+         // to submit time-slot book or pending add into owner place
+         LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, String>>> bookingslotkey_date_time_userid_linkedhashmap = new LinkedHashMap<>();
+         LinkedHashMap<String, LinkedHashMap<String, String>> date_time_userid_linkedhashmap = new LinkedHashMap<>();
+         LinkedHashMap<String, String> time_userid_linkedhashmap = new LinkedHashMap<>();
+         //-----------------------------------------------------------------------------------------------------------
+
+
          // time slots --> userid --> detail_data
          LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String,String>>> data = new LinkedHashMap<>();
          for(int i = 0 ; i < time_slots_line_by_line_array.length; i++){
              data.put(time_slots_line_by_line_array[i], linked_hash_map_userid);
+             time_userid_linkedhashmap.put(time_slots_line_by_line_array[i], user_id_string);
          }
 
 
@@ -479,6 +488,29 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
                  Log.d("TAG", "Error updating/creating document: ", e);
              }
          });
+
+
+         // submit timeslots to OwnerPlaces collection also for mark red and green
+         //-----------------------------------------------------------------------------------------
+         // adding data
+         date_time_userid_linkedhashmap.put(date_string, time_userid_linkedhashmap);
+         // now add to under one key
+         bookingslotkey_date_time_userid_linkedhashmap.put(Utils.key_owner_PlaceBookingDateTimeUserDetails_hashmap, date_time_userid_linkedhashmap);
+
+
+         DocumentReference ownerplace_documentRef = firebaseFirestore.collection(Utils.key_ownerplace_firestore).document(owner_id_string);
+         ownerplace_documentRef.set(bookingslotkey_date_time_userid_linkedhashmap, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
+             @Override
+             public void onSuccess(Void aVoid) {
+                 Log.d("TAG", "Document updated/created successfully!");
+             }
+         }).addOnFailureListener(new OnFailureListener() {
+             @Override
+             public void onFailure(@NonNull Exception e) {
+                 Log.d("TAG", "Error updating/creating document: ", e);
+             }
+         });
+         //-----------------------------------------------------------------------------------------
 
 
      }
