@@ -1,9 +1,12 @@
 package com.example.booking.adapter;
 
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
@@ -20,6 +23,7 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
     HashMap<String, HashMap<String, String>> get_is_already_booking_done_date_time_userid_hahmap;
     private HashMap<String, Integer> place_slots_details_hashmap;
     private HashMap<String, Boolean> mSelectedItems = new HashMap<>();
+    private HashMap<String, Boolean> mAlreadyBookedItems = new HashMap<>();
 
     private user_timeslot_Selected_OnclickListner mListener;
 
@@ -31,6 +35,7 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
 
         for (String key : place_slots_details_hashmap.keySet()) {
             mSelectedItems.put(key, false);
+            mAlreadyBookedItems.put(key, false);
         }
 
         readIsAlreadySlotsBooked();
@@ -46,8 +51,7 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
                     String timeRange_only = get_book_timeslot_key.substring(0, 14).trim();
                     String get_place_booked_userid_value = timeslots_userid_innerMap.get(get_book_timeslot_key);
 
-                    mSelectedItems.put(timeRange_only, true);
-
+                    mAlreadyBookedItems.put(timeRange_only, true);
                     // do something with the value, for example:
                     System.out.println("Outer key: " + get_booked_date_key + ", Inner key: " + timeRange_only + ", Value: " + get_place_booked_userid_value);
                 }
@@ -74,6 +78,8 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
     public void onBindViewHolder(ViewHolder holder, int position) {
         int light_green_color = ContextCompat.getColor(holder.itemView.getContext(), R.color.combo_background_green);
         int light_red_color = ContextCompat.getColor(holder.itemView.getContext(), R.color.background_red);
+        int light_grey_color = ContextCompat.getColor(holder.itemView.getContext(), R.color.grey_1);
+
 
         String time_slots_key = (String) place_slots_details_hashmap.keySet().toArray()[position];
         Integer price_value = place_slots_details_hashmap.get(time_slots_key);
@@ -84,24 +90,43 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
         holder.tv_show_place_time_slots_price.setText(price_value.toString() + " Rs");
 
 
-        if (mSelectedItems.get(time_slots_key)) {
-            holder.card_view_show_user_time_slots.setBackgroundColor(light_red_color);
-        } else {
-            holder.card_view_show_user_time_slots.setBackgroundColor(light_green_color);
-        }
+
+            if(mAlreadyBookedItems.get(time_slots_key)){
+                holder.card_view_show_user_time_slots.setBackgroundColor(light_grey_color);
+            }else{
+                if (mSelectedItems.get(time_slots_key)) {
+                    holder.card_view_show_user_time_slots.setBackgroundColor(light_red_color);
+                }else {
+                    holder.card_view_show_user_time_slots.setBackgroundColor(light_green_color);
+                }
+            }
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Toggle the selected state of the current item
-                mSelectedItems.put(time_slots_key, !mSelectedItems.get(time_slots_key));
-                // Update the background color of the CardView based on its selected state
-                if (mSelectedItems.get(time_slots_key)) {
-                    holder.card_view_show_user_time_slots.setBackgroundColor(light_red_color);
-                } else {
-                    holder.card_view_show_user_time_slots.setBackgroundColor(light_green_color);
+                CardView cardView = holder.card_view_show_user_time_slots;
+                Drawable backgroundDrawable = cardView.getBackground();
+                int card_backgroundColor = 0;
+
+                if (backgroundDrawable instanceof ColorDrawable) {
+                    card_backgroundColor = ((ColorDrawable) backgroundDrawable).getColor();
                 }
 
-                mListener.onHashMapClick(mSelectedItems);
+                if(card_backgroundColor != light_grey_color) {
+                    // Toggle the selected state of the current item
+                    mSelectedItems.put(time_slots_key, !mSelectedItems.get(time_slots_key));
+                    // Update the background color of the CardView based on its selected state
+                    if (mSelectedItems.get(time_slots_key)) {
+                        holder.card_view_show_user_time_slots.setBackgroundColor(light_red_color);
+                    } else {
+                        holder.card_view_show_user_time_slots.setBackgroundColor(light_green_color);
+                    }
+
+                    mListener.onHashMapClick(mSelectedItems);
+                }else {
+                    Toast.makeText(holder.itemView.getContext(),"Sorry, Already Booked", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
