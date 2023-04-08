@@ -6,17 +6,36 @@
     android:layout_height="match_parent"
     tools:context=".ui.booking.BookingDetailsFragment">
 
-    <ProgressBar
-        android:id="@+id/progressbar_booking_details_fragment"
+
+    <RelativeLayout
+        android:id="@+id/rl_progressbar_booking_details_fragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:padding="10dp"
         android:visibility="gone"
-        android:padding="20dp"
-        android:background="@color/combo_background_blue"
-        android:indeterminateTint="@color/combo_text_blue"
-        />
+        android:background="@color/combo_text_blue">
 
+        <ProgressBar
+            android:id="@+id/progressbar_booking_details_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="20dp"
+            android:indeterminateTint="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/progress_text"
+            android:layout_below="@+id/progressbar_booking_details_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wait"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"/>
+
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/ll_header"
         android:layout_width="match_parent"

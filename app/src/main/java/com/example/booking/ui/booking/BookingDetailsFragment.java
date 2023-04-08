@@ -52,7 +52,7 @@ public class BookingDetailsFragment extends Fragment {
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
-        binding.progressbarBookingDetailsFragment.setVisibility(View.VISIBLE);
+        binding.rlProgressbarBookingDetailsFragment.setVisibility(View.VISIBLE);
 
         firebaseFirestore.collection(Utils.key_place_booking_firestore)
                 .get()
@@ -154,7 +154,7 @@ public class BookingDetailsFragment extends Fragment {
         //------------------------------------------------------------------------------------------
 
 
-        binding.progressbarBookingDetailsFragment.setVisibility(View.GONE);
+        binding.rlProgressbarBookingDetailsFragment.setVisibility(View.GONE);
         //------------------------------------------------------------------------------------
     }
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
