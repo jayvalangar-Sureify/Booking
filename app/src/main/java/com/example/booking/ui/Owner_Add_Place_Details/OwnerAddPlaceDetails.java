@@ -189,7 +189,7 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
 
 
                 // Now start progressbar
-                binding.addPlaceProgressBar.setVisibility(View.VISIBLE);
+                binding.rlAddPlaceDetailsProgressbar.setVisibility(View.VISIBLE);
 
 
 
@@ -243,7 +243,7 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                                 }
                                 //------------------------------------------------------------------------------------------------------------------------------------
 
-                        binding.addPlaceProgressBar.setVisibility(View.GONE);
+                        binding.rlAddPlaceDetailsProgressbar.setVisibility(View.GONE);
                     }
         });
 
@@ -266,7 +266,7 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                     int length = charSequence.length();
                     if (length == 6) {
                         // start searching state, city, country
-                        binding.addPlaceProgressBar.setVisibility(View.VISIBLE);
+                        binding.rlAddPlaceDetailsProgressbar.setVisibility(View.VISIBLE);
                         find_district_city_country(charSequence.toString());
                     }
                 }
@@ -317,10 +317,10 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                         binding.etOwnerAddPlaceDistrictCityCountry.setText("");
                         Toast.makeText(OwnerAddPlaceDetails.this, "Enter Valid Pincode", Toast.LENGTH_LONG).show();
                     }
-                    binding.addPlaceProgressBar.setVisibility(View.GONE);
+                    binding.rlAddPlaceDetailsProgressbar.setVisibility(View.GONE);
                 } else {
                     // Handle the error here
-                    binding.addPlaceProgressBar.setVisibility(View.GONE);
+                    binding.rlAddPlaceDetailsProgressbar.setVisibility(View.GONE);
                     binding.etOwnerAddPlaceDistrictCityCountry.setText("");
                     Toast.makeText(OwnerAddPlaceDetails.this, "Enter Valid Pincode", Toast.LENGTH_LONG).show();
 
@@ -330,7 +330,7 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<PincodeModel>> call, Throwable t) {
                 // Handle the error here
-                binding.addPlaceProgressBar.setVisibility(View.GONE);
+                binding.rlAddPlaceDetailsProgressbar.setVisibility(View.GONE);
                 t.getMessage();
             }
         });
