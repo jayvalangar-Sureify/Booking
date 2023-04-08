@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -446,7 +447,11 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
                 //----------------------------------------------------------------------------------------------------------
 
                 //==========================================================================================================
-                submit_booking_details(booking_id_string, show_selected_date_data, time_slots_line_by_line_array, linked_hash_map_userid, user_id_string, owner_id_string);
+                if (time_slots_line_by_line_array[0] != "") {
+                    submit_booking_details(booking_id_string, show_selected_date_data, time_slots_line_by_line_array, linked_hash_map_userid, user_id_string, owner_id_string);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Select atleast one time slots !", Toast.LENGTH_SHORT).show();
+                }
                 //==========================================================================================================
 
 
