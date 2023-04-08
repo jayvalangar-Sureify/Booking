@@ -1,6 +1,7 @@
 package com.example.booking;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -53,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationView navigationView = binding.navView;
         DrawerLayout drawer = binding.drawerLayout;
+        int blue_text_color = ContextCompat.getColor(getApplicationContext(), R.color.combo_text_blue);
+        navigationView.setItemTextColor(ColorStateList.valueOf(blue_text_color));
+        navigationView.setItemIconTintList(ColorStateList.valueOf(blue_text_color));
 
         View headerView = navigationView.getHeaderView(0);
         TextView tv_nav_header_user_name = (TextView) headerView.findViewById(R.id.tv_nav_header_user_name);

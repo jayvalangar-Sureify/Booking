@@ -22,8 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@string/nav_header_desc"
-        app:srcCompat="@drawable/icon_user"
-          app:tint="@color/combo_text_green" />
+        app:srcCompat="@drawable/icon_user" />
 
         <TextView
             android:id="@+id/tv_nav_header_login_type"
@@ -34,7 +33,7 @@
             android:gravity="center"
             android:layout_marginTop="6dp"
             android:textSize="20sp"
-            android:textColor="@color/combo_text_blue"
+            android:textColor="@color/white"
             android:text="@string/user" />
 
         <TextView
@@ -46,7 +45,7 @@
             android:gravity="center"
             android:layout_marginTop="6dp"
             android:textSize="20sp"
-            android:textColor="@color/combo_text_blue"
+            android:textColor="@color/white"
             android:text="@string/enter_user_name" />
 
 
