@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.BackgroundColorSpan;
@@ -526,6 +527,24 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
          });
          //-----------------------------------------------------------------------------------------
 
+         //------------------------------------------------------------------------------------------
+         // show success dialog
+         final Dialog dialog = new Dialog(UserClickOnMapShowThatPlaceAllDetails.this);
+         dialog.setContentView(R.layout.booking_done_success_dialog);
+         dialog.setCancelable(false);
+
+         dialog.show();
+
+        // Dismiss the dialog after 5 seconds
+         new Handler().postDelayed(new Runnable() {
+             @Override
+             public void run() {
+                 dialog.dismiss();
+                 onBackPressed();
+                 finish();
+             }
+         }, 2000); // 5000 milliseconds = 5 seconds
+         //------------------------------------------------------------------------------------------
 
      }
     //======================================================================================================================================================
