@@ -143,7 +143,14 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
         holder.cv_booking_details_staff_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                try {
+                    String phoneNumber = holder.tv_booking_details_staff_number.getText().toString().trim();
+                    Uri uri = Uri.parse("tel:" + phoneNumber);
+                    Intent intent = new Intent(Intent.ACTION_DIAL, uri);
+                    holder.itemView.getContext().startActivity(intent);
+                }catch (Exception e){
+                    e.getMessage();
+                }
             }
         });
     }
