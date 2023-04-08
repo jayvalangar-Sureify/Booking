@@ -104,7 +104,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                 }
 
                 // Now start progressbar
-                binding.loginProgressbar.setVisibility(View.VISIBLE);
+                binding.rlLoginProgressbar.setVisibility(View.VISIBLE);
 
                 binding.btnLogin.setEnabled(false);
 
@@ -177,11 +177,11 @@ public class LoginScreenActivity extends AppCompatActivity {
                                     });
                             //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-=-=-=-==-=-=
 
-                            binding.loginProgressbar.setVisibility(View.VISIBLE);
+                            binding.rlLoginProgressbar.setVisibility(View.VISIBLE);
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 public void run() {
-                                    binding.loginProgressbar.setVisibility(View.GONE);
+                                    binding.rlLoginProgressbar.setVisibility(View.GONE);
                                     // Redirect Successful Login
                                     //----------------------------------------------------------------------
                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -193,7 +193,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                         }else{
 
                             // Progressbar gone
-                            binding.loginProgressbar.setVisibility(View.GONE);
+                            binding.rlLoginProgressbar.setVisibility(View.GONE);
                             binding.btnLogin.setEnabled(true);
                             binding.tvLoginErrorDisplay.setText("Error : "+task.getException().getMessage());
                         }

@@ -203,16 +203,36 @@
     </RelativeLayout>
 
 
-        <ProgressBar
-            android:id="@+id/login_progressbar"
+        <RelativeLayout
+            android:id="@+id/rl_login_progressbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:layout_centerInParent="true"
-            android:padding="20dp"
-            android:background="@color/combo_background_blue"
-            android:indeterminateTint="@color/combo_text_blue"
-            />
+            android:padding="10dp"
+            android:visibility="gone"
+            android:background="@color/combo_text_blue">
+
+            <ProgressBar
+                android:id="@+id/login_progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="20dp"
+                android:indeterminateTint="@color/white"
+                />
+
+            <TextView
+                android:id="@+id/progress_text"
+                android:layout_below="@+id/login_progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wait"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"/>
+
+        </RelativeLayout>
+
 
     <Button
         android:id="@+id/btn_login"

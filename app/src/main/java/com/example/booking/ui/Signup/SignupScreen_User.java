@@ -115,7 +115,7 @@ public class SignupScreen_User extends AppCompatActivity {
 
 
                 // Now start progressbar
-                binding.signupProgressbar.setVisibility(View.VISIBLE);
+                binding.rlSignupProgressbar.setVisibility(View.VISIBLE);
 
                 binding.btnSignup.setEnabled(false);
 
@@ -146,11 +146,11 @@ public class SignupScreen_User extends AppCompatActivity {
                                             Log.i("test_response", "Data added successfully entered on FIRESTORE");
                                             Utils.set_SharedPreference_owner_completed_add_placele_procedure("0", getApplicationContext());
 
-                                            binding.signupProgressbar.setVisibility(View.VISIBLE);
+                                            binding.rlSignupProgressbar.setVisibility(View.VISIBLE);
                                             Handler handler = new Handler();
                                             handler.postDelayed(new Runnable() {
                                                 public void run() {
-                                                    binding.signupProgressbar.setVisibility(View.GONE);
+                                                    binding.rlSignupProgressbar.setVisibility(View.GONE);
                                                     // Signing Successful Redirect to Dashboard
                                                     //------------------------------------------------------------------------------------------------------------------------------------
                                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -193,11 +193,11 @@ public class SignupScreen_User extends AppCompatActivity {
                                             Log.i("test_response", "Data added successfully entered on FIRESTORE");
                                             Utils.set_SharedPreference_owner_completed_add_placele_procedure("0", getApplicationContext());
 
-                                            binding.signupProgressbar.setVisibility(View.VISIBLE);
+                                            binding.rlSignupProgressbar.setVisibility(View.VISIBLE);
                                             Handler handler = new Handler();
                                             handler.postDelayed(new Runnable() {
                                                 public void run() {
-                                                    binding.signupProgressbar.setVisibility(View.GONE);
+                                                    binding.rlSignupProgressbar.setVisibility(View.GONE);
                                                     // Signing Successful Redirect to Dashboard
                                                     //------------------------------------------------------------------------------------------------------------------------------------
                                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -232,7 +232,7 @@ public class SignupScreen_User extends AppCompatActivity {
                         }
 
 
-                        binding.signupProgressbar.setVisibility(View.GONE);
+                        binding.rlSignupProgressbar.setVisibility(View.GONE);
                     }
                 });
             }
