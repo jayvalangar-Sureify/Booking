@@ -13,7 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,7 +48,7 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
     //-----------------------------------------------------------------------------------------------------------------------------
     EditText et_default_rent, et_place_rent_00a_01a, et_place_rent_01a_02a, et_place_rent_02a_03a, et_place_rent_03a_04a, et_place_rent_04a_05a, et_place_rent_05a_06a, et_place_rent_06a_07a, et_place_rent_07a_08a, et_place_rent_08a_09a, et_place_rent_09a_10a, et_place_rent_10a_11a, et_place_rent_11a_12p, et_place_rent_12p_01p, et_place_rent_01p_02p, et_place_rent_02p_03p, et_place_rent_03p_04p, et_place_rent_04p_05p, et_place_rent_05p_06p, et_place_rent_06p_07p, et_place_rent_07p_08p, et_place_rent_08p_09p, et_place_rent_09p_10p, et_place_rent_10p_11p, et_place_rent_11p_12a;
     TextView tv_error_rent_hour_dat_activity;
-    ProgressBar progressbar_rent_hour_day;
+    RelativeLayout rl_progressbar_rent_hour_dayr;
     Button btn_add_place_rent, btn_done_save_all_Rent, btn_review_all_day_rents;
     public static HashMap<String, Integer> days_selected_hashmap = new HashMap<>();
     //-----------------------------------------------------------------------------------------------------------------------------
@@ -105,7 +105,7 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
 
         tv_error_rent_hour_dat_activity = findViewById(R.id.tv_error_rent_hour_dat_activity);
 
-        progressbar_rent_hour_day = findViewById(R.id.progressbar_rent_hour_day);
+        rl_progressbar_rent_hour_dayr = findViewById(R.id.rl_progressbar_rent_hour_dayr);
 
         et_default_rent = findViewById(R.id.et_default_rent);
         et_place_rent_00a_01a = findViewById(R.id.et_place_rent_00a_01a);
@@ -469,7 +469,7 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
                 }
 
 
-                progressbar_rent_hour_day.setVisibility(View.VISIBLE);
+                rl_progressbar_rent_hour_dayr.setVisibility(View.VISIBLE);
 
                 String current_text_on_button = btn_add_place_rent.getText().toString();
 
@@ -534,7 +534,7 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
 
 
                 Toast.makeText(getApplicationContext(), "Data Added Successfully !", Toast.LENGTH_LONG).show();
-                progressbar_rent_hour_day.setVisibility(View.GONE);
+                rl_progressbar_rent_hour_dayr.setVisibility(View.GONE);
             }
         });
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

@@ -7,16 +7,38 @@
     android:layout_height="match_parent"
     tools:context=".ui.OwnerPlaceRentDayTime.OwnerPlaceRentDayTimeWise">
 
-    <ProgressBar
-        android:id="@+id/progressbar_rent_hour_day"
+
+    <RelativeLayout
+        android:id="@+id/rl_progressbar_rent_hour_dayr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:layout_centerInParent="true"
-        android:padding="20dp"
-        android:background="@color/combo_background_blue"
-        android:indeterminateTint="@color/combo_text_blue"
-        />
+        android:padding="10dp"
+        android:visibility="gone"
+        android:background="@color/combo_text_blue">
+
+
+        <ProgressBar
+            android:id="@+id/progressbar_rent_hour_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="20dp"
+            android:indeterminateTint="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/progress_text"
+            android:layout_below="@+id/progressbar_rent_hour_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wait"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"/>
+
+    </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/ll_place_rent_top"
