@@ -124,7 +124,21 @@
                            android:padding="2dp"
                            android:orientation="horizontal">
 
-                       <TextView
+                           <TextView
+                               android:id="@+id/tv_latitude_longitude_hide"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:layout_gravity="center"
+                               android:background="@color/white"
+                               android:layout_margin="6dp"
+                               android:padding="2dp"
+                               android:visibility="gone"
+                               android:textStyle="bold"
+                               android:textSize="16sp"
+                               android:textColor="@color/combo_text_blue"
+                               android:text="" />
+
+                           <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
