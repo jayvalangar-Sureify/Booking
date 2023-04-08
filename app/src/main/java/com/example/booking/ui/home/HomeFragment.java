@@ -41,6 +41,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -206,6 +207,13 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                                     //-------------------------------------------------------------------------------------------------------------------------------------
 
 
+                                    // Converting booking timeslots into string
+                                    //-------------------------------------------------------------------------------------------------------------------------------------
+                                    HashMap<String, HashMap<String, String>> booking_done_timeslots_with_userid_detals_hashmap = (HashMap<String, HashMap<String, String>>)  document.getData().get(Utils.key_owner_PlaceBookingDateTimeUserDetails_hashmap);
+                                    String booking_done_time_slots_converting_hashmap_to_string = new Gson().toJson(booking_done_timeslots_with_userid_detals_hashmap);
+                                    //-------------------------------------------------------------------------------------------------------------------------------------
+
+
                                     // storing whole place details into hashmap
                                     //-------------------------------------------------------------------------------------------------------------------------------------
                                     HashMap<String, String> temp_data_taking_in_hashmap = new HashMap<>();
@@ -220,6 +228,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                                     temp_data_taking_in_hashmap.put("owner_place_total_nets_string", owner_place_total_nets_string);
                                     temp_data_taking_in_hashmap.put("owner_place_staff_number_string", owner_place_staff_number_string);
                                     temp_data_taking_in_hashmap.put("time_slots_converting_hashmap_to_string", time_slots_converting_hashmap_to_string);
+                                    temp_data_taking_in_hashmap.put("booking_done_time_slots_converting_hashmap_to_string", booking_done_time_slots_converting_hashmap_to_string);
                                     //-------------------------------------------------------------------------------------------------------------------------------------
 
 

@@ -16,17 +16,42 @@ import java.util.HashMap;
 
 public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOnMapSlotsAdapter.ViewHolder> implements user_timeslot_Selected_OnclickListner {
 
+    String user_selected_date_string;
+    HashMap<String, HashMap<String, String>> get_is_already_booking_done_date_time_userid_hahmap;
     private HashMap<String, Integer> place_slots_details_hashmap;
     private HashMap<String, Boolean> mSelectedItems = new HashMap<>();
 
     private user_timeslot_Selected_OnclickListner mListener;
 
-    public UserClickOnMapSlotsAdapter(HashMap<String, Integer> hasmapData, user_timeslot_Selected_OnclickListner listener) {
+    public UserClickOnMapSlotsAdapter(HashMap<String, Integer> hasmapData, String user_selected_date_string, HashMap<String, HashMap<String, String>> get_is_already_booking_done_date_time_userid_hahmap, user_timeslot_Selected_OnclickListner listener) {
         place_slots_details_hashmap = hasmapData;
         mListener = listener;
+        this.get_is_already_booking_done_date_time_userid_hahmap = get_is_already_booking_done_date_time_userid_hahmap;
+        this.user_selected_date_string = user_selected_date_string;
 
         for (String key : place_slots_details_hashmap.keySet()) {
             mSelectedItems.put(key, false);
+        }
+
+        readIsAlreadySlotsBooked();
+    }
+
+    private void readIsAlreadySlotsBooked() {
+        // assuming the HashMap is stored in a variable called 'outerMap'
+        for (String get_booked_date_key : get_is_already_booking_done_date_time_userid_hahmap.keySet()) {
+
+            if(get_booked_date_key.contains(user_selected_date_string)) {
+                HashMap<String, String> timeslots_userid_innerMap = get_is_already_booking_done_date_time_userid_hahmap.get(get_booked_date_key);
+                for (String get_book_timeslot_key : timeslots_userid_innerMap.keySet()) {
+                    String timeRange_only = get_book_timeslot_key.substring(0, 14).trim();
+                    String get_place_booked_userid_value = timeslots_userid_innerMap.get(get_book_timeslot_key);
+
+                    mSelectedItems.put(timeRange_only, true);
+
+                    // do something with the value, for example:
+                    System.out.println("Outer key: " + get_booked_date_key + ", Inner key: " + timeRange_only + ", Value: " + get_place_booked_userid_value);
+                }
+            }
         }
     }
 

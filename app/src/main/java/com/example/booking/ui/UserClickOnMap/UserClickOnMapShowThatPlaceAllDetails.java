@@ -47,6 +47,8 @@ import java.util.Map;
 
 public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity implements user_timeslot_Selected_OnclickListner {
 
+    HashMap<String, HashMap<String, String>> get_is_already_booking_done_date_time_userid_hahmap = new HashMap<>();
+
     int total_price = 0;
     String show_selected_date_data = "";
     HashMap<String, Integer> time_slots_with_price;
@@ -134,6 +136,12 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
             Log.i("test_response", "KEY : "+key);
             Log.i("test_response", "VALUE : "+without_slash_hashmap_value);
+
+            if(key.equals("booking_done_time_slots_converting_hashmap_to_string")){
+                Gson gson = new Gson();
+                Type type = new TypeToken<HashMap<String, HashMap<String, String>>>(){}.getType();
+                get_is_already_booking_done_date_time_userid_hahmap = gson.fromJson(without_slash_hashmap_value, type);
+            }
 
             if(key.equals("time_slots_converting_hashmap_to_string")){
                 Gson gson = new Gson();
@@ -278,17 +286,17 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
     @Override
     protected void onResume() {
         super.onResume();
-        refreshRecycleview();
+        refreshRecycleview(show_selected_date_data);
     }
     //=====================================================================================
 
 
     //=====================================================================================
-    public void refreshRecycleview(){
+    public void refreshRecycleview(String show_selected_date_data){
         if(time_slots_with_price != null) {
 
 //         //Initialize RecyclerView and Adapter
-            userClickOnMapSlotsAdapter = new UserClickOnMapSlotsAdapter(time_slots_with_price, this);
+            userClickOnMapSlotsAdapter = new UserClickOnMapSlotsAdapter(time_slots_with_price, show_selected_date_data, get_is_already_booking_done_date_time_userid_hahmap, this);
             recycleview_show_available_time_day_slots.setAdapter(userClickOnMapSlotsAdapter);
             recycleview_show_available_time_day_slots.setLayoutManager(new GridLayoutManager(this, 3));
 // Call notifyDataSetChanged() on the adapter to refresh the data displayed in the RecyclerView
@@ -301,6 +309,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
     //=====================================================================================
 
 
+
     //=====================================================================================
     public void setHashmapdata(int dayOfWeek){
         if(map != null) {
@@ -311,37 +320,37 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
                 case Calendar.SUNDAY:
                     // Code for Sunday
                     time_slots_with_price = map.get("Sun");
-                    refreshRecycleview();
+                    refreshRecycleview(show_selected_date_data);
                     break;
                 case Calendar.MONDAY:
                     // Code for Monday
                     time_slots_with_price = map.get("Mon");
-                    refreshRecycleview();
+                    refreshRecycleview(show_selected_date_data);
                     break;
                 case Calendar.TUESDAY:
                     // Code for Tuesday
                     time_slots_with_price = map.get("Tue");
-                    refreshRecycleview();
+                    refreshRecycleview(show_selected_date_data);
                     break;
                 case Calendar.WEDNESDAY:
                     // Code for Wednesday
                     time_slots_with_price = map.get("Wed");
-                    refreshRecycleview();
+                    refreshRecycleview(show_selected_date_data);
                     break;
                 case Calendar.THURSDAY:
                     // Code for Thursday
                     time_slots_with_price = map.get("Thu");
-                    refreshRecycleview();
+                    refreshRecycleview(show_selected_date_data);
                     break;
                 case Calendar.FRIDAY:
                     // Code for Friday
                     time_slots_with_price = map.get("Fri");
-                    refreshRecycleview();
+                    refreshRecycleview(show_selected_date_data);
                     break;
                 case Calendar.SATURDAY:
                     // Code for Saturday
                     time_slots_with_price = map.get("Sat");
-                    refreshRecycleview();
+                    refreshRecycleview(show_selected_date_data);
 
                     break;
             }
