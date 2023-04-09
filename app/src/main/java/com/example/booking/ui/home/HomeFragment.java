@@ -307,7 +307,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(set_owner_places_location, 11));
                     });
 
-                    googleMap.addMarker(new MarkerOptions().position(current_my_location).title("My Location"));
+//                    googleMap.addMarker(new MarkerOptions().position(current_my_location).title("My Location"));
                 }
                 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 

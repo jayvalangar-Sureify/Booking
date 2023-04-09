@@ -38,7 +38,9 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
             mAlreadyBookedItems.put(key, false);
         }
 
-        readIsAlreadySlotsBooked();
+        if(get_is_already_booking_done_date_time_userid_hahmap != null) {
+            readIsAlreadySlotsBooked();
+        }
     }
 
     private void readIsAlreadySlotsBooked() {
