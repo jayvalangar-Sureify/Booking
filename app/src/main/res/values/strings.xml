@@ -267,7 +267,6 @@
     <string name="cancel">Cancel</string>
     <string name="selected_time_slot">Selected Time Slots</string>
     <string name="total_bill">Total Bill</string>
-    <string name="booking_done">Booking Done</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
 
@@ -283,5 +282,11 @@
     <string name="loading">Loading</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
+
+    <!-- Razorpay Payment -->
+    <string name="payment_description">Book your place by doing payment</string>
+    <string name="booking_done">Booking Done</string>
+    <string name="booking_not_done">Failed To Book</string>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
 
 </resources>

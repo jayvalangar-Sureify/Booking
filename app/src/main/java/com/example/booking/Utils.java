@@ -26,6 +26,10 @@ public class Utils {
     public static String user = "user";
     public static String owner = "owner";
 
+
+    // Razorpay Payment gateway
+    public static String razorpay_key_id = "rzp_test_FTYNMgruxTdMMc";
+
     // booking Details
 //    public static String key_get_Set_booking_user_id = "key_get_Set_booking_user_id";
 //    public static String key_get_Set_booking_place_name = "key_get_Set_booking_place_name";

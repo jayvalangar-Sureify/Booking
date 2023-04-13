@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
                     LocationSettingsResponse response = task.getResult(ApiException.class);
-                    Toast.makeText(MainActivity.this, "GPS is already tured on", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivity.this, "GPS is already tured on", Toast.LENGTH_SHORT).show();
 
                 } catch (ApiException e) {
 
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (resultCode) {
                 case Activity.RESULT_OK:
-                    Toast.makeText(this, "GPS is tured on", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, "GPS is tured on", Toast.LENGTH_SHORT).show();
 
                 case Activity.RESULT_CANCELED:
                     Toast.makeText(this, "GPS required to be tured on", Toast.LENGTH_SHORT).show();

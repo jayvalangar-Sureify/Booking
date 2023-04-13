@@ -1,5 +1,6 @@
 package com.example.booking.ui.UserClickOnMap;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,6 +38,10 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.google.gson.Gson;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
+
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.text.DateFormatSymbols;
@@ -47,7 +53,7 @@ import java.util.Locale;
 import java.util.Map;
 
 
-public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity implements user_timeslot_Selected_OnclickListner {
+public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity implements user_timeslot_Selected_OnclickListner, PaymentResultListener {
 
     HashMap<String, HashMap<String, String>> get_is_already_booking_done_date_time_userid_hahmap = new HashMap<>();
 
@@ -449,7 +455,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
                 //==========================================================================================================
                 if (time_slots_line_by_line_array[0] != "") {
-                    submit_booking_details(booking_id_string, show_selected_date_data, time_slots_line_by_line_array, linked_hash_map_userid, user_id_string, owner_id_string);
+                    submit_booking_details(booking_id_string, show_selected_date_data, time_slots_line_by_line_array, linked_hash_map_userid, user_id_string, owner_id_string, total_bill);
                 }else{
                     Toast.makeText(getApplicationContext(), "Select atleast one time slots !", Toast.LENGTH_SHORT).show();
                 }
@@ -466,87 +472,194 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
 
 
+    String final_booking_id, final_date_string, final_user_id_string, final_owner_id_string, final_total_bill;
+    String[] final_time_slots_line_by_line_array;
+    LinkedHashMap<String, LinkedHashMap<String, String>> final_linked_hash_map_userid;
     //======================================================================================================================================================
-     public void submit_booking_details(String booking_id, String date_string, String[] time_slots_line_by_line_array, LinkedHashMap<String, LinkedHashMap<String,String>> linked_hash_map_userid, String user_id_string, String owner_id_string) {
+     public void submit_booking_details(String booking_id, String date_string, String[] time_slots_line_by_line_array, LinkedHashMap<String, LinkedHashMap<String, String>> linked_hash_map_userid, String user_id_string, String owner_id_string, String total_bill) {
 
-      //LinkedHashMap< date , LinkedHashMap < time_slots, LinkedHashMap <user_id, LinkedHashMap < String, String>>>>;
-        LinkedHashMap< String , LinkedHashMap < String, LinkedHashMap <String, LinkedHashMap < String, String>>>> document_main_hashMap = new LinkedHashMap<>();
+         final_booking_id = booking_id;
+         final_date_string = date_string;
+         final_user_id_string = user_id_string;
+         final_owner_id_string = owner_id_string;
+         final_total_bill = total_bill;
+         final_time_slots_line_by_line_array = time_slots_line_by_line_array;
+         final_linked_hash_map_userid = linked_hash_map_userid;
 
-
-         DocumentReference documentRef = firebaseFirestore.collection(Utils.key_place_booking_firestore).document(booking_id);
-
-         //-----------------------------------------------------------------------------------------------------------
-         // to submit time-slot book or pending add into owner place
-         LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, String>>> bookingslotkey_date_time_userid_linkedhashmap = new LinkedHashMap<>();
-         LinkedHashMap<String, LinkedHashMap<String, String>> date_time_userid_linkedhashmap = new LinkedHashMap<>();
-         LinkedHashMap<String, String> time_userid_linkedhashmap = new LinkedHashMap<>();
-         //-----------------------------------------------------------------------------------------------------------
-
-
-         // time slots --> userid --> detail_data
-         LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String,String>>> data = new LinkedHashMap<>();
-         for(int i = 0 ; i < time_slots_line_by_line_array.length; i++){
-             data.put(time_slots_line_by_line_array[i], linked_hash_map_userid);
-             time_userid_linkedhashmap.put(time_slots_line_by_line_array[i], user_id_string);
-         }
-
-
-
-         documentRef.set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
-             @Override
-             public void onSuccess(Void aVoid) {
-                 Log.d("TAG", "Document updated/created successfully!");
-             }
-         }).addOnFailureListener(new OnFailureListener() {
-             @Override
-             public void onFailure(@NonNull Exception e) {
-                 Log.d("TAG", "Error updating/creating document: ", e);
-             }
-         });
-
-
-         // submit timeslots to OwnerPlaces collection also for mark red and green
-         //-----------------------------------------------------------------------------------------
-         // adding data
-         date_time_userid_linkedhashmap.put(date_string, time_userid_linkedhashmap);
-         // now add to under one key
-         bookingslotkey_date_time_userid_linkedhashmap.put(Utils.key_owner_PlaceBookingDateTimeUserDetails_hashmap, date_time_userid_linkedhashmap);
-
-
-         DocumentReference ownerplace_documentRef = firebaseFirestore.collection(Utils.key_ownerplace_firestore).document(owner_id_string);
-         ownerplace_documentRef.set(bookingslotkey_date_time_userid_linkedhashmap, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
-             @Override
-             public void onSuccess(Void aVoid) {
-                 Log.d("TAG", "Document updated/created successfully!");
-             }
-         }).addOnFailureListener(new OnFailureListener() {
-             @Override
-             public void onFailure(@NonNull Exception e) {
-                 Log.d("TAG", "Error updating/creating document: ", e);
-             }
-         });
-         //-----------------------------------------------------------------------------------------
-
-         //------------------------------------------------------------------------------------------
-         // show success dialog
-         final Dialog dialog = new Dialog(UserClickOnMapShowThatPlaceAllDetails.this);
-         dialog.setContentView(R.layout.booking_done_success_dialog);
-         dialog.setCancelable(false);
-
-         dialog.show();
-
-        // Dismiss the dialog after 5 seconds
-         new Handler().postDelayed(new Runnable() {
-             @Override
-             public void run() {
-                 dialog.dismiss();
-                 onBackPressed();
-                 finish();
-             }
-         }, 2000); // 5000 milliseconds = 5 seconds
-         //------------------------------------------------------------------------------------------
+         makepayment();
 
      }
+    //======================================================================================================================================================
+
+
+
+    //======================================================================================================================================================
+
+    private void makepayment()
+    {
+
+        Checkout checkout = new Checkout();
+        checkout.setKeyID(Utils.razorpay_key_id);
+
+        checkout.setImage(R.drawable.icon_done_50);
+        final Activity activity = this;
+
+        try {
+            JSONObject options = new JSONObject();
+
+            options.put("name", ""+getString(R.string.app_name));
+            options.put("description", ""+getString(R.string.payment_description));
+            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
+            // options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
+            options.put("theme.color", "#00264D");
+            options.put("currency", "INR");
+            String inputString = final_total_bill;
+            String numericString = inputString.replaceAll("[^\\d.]", "");
+            long final_payment_100 = Long.parseLong(numericString.trim()) * 100;
+            options.put("amount", ""+final_payment_100);//300 X 100 (amount * 100)
+            options.put("prefill.email", "gaurav.kumar@example.com");
+            options.put("prefill.contact","7864945278");
+            checkout.open(activity, options);
+        } catch(Exception e) {
+            Log.e("TAG", "Error in starting Razorpay Checkout", e);
+        }
+    }
+
+    @Override
+    public void onPaymentSuccess(String s) {
+        Log.i("test_response", "Payment Success : "+s.toString());
+        //------------------------------------------------------------------------------------------
+        // show success dialog
+        final Dialog dialog = new Dialog(UserClickOnMapShowThatPlaceAllDetails.this);
+        dialog.setContentView(R.layout.booking_done_success_dialog);
+        dialog.setCancelable(false);
+
+        int green_color = ContextCompat.getColor(getApplicationContext(), R.color.combo_text_green);
+        int light_green_color = ContextCompat.getColor(getApplicationContext(), R.color.combo_background_green);
+
+        ImageView iv_payment_icon = (ImageView) dialog.findViewById(R.id.iv_payment_icon);
+        iv_payment_icon.setImageDrawable(getDrawable(R.drawable.icon_done_50));
+        iv_payment_icon.setColorFilter(green_color);
+
+        TextView tv_done = (TextView) dialog.findViewById(R.id.tv_done);
+        tv_done.setText(getString(R.string.booking_done));
+        tv_done.setTextColor(green_color);
+
+        CardView cv_payment_dialog = (CardView) dialog.findViewById(R.id.cv_payment_dialog);
+        cv_payment_dialog.setCardBackgroundColor(light_green_color);
+
+
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=--=-=-=-=-=-=
+        DocumentReference documentRef = firebaseFirestore.collection(Utils.key_place_booking_firestore).document(final_booking_id);
+
+        //-----------------------------------------------------------------------------------------------------------
+        // to submit time-slot book or pending add into owner place
+        LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, String>>> bookingslotkey_date_time_userid_linkedhashmap = new LinkedHashMap<>();
+        LinkedHashMap<String, LinkedHashMap<String, String>> date_time_userid_linkedhashmap = new LinkedHashMap<>();
+        LinkedHashMap<String, String> time_userid_linkedhashmap = new LinkedHashMap<>();
+        //-----------------------------------------------------------------------------------------------------------
+
+
+        // time slots --> userid --> detail_data
+        LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String,String>>> data = new LinkedHashMap<>();
+        for(int i = 0 ; i < final_time_slots_line_by_line_array.length; i++){
+            data.put(final_time_slots_line_by_line_array[i], final_linked_hash_map_userid);
+            time_userid_linkedhashmap.put(final_time_slots_line_by_line_array[i], final_user_id_string);
+        }
+
+
+
+        documentRef.set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d("TAG", "Document updated/created successfully!");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("TAG", "Error updating/creating document: ", e);
+            }
+        });
+
+
+        // submit timeslots to OwnerPlaces collection also for mark red and green
+        //-----------------------------------------------------------------------------------------
+        // adding data
+        date_time_userid_linkedhashmap.put(final_date_string, time_userid_linkedhashmap);
+        // now add to under one key
+        bookingslotkey_date_time_userid_linkedhashmap.put(Utils.key_owner_PlaceBookingDateTimeUserDetails_hashmap, date_time_userid_linkedhashmap);
+
+
+        DocumentReference ownerplace_documentRef = firebaseFirestore.collection(Utils.key_ownerplace_firestore).document(final_owner_id_string);
+        ownerplace_documentRef.set(bookingslotkey_date_time_userid_linkedhashmap, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d("TAG", "Document updated/created successfully!");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("TAG", "Error updating/creating document: ", e);
+            }
+        });
+        //-----------------------------------------------------------------------------------------
+
+        //-=-=--=-=-=-=-=--=-=-=-==-=-=--==-===-=-=-=-=-=-=-==--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+        dialog.show();
+
+        //-----------------------------------------------------------------------------------------
+// Dismiss the dialog after 5 seconds
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                onBackPressed();
+                finish();
+            }
+        }, 2000); // 5000 milliseconds = 5 seconds
+        //------------------------------------------------------------------------------------------
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        Log.i("test_response", "Payment Error : "+s.toString());
+        //------------------------------------------------------------------------------------------
+        // show success dialog
+        final Dialog dialog = new Dialog(UserClickOnMapShowThatPlaceAllDetails.this);
+        dialog.setContentView(R.layout.booking_done_success_dialog);
+        dialog.setCancelable(false);
+
+        int red_color = ContextCompat.getColor(getApplicationContext(), R.color.red);
+        int light_red_color = ContextCompat.getColor(getApplicationContext(), R.color.background_red);
+
+        ImageView iv_payment_icon = (ImageView) dialog.findViewById(R.id.iv_payment_icon);
+        iv_payment_icon.setImageDrawable(getDrawable(R.drawable.payment_failed_50));
+        iv_payment_icon.setColorFilter(red_color);
+
+        TextView tv_done = (TextView) dialog.findViewById(R.id.tv_done);
+        tv_done.setText(getString(R.string.booking_not_done));
+        tv_done.setTextColor(red_color);
+
+
+        CardView cv_payment_dialog = (CardView) dialog.findViewById(R.id.cv_payment_dialog);
+        cv_payment_dialog.setCardBackgroundColor(light_red_color);
+
+
+        dialog.show();
+
+// Dismiss the dialog after 5 seconds
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.dismiss();
+                onBackPressed();
+                finish();
+            }
+        }, 2000); // 5000 milliseconds = 5 seconds
+        //------------------------------------------------------------------------------------------
+    }
+
     //======================================================================================================================================================
 
 
