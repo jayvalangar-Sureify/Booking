@@ -142,6 +142,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
         super.onResume();
         mapView.onResume();
 
+
+        binding.rlProgressbarHomeFragment.setVisibility(View.VISIBLE);
+
+        //-----------------------------------------------------------------------------------------
+
         if (googleMap != null) {
             googleMap.clear(); // Clear the map
             googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); // Set the map type
@@ -153,6 +158,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                 public void onMapLoaded() {
                     // Call onMapLoaded() method when the map is loaded
                     HomeFragment.this.onMapLoaded();
+
                 }
             });
         }
@@ -310,7 +316,11 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                     LatLng current_my_location = new LatLng(location.getLatitude(), location.getLongitude());
 
                     Log.i("test_response", "owner_places_hashmap : "+owner_places_hashmap.size());
-                owner_places_in_details_hashmap.entrySet().forEach(entry -> {
+
+                    int totalEntries = owner_places_in_details_hashmap.entrySet().size();
+                    final int[] currentIndex = {0};
+                    binding.rlProgressbarHomeFragment.setVisibility(View.VISIBLE);
+                    owner_places_in_details_hashmap.entrySet().forEach(entry -> {
                         // seperating latitude and longitude from key
                            String latitude_longitude_string = entry.getKey();
                            List<String> individual_latitude_longitude_list = Arrays.asList(latitude_longitude_string.split(","));
@@ -319,8 +329,17 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                         LatLng set_owner_places_location = new LatLng(Double.parseDouble(individual_latitude_longitude_list.get(0)), Double.parseDouble(individual_latitude_longitude_list.get(1)));
                         googleMap.addMarker(new MarkerOptions().position(set_owner_places_location).title(""+entry.getValue())).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
                         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(set_owner_places_location, 11));
+
+
+                        // check if this is the last iteration
+                        if (++currentIndex[0] == totalEntries) {
+                            binding.rlProgressbarHomeFragment.setVisibility(View.GONE);
+                        }
                     });
 
+                    if(totalEntries == 0){
+                        binding.rlProgressbarHomeFragment.setVisibility(View.GONE);
+                    }
 //                    googleMap.addMarker(new MarkerOptions().position(current_my_location).title("My Location"));
                 }
                 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -425,7 +444,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
     public void add_latitude_and_longitude_to_firestore(Double latitude, Double longitude){
 
         binding.btnHomeAddOwnerPlace.setEnabled(false);
-        binding.progressbarHomeFragment.setVisibility(View.VISIBLE);
+        binding.rlProgressbarHomeFragment.setVisibility(View.VISIBLE);
 
         // Add location to owner table
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -444,14 +463,14 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                         intent.putExtra(Utils.key_longitude,longitude);
                         startActivity(intent);
                         binding.btnHomeAddOwnerPlace.setEnabled(true);
-                        binding.progressbarHomeFragment.setVisibility(View.GONE);
+                        binding.rlProgressbarHomeFragment.setVisibility(View.GONE);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         binding.btnHomeAddOwnerPlace.setEnabled(true);
-                        binding.progressbarHomeFragment.setVisibility(View.GONE);
+                        binding.rlProgressbarHomeFragment.setVisibility(View.GONE);
                         Log.w("test_response", "Error updating document", e);
                     }
                 });
