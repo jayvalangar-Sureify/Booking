@@ -142,6 +142,20 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
         super.onResume();
         mapView.onResume();
 
+        if (googleMap != null) {
+            googleMap.clear(); // Clear the map
+            googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); // Set the map type
+            googleMap.setTrafficEnabled(true); // Enable traffic layer
+            googleMap.setBuildingsEnabled(true); // Enable 3D buildings
+            googleMap.setIndoorEnabled(true); // Enable indoor maps
+            googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                @Override
+                public void onMapLoaded() {
+                    // Call onMapLoaded() method when the map is loaded
+                    HomeFragment.this.onMapLoaded();
+                }
+            });
+        }
        // View visible and Gone based on Login Type
        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         if(login_type_string.equals(Utils.user)){
