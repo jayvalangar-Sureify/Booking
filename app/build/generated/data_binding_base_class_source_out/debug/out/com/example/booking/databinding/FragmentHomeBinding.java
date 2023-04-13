@@ -4,32 +4,68 @@ package com.example.booking.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.example.booking.R;
+import com.google.android.gms.maps.MapView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
 
 public final class FragmentHomeBinding implements ViewBinding {
   @NonNull
-  private final ConstraintLayout rootView;
+  private final RelativeLayout rootView;
 
   @NonNull
-  public final TextView textHome;
+  public final Button btnHomeAddOwnerPlace;
 
-  private FragmentHomeBinding(@NonNull ConstraintLayout rootView, @NonNull TextView textHome) {
+  @NonNull
+  public final EditText etHomeLatitude;
+
+  @NonNull
+  public final EditText etHomeLongitude;
+
+  @NonNull
+  public final LinearLayout llBottomLatitudeLongitude;
+
+  @NonNull
+  public final MapView mapView;
+
+  @NonNull
+  public final ProgressBar progressbarHomeFragment;
+
+  @NonNull
+  public final RelativeLayout rlBottom;
+
+  @NonNull
+  public final RelativeLayout rlTop;
+
+  private FragmentHomeBinding(@NonNull RelativeLayout rootView,
+      @NonNull Button btnHomeAddOwnerPlace, @NonNull EditText etHomeLatitude,
+      @NonNull EditText etHomeLongitude, @NonNull LinearLayout llBottomLatitudeLongitude,
+      @NonNull MapView mapView, @NonNull ProgressBar progressbarHomeFragment,
+      @NonNull RelativeLayout rlBottom, @NonNull RelativeLayout rlTop) {
     this.rootView = rootView;
-    this.textHome = textHome;
+    this.btnHomeAddOwnerPlace = btnHomeAddOwnerPlace;
+    this.etHomeLatitude = etHomeLatitude;
+    this.etHomeLongitude = etHomeLongitude;
+    this.llBottomLatitudeLongitude = llBottomLatitudeLongitude;
+    this.mapView = mapView;
+    this.progressbarHomeFragment = progressbarHomeFragment;
+    this.rlBottom = rlBottom;
+    this.rlTop = rlTop;
   }
 
   @Override
   @NonNull
-  public ConstraintLayout getRoot() {
+  public RelativeLayout getRoot() {
     return rootView;
   }
 
@@ -54,13 +90,57 @@ public final class FragmentHomeBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.text_home;
-      TextView textHome = ViewBindings.findChildViewById(rootView, id);
-      if (textHome == null) {
+      id = R.id.btn_home_add_owner_place;
+      Button btnHomeAddOwnerPlace = ViewBindings.findChildViewById(rootView, id);
+      if (btnHomeAddOwnerPlace == null) {
         break missingId;
       }
 
-      return new FragmentHomeBinding((ConstraintLayout) rootView, textHome);
+      id = R.id.et_home_latitude;
+      EditText etHomeLatitude = ViewBindings.findChildViewById(rootView, id);
+      if (etHomeLatitude == null) {
+        break missingId;
+      }
+
+      id = R.id.et_home_longitude;
+      EditText etHomeLongitude = ViewBindings.findChildViewById(rootView, id);
+      if (etHomeLongitude == null) {
+        break missingId;
+      }
+
+      id = R.id.ll_bottom_latitude_longitude;
+      LinearLayout llBottomLatitudeLongitude = ViewBindings.findChildViewById(rootView, id);
+      if (llBottomLatitudeLongitude == null) {
+        break missingId;
+      }
+
+      id = R.id.mapView;
+      MapView mapView = ViewBindings.findChildViewById(rootView, id);
+      if (mapView == null) {
+        break missingId;
+      }
+
+      id = R.id.progressbar_home_fragment;
+      ProgressBar progressbarHomeFragment = ViewBindings.findChildViewById(rootView, id);
+      if (progressbarHomeFragment == null) {
+        break missingId;
+      }
+
+      id = R.id.rl_bottom;
+      RelativeLayout rlBottom = ViewBindings.findChildViewById(rootView, id);
+      if (rlBottom == null) {
+        break missingId;
+      }
+
+      id = R.id.rl_top;
+      RelativeLayout rlTop = ViewBindings.findChildViewById(rootView, id);
+      if (rlTop == null) {
+        break missingId;
+      }
+
+      return new FragmentHomeBinding((RelativeLayout) rootView, btnHomeAddOwnerPlace,
+          etHomeLatitude, etHomeLongitude, llBottomLatitudeLongitude, mapView,
+          progressbarHomeFragment, rlBottom, rlTop);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

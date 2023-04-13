@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,24 +18,29 @@ import java.lang.String;
 
 public final class NavHeaderMainBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final RelativeLayout rootView;
 
   @NonNull
-  public final ImageView imageView;
+  public final ImageView ivNavHeaderProfile;
 
   @NonNull
-  public final TextView textView;
+  public final TextView tvNavHeaderLoginType;
 
-  private NavHeaderMainBinding(@NonNull LinearLayout rootView, @NonNull ImageView imageView,
-      @NonNull TextView textView) {
+  @NonNull
+  public final TextView tvNavHeaderUserName;
+
+  private NavHeaderMainBinding(@NonNull RelativeLayout rootView,
+      @NonNull ImageView ivNavHeaderProfile, @NonNull TextView tvNavHeaderLoginType,
+      @NonNull TextView tvNavHeaderUserName) {
     this.rootView = rootView;
-    this.imageView = imageView;
-    this.textView = textView;
+    this.ivNavHeaderProfile = ivNavHeaderProfile;
+    this.tvNavHeaderLoginType = tvNavHeaderLoginType;
+    this.tvNavHeaderUserName = tvNavHeaderUserName;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public RelativeLayout getRoot() {
     return rootView;
   }
 
@@ -60,19 +65,26 @@ public final class NavHeaderMainBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.imageView;
-      ImageView imageView = ViewBindings.findChildViewById(rootView, id);
-      if (imageView == null) {
+      id = R.id.iv_nav_header_profile;
+      ImageView ivNavHeaderProfile = ViewBindings.findChildViewById(rootView, id);
+      if (ivNavHeaderProfile == null) {
         break missingId;
       }
 
-      id = R.id.textView;
-      TextView textView = ViewBindings.findChildViewById(rootView, id);
-      if (textView == null) {
+      id = R.id.tv_nav_header_login_type;
+      TextView tvNavHeaderLoginType = ViewBindings.findChildViewById(rootView, id);
+      if (tvNavHeaderLoginType == null) {
         break missingId;
       }
 
-      return new NavHeaderMainBinding((LinearLayout) rootView, imageView, textView);
+      id = R.id.tv_nav_header_user_name;
+      TextView tvNavHeaderUserName = ViewBindings.findChildViewById(rootView, id);
+      if (tvNavHeaderUserName == null) {
+        break missingId;
+      }
+
+      return new NavHeaderMainBinding((RelativeLayout) rootView, ivNavHeaderProfile,
+          tvNavHeaderLoginType, tvNavHeaderUserName);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

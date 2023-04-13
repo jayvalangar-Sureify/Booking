@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.booking.app-mergeDebugResources-43:/values-hdpi-v4/values-hdpi-v4.xml",
+            "outputFile": "com.example.booking.app-mergeDebugResources-52:/values-hdpi-v4/values-hdpi-v4.xml",
             "map": [
                 {
-                    "source": "/home/jayv/.gradle/caches/transforms-3/780c8931bfe5d3b0e26a458d121ff58b/transformed/appcompat-1.6.1/res/values-hdpi-v4/values-hdpi-v4.xml",
+                    "source": "/home/jayv/.gradle/caches/transforms-3/7235e37ea4098cceda129178edba447b/transformed/appcompat-1.6.1/res/values-hdpi-v4/values-hdpi-v4.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

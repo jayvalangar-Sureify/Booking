@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,13 +23,19 @@ import java.lang.String;
 
 public final class ActivityLoginScreenBinding implements ViewBinding {
   @NonNull
-  private final RelativeLayout rootView;
-
-  @NonNull
-  public final Button btnGoogleLogin;
+  private final ScrollView rootView;
 
   @NonNull
   public final Button btnLogin;
+
+  @NonNull
+  public final EditText etLoginEnterEmail;
+
+  @NonNull
+  public final EditText etLoginEnterPassword;
+
+  @NonNull
+  public final ImageView ivLoginShowHideImage;
 
   @NonNull
   public final TextView loginAppName;
@@ -35,7 +44,7 @@ public final class ActivityLoginScreenBinding implements ViewBinding {
   public final TextView loginAppOneLiner;
 
   @NonNull
-  public final RelativeLayout loginRlGoogleSign;
+  public final ProgressBar loginProgressbar;
 
   @NonNull
   public final RelativeLayout loginRlInputFields;
@@ -65,26 +74,36 @@ public final class ActivityLoginScreenBinding implements ViewBinding {
   public final ImageView overlapImage;
 
   @NonNull
-  public final TextView tvEnterEmail;
+  public final TextView progressText;
 
   @NonNull
-  public final TextView tvEnterPassword;
+  public final RelativeLayout rlLoginProgressbar;
 
-  private ActivityLoginScreenBinding(@NonNull RelativeLayout rootView,
-      @NonNull Button btnGoogleLogin, @NonNull Button btnLogin, @NonNull TextView loginAppName,
-      @NonNull TextView loginAppOneLiner, @NonNull RelativeLayout loginRlGoogleSign,
+  @NonNull
+  public final TextView tvForgotPassword;
+
+  @NonNull
+  public final TextView tvLoginErrorDisplay;
+
+  private ActivityLoginScreenBinding(@NonNull ScrollView rootView, @NonNull Button btnLogin,
+      @NonNull EditText etLoginEnterEmail, @NonNull EditText etLoginEnterPassword,
+      @NonNull ImageView ivLoginShowHideImage, @NonNull TextView loginAppName,
+      @NonNull TextView loginAppOneLiner, @NonNull ProgressBar loginProgressbar,
       @NonNull RelativeLayout loginRlInputFields, @NonNull RelativeLayout loginRlNewAccountView,
       @NonNull RelativeLayout loginRlOrView, @NonNull RelativeLayout loginRlTopAppOneLiner,
       @NonNull RelativeLayout loginRlTopLogoAndName, @NonNull MaterialCardView loginTopCardview,
       @NonNull TextView loginTvNewAccount, @NonNull TextView loginTvOr,
-      @NonNull ImageView overlapImage, @NonNull TextView tvEnterEmail,
-      @NonNull TextView tvEnterPassword) {
+      @NonNull ImageView overlapImage, @NonNull TextView progressText,
+      @NonNull RelativeLayout rlLoginProgressbar, @NonNull TextView tvForgotPassword,
+      @NonNull TextView tvLoginErrorDisplay) {
     this.rootView = rootView;
-    this.btnGoogleLogin = btnGoogleLogin;
     this.btnLogin = btnLogin;
+    this.etLoginEnterEmail = etLoginEnterEmail;
+    this.etLoginEnterPassword = etLoginEnterPassword;
+    this.ivLoginShowHideImage = ivLoginShowHideImage;
     this.loginAppName = loginAppName;
     this.loginAppOneLiner = loginAppOneLiner;
-    this.loginRlGoogleSign = loginRlGoogleSign;
+    this.loginProgressbar = loginProgressbar;
     this.loginRlInputFields = loginRlInputFields;
     this.loginRlNewAccountView = loginRlNewAccountView;
     this.loginRlOrView = loginRlOrView;
@@ -94,13 +113,15 @@ public final class ActivityLoginScreenBinding implements ViewBinding {
     this.loginTvNewAccount = loginTvNewAccount;
     this.loginTvOr = loginTvOr;
     this.overlapImage = overlapImage;
-    this.tvEnterEmail = tvEnterEmail;
-    this.tvEnterPassword = tvEnterPassword;
+    this.progressText = progressText;
+    this.rlLoginProgressbar = rlLoginProgressbar;
+    this.tvForgotPassword = tvForgotPassword;
+    this.tvLoginErrorDisplay = tvLoginErrorDisplay;
   }
 
   @Override
   @NonNull
-  public RelativeLayout getRoot() {
+  public ScrollView getRoot() {
     return rootView;
   }
 
@@ -125,15 +146,27 @@ public final class ActivityLoginScreenBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.btn_google_login;
-      Button btnGoogleLogin = ViewBindings.findChildViewById(rootView, id);
-      if (btnGoogleLogin == null) {
-        break missingId;
-      }
-
       id = R.id.btn_login;
       Button btnLogin = ViewBindings.findChildViewById(rootView, id);
       if (btnLogin == null) {
+        break missingId;
+      }
+
+      id = R.id.et_login_enter_email;
+      EditText etLoginEnterEmail = ViewBindings.findChildViewById(rootView, id);
+      if (etLoginEnterEmail == null) {
+        break missingId;
+      }
+
+      id = R.id.et_login_enter_password;
+      EditText etLoginEnterPassword = ViewBindings.findChildViewById(rootView, id);
+      if (etLoginEnterPassword == null) {
+        break missingId;
+      }
+
+      id = R.id.iv_login_show_hide_image;
+      ImageView ivLoginShowHideImage = ViewBindings.findChildViewById(rootView, id);
+      if (ivLoginShowHideImage == null) {
         break missingId;
       }
 
@@ -149,9 +182,9 @@ public final class ActivityLoginScreenBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.login_rl_google_sign;
-      RelativeLayout loginRlGoogleSign = ViewBindings.findChildViewById(rootView, id);
-      if (loginRlGoogleSign == null) {
+      id = R.id.login_progressbar;
+      ProgressBar loginProgressbar = ViewBindings.findChildViewById(rootView, id);
+      if (loginProgressbar == null) {
         break missingId;
       }
 
@@ -209,23 +242,36 @@ public final class ActivityLoginScreenBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tv_enter_email;
-      TextView tvEnterEmail = ViewBindings.findChildViewById(rootView, id);
-      if (tvEnterEmail == null) {
+      id = R.id.progress_text;
+      TextView progressText = ViewBindings.findChildViewById(rootView, id);
+      if (progressText == null) {
         break missingId;
       }
 
-      id = R.id.tv_enter_password;
-      TextView tvEnterPassword = ViewBindings.findChildViewById(rootView, id);
-      if (tvEnterPassword == null) {
+      id = R.id.rl_login_progressbar;
+      RelativeLayout rlLoginProgressbar = ViewBindings.findChildViewById(rootView, id);
+      if (rlLoginProgressbar == null) {
         break missingId;
       }
 
-      return new ActivityLoginScreenBinding((RelativeLayout) rootView, btnGoogleLogin, btnLogin,
-          loginAppName, loginAppOneLiner, loginRlGoogleSign, loginRlInputFields,
-          loginRlNewAccountView, loginRlOrView, loginRlTopAppOneLiner, loginRlTopLogoAndName,
-          loginTopCardview, loginTvNewAccount, loginTvOr, overlapImage, tvEnterEmail,
-          tvEnterPassword);
+      id = R.id.tv_Forgot_Password;
+      TextView tvForgotPassword = ViewBindings.findChildViewById(rootView, id);
+      if (tvForgotPassword == null) {
+        break missingId;
+      }
+
+      id = R.id.tv_login_error_display;
+      TextView tvLoginErrorDisplay = ViewBindings.findChildViewById(rootView, id);
+      if (tvLoginErrorDisplay == null) {
+        break missingId;
+      }
+
+      return new ActivityLoginScreenBinding((ScrollView) rootView, btnLogin, etLoginEnterEmail,
+          etLoginEnterPassword, ivLoginShowHideImage, loginAppName, loginAppOneLiner,
+          loginProgressbar, loginRlInputFields, loginRlNewAccountView, loginRlOrView,
+          loginRlTopAppOneLiner, loginRlTopLogoAndName, loginTopCardview, loginTvNewAccount,
+          loginTvOr, overlapImage, progressText, rlLoginProgressbar, tvForgotPassword,
+          tvLoginErrorDisplay);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

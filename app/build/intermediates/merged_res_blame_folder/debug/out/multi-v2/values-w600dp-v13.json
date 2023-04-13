@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.booking.app-mergeDebugResources-43:/values-w600dp-v13/values-w600dp-v13.xml",
+            "outputFile": "com.example.booking.app-mergeDebugResources-52:/values-w600dp-v13/values-w600dp-v13.xml",
             "map": [
                 {
                     "source": "/home/jayv/AndroidStudioProjects/Booking/app/src/main/res/values-w600dp/dimens.xml",

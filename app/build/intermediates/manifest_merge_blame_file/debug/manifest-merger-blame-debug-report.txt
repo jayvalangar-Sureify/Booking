@@ -10,176 +10,570 @@
 9        android:targetSdkVersion="33" />
 9-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml
 10
-11    <permission
-11-->[androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/9811bf6e0ea8002748e1a5d1e9eb40bd/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
-12        android:name="com.example.booking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-12-->[androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/9811bf6e0ea8002748e1a5d1e9eb40bd/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
-13        android:protectionLevel="signature" />
-13-->[androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/9811bf6e0ea8002748e1a5d1e9eb40bd/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
-14
-15    <uses-permission android:name="com.example.booking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-15-->[androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/9811bf6e0ea8002748e1a5d1e9eb40bd/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
-15-->[androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/9811bf6e0ea8002748e1a5d1e9eb40bd/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:5:5-67
+11-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+12-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:6:5-81
+12-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:6:22-78
+13    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+13-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:7:5-79
+13-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:7:22-76
+14    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+14-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:8:5-85
+14-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:8:22-82
+15    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+15-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:24:5-79
+15-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:24:22-76
 16
-17    <application
-17-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:5:5-52:19
-18        android:allowBackup="true"
-18-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:6:9-35
-19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-19-->[androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/9811bf6e0ea8002748e1a5d1e9eb40bd/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
-20        android:dataExtractionRules="@xml/data_extraction_rules"
-20-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:7:9-65
-21        android:debuggable="true"
-22        android:extractNativeLibs="false"
-23        android:fullBackupContent="@xml/backup_rules"
-23-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:8:9-54
-24        android:icon="@mipmap/ic_launcher"
-24-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:9:9-43
-25        android:label="@string/app_name"
-25-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:10:9-41
-26        android:roundIcon="@mipmap/ic_launcher_round"
-26-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:11:9-54
-27        android:supportsRtl="true"
-27-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:12:9-35
-28        android:testOnly="true"
-29        android:theme="@style/Theme.Booking" >
-29-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:13:9-45
-30        <activity
-30-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:15:9-21:20
-31            android:name="com.example.booking.SignupScreen_User"
-31-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:16:13-46
-32            android:exported="false" >
-32-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:17:13-37
-33            <meta-data
-33-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:18:13-20:36
-34                android:name="android.app.lib_name"
-34-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:19:17-52
-35                android:value="" />
-35-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:20:17-33
-36        </activity>
-37        <activity
-37-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:22:9-29:20
-38            android:name="com.example.booking.ui.Login.LoginScreenActivity"
-38-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:23:13-57
-39            android:exported="true"
-39-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:24:13-36
-40            android:label="" >
-40-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:25:13-29
-41            <meta-data
-41-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:18:13-20:36
-42                android:name="android.app.lib_name"
-42-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:19:17-52
-43                android:value="" />
-43-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:20:17-33
-44        </activity>
-45        <activity
-45-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:30:9-42:20
-46            android:name="com.example.booking.ui.SplashScreen.SplashScreen"
-46-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:31:13-57
-47            android:exported="true" >
-47-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:32:13-36
-48            <intent-filter>
-48-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:33:13-37:29
-49                <action android:name="android.intent.action.MAIN" />
-49-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:34:17-69
-49-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:34:25-66
+17    <queries>
+17-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:11:5-37:15
+18        <intent>
+18-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:12:9-18:18
+19            <action android:name="android.intent.action.VIEW" />
+19-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:34:17-69
+19-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:34:25-66
+20
+21            <data
+21-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:39:17-42:51
+22                android:mimeType="*/*"
+23                android:scheme="*" />
+23-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:42:21-48
+24        </intent>
+25        <intent>
+25-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:19:9-28:18
+26            <action android:name="android.intent.action.VIEW" />
+26-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:34:17-69
+26-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:34:25-66
+27
+28            <category android:name="android.intent.category.BROWSABLE" />
+28-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:37:17-78
+28-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:37:27-75
+29
+30            <data
+30-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:39:17-42:51
+31                android:host="pay"
+31-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:40:21-49
+32                android:mimeType="*/*"
+33                android:scheme="upi" />
+33-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:42:21-48
+34        </intent>
+35        <intent>
+35-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:29:9-31:18
+36            <action android:name="android.intent.action.MAIN" />
+36-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:82:17-69
+36-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:82:25-66
+37        </intent>
+38        <intent>
+38-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:32:9-36:18
+39            <action android:name="android.intent.action.SEND" />
+39-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:33:13-65
+39-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:33:21-62
+40
+41            <data android:mimeType="*/*" />
+41-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:39:17-42:51
+42        </intent>
+43        <!-- Needs to be explicitly declared on Android R+ -->
+44        <package android:name="com.google.android.apps.maps" />
+44-->[com.google.android.gms:play-services-maps:18.1.0] /home/jayv/.gradle/caches/transforms-3/fb01fee6a781180c3c5c2e304e140523/transformed/play-services-maps-18.1.0/AndroidManifest.xml:33:9-64
+44-->[com.google.android.gms:play-services-maps:18.1.0] /home/jayv/.gradle/caches/transforms-3/fb01fee6a781180c3c5c2e304e140523/transformed/play-services-maps-18.1.0/AndroidManifest.xml:33:18-61
+45    </queries>
+46
+47    <uses-feature
+47-->[com.google.android.gms:play-services-maps:18.1.0] /home/jayv/.gradle/caches/transforms-3/fb01fee6a781180c3c5c2e304e140523/transformed/play-services-maps-18.1.0/AndroidManifest.xml:26:5-28:35
+48        android:glEsVersion="0x00020000"
+48-->[com.google.android.gms:play-services-maps:18.1.0] /home/jayv/.gradle/caches/transforms-3/fb01fee6a781180c3c5c2e304e140523/transformed/play-services-maps-18.1.0/AndroidManifest.xml:27:9-41
+49        android:required="true" />
+49-->[com.google.android.gms:play-services-maps:18.1.0] /home/jayv/.gradle/caches/transforms-3/fb01fee6a781180c3c5c2e304e140523/transformed/play-services-maps-18.1.0/AndroidManifest.xml:28:9-32
 50
-51                <category android:name="android.intent.category.LAUNCHER" />
-51-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:36:17-77
-51-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:36:27-74
-52            </intent-filter>
-53
-54            <meta-data
-54-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:18:13-20:36
-55                android:name="android.app.lib_name"
-55-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:19:17-52
-56                android:value="" />
-56-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:20:17-33
-57        </activity>
-58        <activity
-58-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:43:9-51:20
-59            android:name="com.example.booking.MainActivity"
-59-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:44:13-41
-60            android:exported="true"
-60-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:45:13-36
-61            android:label="@string/app_name"
-61-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:46:13-45
-62            android:theme="@style/Theme.Booking.NoActionBar" >
-62-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:47:13-61
-63            <meta-data
-63-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:18:13-20:36
-64                android:name="android.app.lib_name"
-64-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:19:17-52
-65                android:value="" />
-65-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:20:17-33
-66        </activity>
-67
-68        <provider
-68-->[androidx.emoji2:emoji2:1.2.0] /home/jayv/.gradle/caches/transforms-3/c03fa7bc00a04a375204b573f0966d9f/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
-69            android:name="androidx.startup.InitializationProvider"
-69-->[androidx.emoji2:emoji2:1.2.0] /home/jayv/.gradle/caches/transforms-3/c03fa7bc00a04a375204b573f0966d9f/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
-70            android:authorities="com.example.booking.androidx-startup"
-70-->[androidx.emoji2:emoji2:1.2.0] /home/jayv/.gradle/caches/transforms-3/c03fa7bc00a04a375204b573f0966d9f/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
-71            android:exported="false" >
-71-->[androidx.emoji2:emoji2:1.2.0] /home/jayv/.gradle/caches/transforms-3/c03fa7bc00a04a375204b573f0966d9f/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
-72            <meta-data
-72-->[androidx.emoji2:emoji2:1.2.0] /home/jayv/.gradle/caches/transforms-3/c03fa7bc00a04a375204b573f0966d9f/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
-73                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-73-->[androidx.emoji2:emoji2:1.2.0] /home/jayv/.gradle/caches/transforms-3/c03fa7bc00a04a375204b573f0966d9f/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
-74                android:value="androidx.startup" />
-74-->[androidx.emoji2:emoji2:1.2.0] /home/jayv/.gradle/caches/transforms-3/c03fa7bc00a04a375204b573f0966d9f/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
-75            <meta-data
-75-->[androidx.lifecycle:lifecycle-process:2.6.0] /home/jayv/.gradle/caches/transforms-3/35de73f4ae1a38f4d8b5fd56ec8fb3b3/transformed/lifecycle-process-2.6.0/AndroidManifest.xml:29:13-31:52
-76                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-76-->[androidx.lifecycle:lifecycle-process:2.6.0] /home/jayv/.gradle/caches/transforms-3/35de73f4ae1a38f4d8b5fd56ec8fb3b3/transformed/lifecycle-process-2.6.0/AndroidManifest.xml:30:17-78
-77                android:value="androidx.startup" />
-77-->[androidx.lifecycle:lifecycle-process:2.6.0] /home/jayv/.gradle/caches/transforms-3/35de73f4ae1a38f4d8b5fd56ec8fb3b3/transformed/lifecycle-process-2.6.0/AndroidManifest.xml:31:17-49
+51    <uses-permission android:name="android.permission.WAKE_LOCK" />
+51-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:25:5-68
+51-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:25:22-65
+52    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+52-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:26:5-110
+52-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:26:22-107
+53    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+53-->[com.google.android.gms:play-services-measurement-api:21.2.0] /home/jayv/.gradle/caches/transforms-3/32a8eb716ccbf0d8ad538a1d4e5467fe/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:25:5-79
+53-->[com.google.android.gms:play-services-measurement-api:21.2.0] /home/jayv/.gradle/caches/transforms-3/32a8eb716ccbf0d8ad538a1d4e5467fe/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:25:22-76
+54
+55    <permission
+55-->[androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/18030739e5b1f2c0979c38e8c75f0133/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
+56        android:name="com.example.booking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+56-->[androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/18030739e5b1f2c0979c38e8c75f0133/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
+57        android:protectionLevel="signature" />
+57-->[androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/18030739e5b1f2c0979c38e8c75f0133/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
+58
+59    <uses-permission android:name="com.example.booking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+59-->[androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/18030739e5b1f2c0979c38e8c75f0133/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
+59-->[androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/18030739e5b1f2c0979c38e8c75f0133/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
+60
+61    <application
+61-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:10:5-101:19
+62        android:allowBackup="true"
+62-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:11:9-35
+63        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+63-->[androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/18030739e5b1f2c0979c38e8c75f0133/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
+64        android:dataExtractionRules="@xml/data_extraction_rules"
+64-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:12:9-65
+65        android:debuggable="true"
+66        android:extractNativeLibs="false"
+67        android:fullBackupContent="@xml/backup_rules"
+67-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:13:9-54
+68        android:icon="@mipmap/ic_launcher"
+68-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:14:9-43
+69        android:label="@string/app_name"
+69-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:15:9-41
+70        android:roundIcon="@mipmap/ic_launcher_round"
+70-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:16:9-54
+71        android:supportsRtl="true"
+71-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:17:9-35
+72        android:testOnly="true"
+73        android:theme="@style/Theme.Booking" >
+73-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:18:9-45
+74        <activity
+74-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:20:9-27:20
+75            android:name="com.example.booking.ui.UserClickOnMap.UserClickOnMapShowThatPlaceAllDetails"
+75-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:21:13-84
+76            android:exported="false"
+76-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:23:13-37
+77            android:label="@string/place_details" >
+77-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:22:13-50
 78            <meta-data
-78-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/f62d60cf1171fe7ca3f4218873e6e80b/transformed/profileinstaller-1.2.1/AndroidManifest.xml:30:13-32:52
-79                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-79-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/f62d60cf1171fe7ca3f4218873e6e80b/transformed/profileinstaller-1.2.1/AndroidManifest.xml:31:17-85
-80                android:value="androidx.startup" />
-80-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/f62d60cf1171fe7ca3f4218873e6e80b/transformed/profileinstaller-1.2.1/AndroidManifest.xml:32:17-49
-81        </provider>
-82
-83        <uses-library
-83-->[androidx.window:window:1.0.0] /home/jayv/.gradle/caches/transforms-3/073f10b23065a04cd4c659168bad23fb/transformed/window-1.0.0/AndroidManifest.xml:25:9-27:40
-84            android:name="androidx.window.extensions"
-84-->[androidx.window:window:1.0.0] /home/jayv/.gradle/caches/transforms-3/073f10b23065a04cd4c659168bad23fb/transformed/window-1.0.0/AndroidManifest.xml:26:13-54
-85            android:required="false" />
-85-->[androidx.window:window:1.0.0] /home/jayv/.gradle/caches/transforms-3/073f10b23065a04cd4c659168bad23fb/transformed/window-1.0.0/AndroidManifest.xml:27:13-37
-86        <uses-library
-86-->[androidx.window:window:1.0.0] /home/jayv/.gradle/caches/transforms-3/073f10b23065a04cd4c659168bad23fb/transformed/window-1.0.0/AndroidManifest.xml:28:9-30:40
-87            android:name="androidx.window.sidecar"
-87-->[androidx.window:window:1.0.0] /home/jayv/.gradle/caches/transforms-3/073f10b23065a04cd4c659168bad23fb/transformed/window-1.0.0/AndroidManifest.xml:29:13-51
-88            android:required="false" />
-88-->[androidx.window:window:1.0.0] /home/jayv/.gradle/caches/transforms-3/073f10b23065a04cd4c659168bad23fb/transformed/window-1.0.0/AndroidManifest.xml:30:13-37
-89
-90        <receiver
-90-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/f62d60cf1171fe7ca3f4218873e6e80b/transformed/profileinstaller-1.2.1/AndroidManifest.xml:35:9-47:20
-91            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-91-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/f62d60cf1171fe7ca3f4218873e6e80b/transformed/profileinstaller-1.2.1/AndroidManifest.xml:36:13-76
-92            android:directBootAware="false"
-92-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/f62d60cf1171fe7ca3f4218873e6e80b/transformed/profileinstaller-1.2.1/AndroidManifest.xml:37:13-44
-93            android:enabled="true"
-93-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/f62d60cf1171fe7ca3f4218873e6e80b/transformed/profileinstaller-1.2.1/AndroidManifest.xml:38:13-35
-94            android:exported="true"
-94-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/f62d60cf1171fe7ca3f4218873e6e80b/transformed/profileinstaller-1.2.1/AndroidManifest.xml:39:13-36
-95            android:permission="android.permission.DUMP" >
-95-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/f62d60cf1171fe7ca3f4218873e6e80b/transformed/profileinstaller-1.2.1/AndroidManifest.xml:40:13-57
-96            <intent-filter>
-96-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/f62d60cf1171fe7ca3f4218873e6e80b/transformed/profileinstaller-1.2.1/AndroidManifest.xml:41:13-43:29
-97                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-97-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/f62d60cf1171fe7ca3f4218873e6e80b/transformed/profileinstaller-1.2.1/AndroidManifest.xml:42:17-91
-97-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/f62d60cf1171fe7ca3f4218873e6e80b/transformed/profileinstaller-1.2.1/AndroidManifest.xml:42:25-88
-98            </intent-filter>
-99            <intent-filter>
-99-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/f62d60cf1171fe7ca3f4218873e6e80b/transformed/profileinstaller-1.2.1/AndroidManifest.xml:44:13-46:29
-100                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-100-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/f62d60cf1171fe7ca3f4218873e6e80b/transformed/profileinstaller-1.2.1/AndroidManifest.xml:45:17-85
-100-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/f62d60cf1171fe7ca3f4218873e6e80b/transformed/profileinstaller-1.2.1/AndroidManifest.xml:45:25-82
-101            </intent-filter>
-102        </receiver>
-103    </application>
+78-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:24:13-26:36
+79                android:name="android.app.lib_name"
+79-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:25:17-52
+80                android:value="" />
+80-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:26:17-33
+81        </activity>
+82        <activity
+82-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:28:9-35:20
+83            android:name="com.example.booking.ui.OwnerPlaceRentDayTime.OwnerPlaceRentDayTimeWise"
+83-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:29:13-79
+84            android:exported="false"
+84-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:30:13-37
+85            android:label="@string/add_your_place_rent" >
+85-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:31:13-56
+86            <meta-data
+86-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:24:13-26:36
+87                android:name="android.app.lib_name"
+87-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:25:17-52
+88                android:value="" />
+88-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:26:17-33
+89        </activity>
+90        <!--
+91             TODO: Before you run your application, you need a Google Maps API key.
+92
+93             To get one, follow the directions here:
+94
+95                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+96
+97             Once you have your API key (it starts with "AIza"), define a new property in your
+98             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+99             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+100        -->
+101        <meta-data
+101-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:47:9-49:51
+102            android:name="com.google.android.geo.API_KEY"
+102-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:48:13-58
+103            android:value="@string/map_api_key" />
+103-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:49:13-48
 104
-105</manifest>
+105        <activity
+105-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:51:9-58:20
+106            android:name="com.example.booking.ui.Owner_Add_Place_Details.OwnerAddPlaceDetails"
+106-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:52:13-76
+107            android:exported="false"
+107-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:53:13-37
+108            android:label="@string/add_your_place_details" >
+108-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:54:13-59
+109            <meta-data
+109-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:24:13-26:36
+110                android:name="android.app.lib_name"
+110-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:25:17-52
+111                android:value="" />
+111-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:26:17-33
+112        </activity>
+113        <activity
+113-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:59:9-67:20
+114            android:name="com.example.booking.ui.Signup.SignupScreen_User"
+114-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:60:13-56
+115            android:exported="false"
+115-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:61:13-37
+116            android:label="@string/create_new_account_label"
+116-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:62:13-61
+117            android:noHistory="true" >
+117-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:63:13-37
+118            <meta-data
+118-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:24:13-26:36
+119                android:name="android.app.lib_name"
+119-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:25:17-52
+120                android:value="" />
+120-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:26:17-33
+121        </activity>
+122        <activity
+122-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:68:9-76:20
+123            android:name="com.example.booking.ui.Login.LoginScreenActivity"
+123-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:69:13-57
+124            android:exported="true"
+124-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:70:13-36
+125            android:label="@string/already_have_account_label"
+125-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:71:13-63
+126            android:noHistory="true" >
+126-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:72:13-37
+127            <meta-data
+127-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:24:13-26:36
+128                android:name="android.app.lib_name"
+128-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:25:17-52
+129                android:value="" />
+129-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:26:17-33
+130        </activity>
+131        <activity
+131-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:77:9-90:20
+132            android:name="com.example.booking.ui.SplashScreen.SplashScreen"
+132-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:78:13-57
+133            android:exported="true"
+133-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:79:13-36
+134            android:label="" >
+134-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:80:13-29
+135            <intent-filter>
+135-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:81:13-85:29
+136                <action android:name="android.intent.action.MAIN" />
+136-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:82:17-69
+136-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:82:25-66
+137
+138                <category android:name="android.intent.category.LAUNCHER" />
+138-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:84:17-77
+138-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:84:27-74
+139            </intent-filter>
+140
+141            <meta-data
+141-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:24:13-26:36
+142                android:name="android.app.lib_name"
+142-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:25:17-52
+143                android:value="" />
+143-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:26:17-33
+144        </activity>
+145        <activity
+145-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:91:9-100:20
+146            android:name="com.example.booking.MainActivity"
+146-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:92:13-41
+147            android:exported="true"
+147-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:93:13-36
+148            android:label="@string/app_name"
+148-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:94:13-45
+149            android:theme="@style/Theme.Booking.NoActionBar" >
+149-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:95:13-61
+150            <meta-data
+150-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:24:13-26:36
+151                android:name="android.app.lib_name"
+151-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:25:17-52
+152                android:value="" />
+152-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:26:17-33
+153        </activity>
+154        <activity
+154-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:27:9-44:20
+155            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+155-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:28:13-80
+156            android:excludeFromRecents="true"
+156-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:29:13-46
+157            android:exported="true"
+157-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:30:13-36
+158            android:launchMode="singleTask"
+158-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:31:13-44
+159            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+159-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:32:13-72
+160            <intent-filter>
+160-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:33:13-43:29
+161                <action android:name="android.intent.action.VIEW" />
+161-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:34:17-69
+161-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:34:25-66
+162
+163                <category android:name="android.intent.category.DEFAULT" />
+163-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:36:17-76
+163-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:36:27-73
+164                <category android:name="android.intent.category.BROWSABLE" />
+164-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:37:17-78
+164-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:37:27-75
+165
+166                <data
+166-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:39:17-42:51
+167                    android:host="firebase.auth"
+167-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:40:21-49
+168                    android:path="/"
+168-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:41:21-37
+169                    android:scheme="genericidp" />
+169-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:42:21-48
+170            </intent-filter>
+171        </activity>
+172        <activity
+172-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:45:9-62:20
+173            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+173-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:46:13-79
+174            android:excludeFromRecents="true"
+174-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:47:13-46
+175            android:exported="true"
+175-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:48:13-36
+176            android:launchMode="singleTask"
+176-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:49:13-44
+177            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+177-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:50:13-72
+178            <intent-filter>
+178-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:51:13-61:29
+179                <action android:name="android.intent.action.VIEW" />
+179-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:34:17-69
+179-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:34:25-66
+180
+181                <category android:name="android.intent.category.DEFAULT" />
+181-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:36:17-76
+181-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:36:27-73
+182                <category android:name="android.intent.category.BROWSABLE" />
+182-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:37:17-78
+182-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:37:27-75
+183
+184                <data
+184-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:39:17-42:51
+185                    android:host="firebase.auth"
+185-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:40:21-49
+186                    android:path="/"
+186-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:41:21-37
+187                    android:scheme="recaptcha" />
+187-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:42:21-48
+188            </intent-filter>
+189        </activity>
+190
+191        <service
+191-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:64:9-70:19
+192            android:name="com.google.firebase.components.ComponentDiscoveryService"
+192-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:65:13-84
+193            android:directBootAware="true"
+193-->[com.google.firebase:firebase-common:20.2.0] /home/jayv/.gradle/caches/transforms-3/a6deeda51a0465a80bddf1a11680af91/transformed/firebase-common-20.2.0/AndroidManifest.xml:34:13-43
+194            android:exported="false" >
+194-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:66:13-37
+195            <meta-data
+195-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:67:13-69:85
+196                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+196-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:68:17-109
+197                android:value="com.google.firebase.components.ComponentRegistrar" />
+197-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:69:17-82
+198            <meta-data
+198-->[com.google.firebase:firebase-firestore:24.4.3] /home/jayv/.gradle/caches/transforms-3/d7b40a6c9ec7723a1d307c967bdac348/transformed/firebase-firestore-24.4.3/AndroidManifest.xml:19:13-21:85
+199                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+199-->[com.google.firebase:firebase-firestore:24.4.3] /home/jayv/.gradle/caches/transforms-3/d7b40a6c9ec7723a1d307c967bdac348/transformed/firebase-firestore-24.4.3/AndroidManifest.xml:20:17-111
+200                android:value="com.google.firebase.components.ComponentRegistrar" />
+200-->[com.google.firebase:firebase-firestore:24.4.3] /home/jayv/.gradle/caches/transforms-3/d7b40a6c9ec7723a1d307c967bdac348/transformed/firebase-firestore-24.4.3/AndroidManifest.xml:21:17-82
+201            <meta-data
+201-->[com.google.android.gms:play-services-measurement-api:21.2.0] /home/jayv/.gradle/caches/transforms-3/32a8eb716ccbf0d8ad538a1d4e5467fe/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:31:13-33:85
+202                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+202-->[com.google.android.gms:play-services-measurement-api:21.2.0] /home/jayv/.gradle/caches/transforms-3/32a8eb716ccbf0d8ad538a1d4e5467fe/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:32:17-139
+203                android:value="com.google.firebase.components.ComponentRegistrar" />
+203-->[com.google.android.gms:play-services-measurement-api:21.2.0] /home/jayv/.gradle/caches/transforms-3/32a8eb716ccbf0d8ad538a1d4e5467fe/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:33:17-82
+204            <meta-data
+204-->[com.google.firebase:firebase-installations:17.0.1] /home/jayv/.gradle/caches/transforms-3/28a5a7beda457be77f14b894ce5b56f7/transformed/firebase-installations-17.0.1/AndroidManifest.xml:18:13-20:85
+205                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+205-->[com.google.firebase:firebase-installations:17.0.1] /home/jayv/.gradle/caches/transforms-3/28a5a7beda457be77f14b894ce5b56f7/transformed/firebase-installations-17.0.1/AndroidManifest.xml:19:17-127
+206                android:value="com.google.firebase.components.ComponentRegistrar" />
+206-->[com.google.firebase:firebase-installations:17.0.1] /home/jayv/.gradle/caches/transforms-3/28a5a7beda457be77f14b894ce5b56f7/transformed/firebase-installations-17.0.1/AndroidManifest.xml:20:17-82
+207        </service>
+208
+209        <receiver
+209-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:40:9-46:20
+210            android:name="com.razorpay.RzpTokenReceiver"
+210-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:41:13-57
+211            android:exported="false" >
+211-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:42:13-37
+212            <intent-filter>
+212-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:43:13-45:29
+213                <action android:name="rzp.device_token.share" />
+213-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:44:17-65
+213-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:44:25-62
+214            </intent-filter>
+215        </receiver>
+216
+217        <activity
+217-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:48:9-60:20
+218            android:name="com.razorpay.CheckoutActivity"
+218-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:49:13-57
+219            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+219-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:50:13-83
+220            android:exported="true"
+220-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:51:13-36
+221            android:theme="@style/CheckoutTheme" >
+221-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:52:13-49
+222            <intent-filter>
+222-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:53:13-59:29
+223                <action android:name="android.intent.action.MAIN" />
+223-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:82:17-69
+223-->/home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:82:25-66
+224
+225                <data
+225-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:39:17-42:51
+226                    android:host="rzp.io"
+226-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:40:21-49
+227                    android:scheme="io.rzp" />
+227-->[com.google.firebase:firebase-auth:21.1.0] /home/jayv/.gradle/caches/transforms-3/2bf578b188455af245c9dccdd5ad6183/transformed/firebase-auth-21.1.0/AndroidManifest.xml:42:21-48
+228            </intent-filter>
+229        </activity>
+230
+231        <meta-data
+231-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:62:9-64:58
+232            android:name="com.razorpay.plugin.googlepay_all"
+232-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:63:13-61
+233            android:value="com.razorpay.RzpGpayMerged" /> <!-- Needs to be explicitly declared on P+ -->
+233-->[com.razorpay:checkout:1.6.26] /home/jayv/.gradle/caches/transforms-3/e04cf2c5dd70ec8bf84062a6d94e9020/transformed/checkout-1.6.26/AndroidManifest.xml:64:13-55
+234        <uses-library
+234-->[com.google.android.gms:play-services-maps:18.1.0] /home/jayv/.gradle/caches/transforms-3/fb01fee6a781180c3c5c2e304e140523/transformed/play-services-maps-18.1.0/AndroidManifest.xml:39:9-41:40
+235            android:name="org.apache.http.legacy"
+235-->[com.google.android.gms:play-services-maps:18.1.0] /home/jayv/.gradle/caches/transforms-3/fb01fee6a781180c3c5c2e304e140523/transformed/play-services-maps-18.1.0/AndroidManifest.xml:40:13-50
+236            android:required="false" />
+236-->[com.google.android.gms:play-services-maps:18.1.0] /home/jayv/.gradle/caches/transforms-3/fb01fee6a781180c3c5c2e304e140523/transformed/play-services-maps-18.1.0/AndroidManifest.xml:41:13-37
+237
+238        <receiver
+238-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:29:9-33:20
+239            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+239-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:30:13-85
+240            android:enabled="true"
+240-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:31:13-35
+241            android:exported="false" >
+241-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:32:13-37
+242        </receiver>
+243
+244        <service
+244-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:35:9-38:40
+245            android:name="com.google.android.gms.measurement.AppMeasurementService"
+245-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:36:13-84
+246            android:enabled="true"
+246-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:37:13-35
+247            android:exported="false" />
+247-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:38:13-37
+248        <service
+248-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:39:9-43:72
+249            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+249-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:40:13-87
+250            android:enabled="true"
+250-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:41:13-35
+251            android:exported="false"
+251-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:42:13-37
+252            android:permission="android.permission.BIND_JOB_SERVICE" />
+252-->[com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:43:13-69
+253
+254        <activity
+254-->[com.google.android.gms:play-services-auth:17.0.0] /home/jayv/.gradle/caches/transforms-3/dbc98a13cb8ae39e8eb57fb70d457168/transformed/play-services-auth-17.0.0/AndroidManifest.xml:23:9-27:75
+255            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+255-->[com.google.android.gms:play-services-auth:17.0.0] /home/jayv/.gradle/caches/transforms-3/dbc98a13cb8ae39e8eb57fb70d457168/transformed/play-services-auth-17.0.0/AndroidManifest.xml:24:13-93
+256            android:excludeFromRecents="true"
+256-->[com.google.android.gms:play-services-auth:17.0.0] /home/jayv/.gradle/caches/transforms-3/dbc98a13cb8ae39e8eb57fb70d457168/transformed/play-services-auth-17.0.0/AndroidManifest.xml:25:13-46
+257            android:exported="false"
+257-->[com.google.android.gms:play-services-auth:17.0.0] /home/jayv/.gradle/caches/transforms-3/dbc98a13cb8ae39e8eb57fb70d457168/transformed/play-services-auth-17.0.0/AndroidManifest.xml:26:13-37
+258            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+258-->[com.google.android.gms:play-services-auth:17.0.0] /home/jayv/.gradle/caches/transforms-3/dbc98a13cb8ae39e8eb57fb70d457168/transformed/play-services-auth-17.0.0/AndroidManifest.xml:27:13-72
+259        <!--
+260            Service handling Google Sign-In user revocation. For apps that do not integrate with
+261            Google Sign-In, this service will never be started.
+262        -->
+263        <service
+263-->[com.google.android.gms:play-services-auth:17.0.0] /home/jayv/.gradle/caches/transforms-3/dbc98a13cb8ae39e8eb57fb70d457168/transformed/play-services-auth-17.0.0/AndroidManifest.xml:33:9-36:110
+264            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+264-->[com.google.android.gms:play-services-auth:17.0.0] /home/jayv/.gradle/caches/transforms-3/dbc98a13cb8ae39e8eb57fb70d457168/transformed/play-services-auth-17.0.0/AndroidManifest.xml:34:13-89
+265            android:exported="true"
+265-->[com.google.android.gms:play-services-auth:17.0.0] /home/jayv/.gradle/caches/transforms-3/dbc98a13cb8ae39e8eb57fb70d457168/transformed/play-services-auth-17.0.0/AndroidManifest.xml:35:13-36
+266            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
+266-->[com.google.android.gms:play-services-auth:17.0.0] /home/jayv/.gradle/caches/transforms-3/dbc98a13cb8ae39e8eb57fb70d457168/transformed/play-services-auth-17.0.0/AndroidManifest.xml:36:13-107
+267
+268        <provider
+268-->[com.google.firebase:firebase-common:20.2.0] /home/jayv/.gradle/caches/transforms-3/a6deeda51a0465a80bddf1a11680af91/transformed/firebase-common-20.2.0/AndroidManifest.xml:25:9-30:39
+269            android:name="com.google.firebase.provider.FirebaseInitProvider"
+269-->[com.google.firebase:firebase-common:20.2.0] /home/jayv/.gradle/caches/transforms-3/a6deeda51a0465a80bddf1a11680af91/transformed/firebase-common-20.2.0/AndroidManifest.xml:26:13-77
+270            android:authorities="com.example.booking.firebaseinitprovider"
+270-->[com.google.firebase:firebase-common:20.2.0] /home/jayv/.gradle/caches/transforms-3/a6deeda51a0465a80bddf1a11680af91/transformed/firebase-common-20.2.0/AndroidManifest.xml:27:13-72
+271            android:directBootAware="true"
+271-->[com.google.firebase:firebase-common:20.2.0] /home/jayv/.gradle/caches/transforms-3/a6deeda51a0465a80bddf1a11680af91/transformed/firebase-common-20.2.0/AndroidManifest.xml:28:13-43
+272            android:exported="false"
+272-->[com.google.firebase:firebase-common:20.2.0] /home/jayv/.gradle/caches/transforms-3/a6deeda51a0465a80bddf1a11680af91/transformed/firebase-common-20.2.0/AndroidManifest.xml:29:13-37
+273            android:initOrder="100" />
+273-->[com.google.firebase:firebase-common:20.2.0] /home/jayv/.gradle/caches/transforms-3/a6deeda51a0465a80bddf1a11680af91/transformed/firebase-common-20.2.0/AndroidManifest.xml:30:13-36
+274
+275        <activity
+275-->[com.google.android.gms:play-services-base:18.1.0] /home/jayv/.gradle/caches/transforms-3/8d4d2dd892708588e88782b29f9e39b0/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:9-22:45
+276            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+276-->[com.google.android.gms:play-services-base:18.1.0] /home/jayv/.gradle/caches/transforms-3/8d4d2dd892708588e88782b29f9e39b0/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:19-85
+277            android:exported="false"
+277-->[com.google.android.gms:play-services-base:18.1.0] /home/jayv/.gradle/caches/transforms-3/8d4d2dd892708588e88782b29f9e39b0/transformed/play-services-base-18.1.0/AndroidManifest.xml:22:19-43
+278            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+278-->[com.google.android.gms:play-services-base:18.1.0] /home/jayv/.gradle/caches/transforms-3/8d4d2dd892708588e88782b29f9e39b0/transformed/play-services-base-18.1.0/AndroidManifest.xml:21:19-78
+279
+280        <meta-data
+280-->[com.google.android.gms:play-services-basement:18.1.0] /home/jayv/.gradle/caches/transforms-3/97d03bd9c10ee520b7db5088ab74d616/transformed/play-services-basement-18.1.0/AndroidManifest.xml:21:9-23:69
+281            android:name="com.google.android.gms.version"
+281-->[com.google.android.gms:play-services-basement:18.1.0] /home/jayv/.gradle/caches/transforms-3/97d03bd9c10ee520b7db5088ab74d616/transformed/play-services-basement-18.1.0/AndroidManifest.xml:22:13-58
+282            android:value="@integer/google_play_services_version" />
+282-->[com.google.android.gms:play-services-basement:18.1.0] /home/jayv/.gradle/caches/transforms-3/97d03bd9c10ee520b7db5088ab74d616/transformed/play-services-basement-18.1.0/AndroidManifest.xml:23:13-66
+283
+284        <provider
+284-->[androidx.emoji2:emoji2:1.2.0] /home/jayv/.gradle/caches/transforms-3/bb78e1da9f82a63749732c9b8d622254/transformed/emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+285            android:name="androidx.startup.InitializationProvider"
+285-->[androidx.emoji2:emoji2:1.2.0] /home/jayv/.gradle/caches/transforms-3/bb78e1da9f82a63749732c9b8d622254/transformed/emoji2-1.2.0/AndroidManifest.xml:25:13-67
+286            android:authorities="com.example.booking.androidx-startup"
+286-->[androidx.emoji2:emoji2:1.2.0] /home/jayv/.gradle/caches/transforms-3/bb78e1da9f82a63749732c9b8d622254/transformed/emoji2-1.2.0/AndroidManifest.xml:26:13-68
+287            android:exported="false" >
+287-->[androidx.emoji2:emoji2:1.2.0] /home/jayv/.gradle/caches/transforms-3/bb78e1da9f82a63749732c9b8d622254/transformed/emoji2-1.2.0/AndroidManifest.xml:27:13-37
+288            <meta-data
+288-->[androidx.emoji2:emoji2:1.2.0] /home/jayv/.gradle/caches/transforms-3/bb78e1da9f82a63749732c9b8d622254/transformed/emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+289                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+289-->[androidx.emoji2:emoji2:1.2.0] /home/jayv/.gradle/caches/transforms-3/bb78e1da9f82a63749732c9b8d622254/transformed/emoji2-1.2.0/AndroidManifest.xml:30:17-75
+290                android:value="androidx.startup" />
+290-->[androidx.emoji2:emoji2:1.2.0] /home/jayv/.gradle/caches/transforms-3/bb78e1da9f82a63749732c9b8d622254/transformed/emoji2-1.2.0/AndroidManifest.xml:31:17-49
+291            <meta-data
+291-->[androidx.lifecycle:lifecycle-process:2.6.0] /home/jayv/.gradle/caches/transforms-3/ee2d2354ec3e3093305062fe1f4d3b1a/transformed/lifecycle-process-2.6.0/AndroidManifest.xml:29:13-31:52
+292                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+292-->[androidx.lifecycle:lifecycle-process:2.6.0] /home/jayv/.gradle/caches/transforms-3/ee2d2354ec3e3093305062fe1f4d3b1a/transformed/lifecycle-process-2.6.0/AndroidManifest.xml:30:17-78
+293                android:value="androidx.startup" />
+293-->[androidx.lifecycle:lifecycle-process:2.6.0] /home/jayv/.gradle/caches/transforms-3/ee2d2354ec3e3093305062fe1f4d3b1a/transformed/lifecycle-process-2.6.0/AndroidManifest.xml:31:17-49
+294            <meta-data
+294-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/062a4acff243baca741bbb22d3146747/transformed/profileinstaller-1.2.1/AndroidManifest.xml:30:13-32:52
+295                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+295-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/062a4acff243baca741bbb22d3146747/transformed/profileinstaller-1.2.1/AndroidManifest.xml:31:17-85
+296                android:value="androidx.startup" />
+296-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/062a4acff243baca741bbb22d3146747/transformed/profileinstaller-1.2.1/AndroidManifest.xml:32:17-49
+297        </provider>
+298
+299        <uses-library
+299-->[androidx.window:window:1.0.0] /home/jayv/.gradle/caches/transforms-3/9d694ed5234de138203be955e8ae3fd9/transformed/window-1.0.0/AndroidManifest.xml:25:9-27:40
+300            android:name="androidx.window.extensions"
+300-->[androidx.window:window:1.0.0] /home/jayv/.gradle/caches/transforms-3/9d694ed5234de138203be955e8ae3fd9/transformed/window-1.0.0/AndroidManifest.xml:26:13-54
+301            android:required="false" />
+301-->[androidx.window:window:1.0.0] /home/jayv/.gradle/caches/transforms-3/9d694ed5234de138203be955e8ae3fd9/transformed/window-1.0.0/AndroidManifest.xml:27:13-37
+302        <uses-library
+302-->[androidx.window:window:1.0.0] /home/jayv/.gradle/caches/transforms-3/9d694ed5234de138203be955e8ae3fd9/transformed/window-1.0.0/AndroidManifest.xml:28:9-30:40
+303            android:name="androidx.window.sidecar"
+303-->[androidx.window:window:1.0.0] /home/jayv/.gradle/caches/transforms-3/9d694ed5234de138203be955e8ae3fd9/transformed/window-1.0.0/AndroidManifest.xml:29:13-51
+304            android:required="false" />
+304-->[androidx.window:window:1.0.0] /home/jayv/.gradle/caches/transforms-3/9d694ed5234de138203be955e8ae3fd9/transformed/window-1.0.0/AndroidManifest.xml:30:13-37
+305
+306        <receiver
+306-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/062a4acff243baca741bbb22d3146747/transformed/profileinstaller-1.2.1/AndroidManifest.xml:35:9-47:20
+307            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+307-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/062a4acff243baca741bbb22d3146747/transformed/profileinstaller-1.2.1/AndroidManifest.xml:36:13-76
+308            android:directBootAware="false"
+308-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/062a4acff243baca741bbb22d3146747/transformed/profileinstaller-1.2.1/AndroidManifest.xml:37:13-44
+309            android:enabled="true"
+309-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/062a4acff243baca741bbb22d3146747/transformed/profileinstaller-1.2.1/AndroidManifest.xml:38:13-35
+310            android:exported="true"
+310-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/062a4acff243baca741bbb22d3146747/transformed/profileinstaller-1.2.1/AndroidManifest.xml:39:13-36
+311            android:permission="android.permission.DUMP" >
+311-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/062a4acff243baca741bbb22d3146747/transformed/profileinstaller-1.2.1/AndroidManifest.xml:40:13-57
+312            <intent-filter>
+312-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/062a4acff243baca741bbb22d3146747/transformed/profileinstaller-1.2.1/AndroidManifest.xml:41:13-43:29
+313                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+313-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/062a4acff243baca741bbb22d3146747/transformed/profileinstaller-1.2.1/AndroidManifest.xml:42:17-91
+313-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/062a4acff243baca741bbb22d3146747/transformed/profileinstaller-1.2.1/AndroidManifest.xml:42:25-88
+314            </intent-filter>
+315            <intent-filter>
+315-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/062a4acff243baca741bbb22d3146747/transformed/profileinstaller-1.2.1/AndroidManifest.xml:44:13-46:29
+316                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+316-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/062a4acff243baca741bbb22d3146747/transformed/profileinstaller-1.2.1/AndroidManifest.xml:45:17-85
+316-->[androidx.profileinstaller:profileinstaller:1.2.1] /home/jayv/.gradle/caches/transforms-3/062a4acff243baca741bbb22d3146747/transformed/profileinstaller-1.2.1/AndroidManifest.xml:45:25-82
+317            </intent-filter>
+318        </receiver>
+319    </application>
+320
+321</manifest>

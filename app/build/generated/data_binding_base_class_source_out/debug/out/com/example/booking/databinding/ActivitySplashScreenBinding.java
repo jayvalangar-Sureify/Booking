@@ -4,6 +4,7 @@ package com.example.booking.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
@@ -21,6 +22,12 @@ public final class ActivitySplashScreenBinding implements ViewBinding {
   private final RelativeLayout rootView;
 
   @NonNull
+  public final Button btnSplashOwner;
+
+  @NonNull
+  public final Button btnSplashUser;
+
+  @NonNull
   public final RelativeLayout layoutBottom;
 
   @NonNull
@@ -33,9 +40,12 @@ public final class ActivitySplashScreenBinding implements ViewBinding {
   public final MaterialCardView splashTopCardview;
 
   private ActivitySplashScreenBinding(@NonNull RelativeLayout rootView,
+      @NonNull Button btnSplashOwner, @NonNull Button btnSplashUser,
       @NonNull RelativeLayout layoutBottom, @NonNull RelativeLayout layoutTop,
       @NonNull ImageView overlapImage, @NonNull MaterialCardView splashTopCardview) {
     this.rootView = rootView;
+    this.btnSplashOwner = btnSplashOwner;
+    this.btnSplashUser = btnSplashUser;
     this.layoutBottom = layoutBottom;
     this.layoutTop = layoutTop;
     this.overlapImage = overlapImage;
@@ -69,6 +79,18 @@ public final class ActivitySplashScreenBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.btn_splash_owner;
+      Button btnSplashOwner = ViewBindings.findChildViewById(rootView, id);
+      if (btnSplashOwner == null) {
+        break missingId;
+      }
+
+      id = R.id.btn_splash_user;
+      Button btnSplashUser = ViewBindings.findChildViewById(rootView, id);
+      if (btnSplashUser == null) {
+        break missingId;
+      }
+
       id = R.id.layoutBottom;
       RelativeLayout layoutBottom = ViewBindings.findChildViewById(rootView, id);
       if (layoutBottom == null) {
@@ -93,8 +115,8 @@ public final class ActivitySplashScreenBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivitySplashScreenBinding((RelativeLayout) rootView, layoutBottom, layoutTop,
-          overlapImage, splashTopCardview);
+      return new ActivitySplashScreenBinding((RelativeLayout) rootView, btnSplashOwner,
+          btnSplashUser, layoutBottom, layoutTop, overlapImage, splashTopCardview);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

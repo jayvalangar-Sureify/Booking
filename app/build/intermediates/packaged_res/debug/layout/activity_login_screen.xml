@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,7 +8,24 @@
     tools:context=".ui.Login.LoginScreenActivity">
 
 
-    <!-- Top Logo and Name -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_login_error_display"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_top_cardview"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/red"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <!-- Top Logo and Name -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/login_top_cardview"
         android:layout_width="match_parent"
@@ -84,7 +101,7 @@
 
     <RelativeLayout
         android:id="@+id/login_rl_input_fields"
-        android:layout_below="@+id/login_top_cardview"
+        android:layout_below="@+id/tv_login_error_display"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -97,7 +114,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_enter_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -107,18 +123,24 @@
                 android:text="@string/enter_email" />
 
             <EditText
+                android:id="@+id/et_login_enter_email"
                 android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:textColor="@color/combo_text_blue"
                 android:background="@drawable/et_style"
-                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:cursorVisible="true"
+                android:nextFocusForward="@+id/et_login_enter_password"
                 android:layout_marginTop="6dp"
                 android:textSize="16sp"
                 android:padding="14dp"
-                android:textCursorDrawable="@color/combo_text_blue"
+                android:textCursorDrawable="@drawable/cursor_color"
                 android:hint="@string/email_hint" />
 
             <TextView
-                android:id="@+id/tv_enter_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -127,24 +149,90 @@
                 android:textColor="@color/combo_text_blue"
                 android:text="@string/enter_password" />
 
-            <EditText
+            <RelativeLayout
                 android:layout_width="fill_parent"
-                android:textColor="@color/combo_text_blue"
-                android:background="@drawable/et_style"
                 android:layout_height="wrap_content"
-                android:drawableTint="@color/combo_text_blue"
-                android:drawableRight="@drawable/icon_open_eye__24"
-                android:layout_marginTop="6dp"
-                android:padding="14dp"
+                android:layout_marginTop="6dp">
+
+                <EditText
+                    android:id="@+id/et_login_enter_password"
+                    android:layout_width="fill_parent"
+                    android:textColor="@color/combo_text_blue"
+                    android:background="@drawable/et_style"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:padding="14dp"
+                    android:textStyle="bold"
+                    android:inputType="textPassword"
+                    android:textSize="16sp"
+                    android:textCursorDrawable="@drawable/cursor_color"
+                    android:hint="@string/password_hint" />
+
+                <ImageView
+                    android:id="@+id/iv_login_show_hide_image"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:padding="5dp"
+                    android:alpha=".5"
+                    android:src="@drawable/icon_show_password_24"
+                    app:tint="@color/combo_text_blue" />
+
+            </RelativeLayout>
+
+
+
+            <TextView
+                android:id="@+id/tv_Forgot_Password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:inputType="textPassword"
+                android:padding="10dp"
+                android:gravity="end"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="end"
                 android:textSize="16sp"
-                android:textCursorDrawable="@color/combo_text_blue"
-                android:hint="@string/password_hint" />
+                android:textColor="@color/combo_text_blue"
+                android:text="@string/forgot_password" />
 
         </LinearLayout>
 
     </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_login_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:background="@color/combo_text_blue">
+
+            <ProgressBar
+                android:id="@+id/login_progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="20dp"
+                android:indeterminateTint="@color/white"
+                />
+
+            <TextView
+                android:id="@+id/progress_text"
+                android:layout_below="@+id/login_progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wait"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:layout_gravity="center"/>
+
+        </RelativeLayout>
+
 
     <Button
         android:id="@+id/btn_login"
@@ -209,31 +297,8 @@
 
 
     <RelativeLayout
-        android:id="@+id/login_rl_google_sign"
-        android:layout_below="@+id/login_rl_or_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/btn_google_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/button_state_wise_styling"
-            android:drawableEnd="@drawable/icon_google_24"
-            android:enabled="true"
-            android:text="@string/google"
-            android:textAllCaps="false"
-            android:textSize="18sp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
         android:id="@+id/login_rl_new_account_view"
-        android:layout_below="@+id/login_rl_google_sign"
+        android:layout_below="@+id/login_rl_or_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -244,12 +309,6 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/grey_1"
-                />
-
             <TextView
                 android:id="@+id/login_tv_new_account"
                 android:layout_width="wrap_content"
@@ -257,8 +316,7 @@
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginTop="10dp"
+                android:textSize="18sp"
                 android:padding="10dp"
                 android:textColor="@color/combo_text_blue"
                 android:text="@string/create_new_account" />
@@ -268,4 +326,5 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

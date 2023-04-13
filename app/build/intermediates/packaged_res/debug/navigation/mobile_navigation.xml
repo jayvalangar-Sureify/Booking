@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.booking.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_booking_details"
+        android:name="com.example.booking.ui.booking.BookingDetailsFragment"
+        android:label="@string/menu_booking_details"
+        tools:layout="@layout/fragment_booking_details" />
 
     <fragment
         android:id="@+id/nav_slideshow"
