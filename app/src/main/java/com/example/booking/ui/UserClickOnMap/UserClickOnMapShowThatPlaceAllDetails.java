@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,12 +31,17 @@ import com.example.booking.R;
 import com.example.booking.Utils;
 import com.example.booking.adapter.UserClickOnMapSlotsAdapter;
 import com.example.booking.interfaces.user_timeslot_Selected_OnclickListner;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.common.reflect.TypeToken;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.gson.Gson;
 import com.razorpay.Checkout;
@@ -55,7 +61,9 @@ import java.util.Map;
 
 public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity implements user_timeslot_Selected_OnclickListner, PaymentResultListener {
 
-    HashMap<String, HashMap<String, String>> get_is_already_booking_done_date_time_userid_hahmap = new HashMap<>();
+
+    RelativeLayout rl_slots_booking_progressbar;
+    HashMap<String, HashMap<String, Boolean>> already_booked_date_and_timeslot_hashmap = new HashMap<>();
 
     int total_price = 0;
     String show_selected_date_data = "";
@@ -126,6 +134,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         ll_address_header = (LinearLayout) findViewById(R.id.ll_address_header);
         ll_place_name_header = (LinearLayout) findViewById(R.id.ll_place_name_header);
         ll_calendar_header = (LinearLayout) findViewById(R.id.ll_calendar_header);
+        rl_slots_booking_progressbar = (RelativeLayout) findViewById(R.id.rl_slots_booking_progressbar);
 
         // Initially give today's date
         Calendar calendars = Calendar.getInstance();
@@ -148,7 +157,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
             if(key.equals("booking_done_time_slots_converting_hashmap_to_string")){
                 Gson gson = new Gson();
                 Type type = new TypeToken<HashMap<String, HashMap<String, String>>>(){}.getType();
-                get_is_already_booking_done_date_time_userid_hahmap = gson.fromJson(without_slash_hashmap_value, type);
+//                get_is_already_booking_done_date_time_userid_hahmap = gson.fromJson(without_slash_hashmap_value, type);
             }
 
             if(key.equals("time_slots_converting_hashmap_to_string")){
@@ -271,6 +280,55 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         }
     }
 
+    private void readAlreadyBookingDetails(String owner_place_id_string) {
+        rl_slots_booking_progressbar.setVisibility(View.VISIBLE);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference collectionRef = db.collection(Utils.key_place_booking_firestore);
+        collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+
+                    int totalEntries = task.getResult().getDocuments().size();
+                    final int[] currentIndex = {0};
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String[] parts = document.getId().split("_");
+                        String owner_id = parts[0]; // "bHbwpPf7xFhJXX42vC9pEomm8Ey2"
+                        String date = parts[1]; // "14 Apr 2023"
+
+                        if(owner_id.contains(owner_place_id_string)){
+                            //-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                            Map<String, Object> bookingData = document.getData();
+                            HashMap<String, Boolean> booked_time_slots_hashmap = new HashMap<>();
+                            for (Map.Entry<String, Object> bookingEntry : bookingData.entrySet()) {
+                                // Get the booking time slot
+                                String timeSlot = bookingEntry.getKey();
+                                Log.d("TAG", "Time slot: " + timeSlot);
+                                booked_time_slots_hashmap.put(timeSlot, true);
+                            }
+                            //-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                            already_booked_date_and_timeslot_hashmap.put(date, booked_time_slots_hashmap);
+                        }
+
+                        // Access the document data here
+                        Log.d("TAG", document.getId() + " => " + document.getData());
+
+                        // check if this is the last iteration
+                        if (++currentIndex[0] == totalEntries) {
+                            rl_slots_booking_progressbar.setVisibility(View.GONE);
+                            recycleData();
+                        }
+                    }
+
+                    Log.d("TAG", "=========\n"+already_booked_date_and_timeslot_hashmap.toString());
+                } else {
+                    Log.d("TAG","Error getting documents: ", task.getException());
+                }
+            }
+        });
+
+    }
+
     public String getSelectedTimeSlotsKey() {
         StringBuilder stringBuilder = new StringBuilder();
         int i = 0;
@@ -301,10 +359,15 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
     //=====================================================================================
     public void refreshRecycleview(String show_selected_date_data){
+        readAlreadyBookingDetails(owner_place_ID_string);
+    }
+
+
+    public void recycleData(){
         if(time_slots_with_price != null) {
 
 //         //Initialize RecyclerView and Adapter
-            userClickOnMapSlotsAdapter = new UserClickOnMapSlotsAdapter(time_slots_with_price, show_selected_date_data, get_is_already_booking_done_date_time_userid_hahmap, this);
+            userClickOnMapSlotsAdapter = new UserClickOnMapSlotsAdapter(time_slots_with_price, show_selected_date_data, already_booked_date_and_timeslot_hashmap, this);
             recycleview_show_available_time_day_slots.setAdapter(userClickOnMapSlotsAdapter);
             recycleview_show_available_time_day_slots.setLayoutManager(new GridLayoutManager(this, 3));
 // Call notifyDataSetChanged() on the adapter to refresh the data displayed in the RecyclerView
