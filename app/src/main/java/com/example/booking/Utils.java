@@ -115,6 +115,13 @@ public class Utils {
     public static String key_owner_PlaceBookingDateTimeUserDetails_hashmap= "PlaceBookingDateTimeUserDetails";
 
 
+    // Shared Preference Value
+    //----------------------------------------------------------------------------------------------
+    public static String shared_preference_key_LoggedInUser_name = "shared_preference_key_LoggedInUser_name";
+    public static String shared_preference_key_LoggedInUser_email = "shared_preference_key_LoggedInUser_email";
+    public static String shared_preference_key_LoggedInUser_phone_number = "shared_preference_key_LoggedInUser_phone_number";
+    public static String shared_preference_key_LoggedInUser_password = "shared_preference_key_LoggedInUser_phone_password";
+    //----------------------------------------------------------------------------------------------
 
 
     // Key Hash-Map User

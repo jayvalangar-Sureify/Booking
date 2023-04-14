@@ -27,6 +27,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.booking.MyPreferences;
 import com.example.booking.R;
 import com.example.booking.Utils;
 import com.example.booking.adapter.UserClickOnMapSlotsAdapter;
@@ -561,17 +562,17 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
     private void makepayment()
     {
 
+
         Checkout checkout = new Checkout();
         checkout.setKeyID(Utils.razorpay_key_id);
-
-        checkout.setImage(R.drawable.icon_done_50);
+        checkout.setImage(R.drawable.icon_location_in_blue_payment);
         final Activity activity = this;
 
         try {
             JSONObject options = new JSONObject();
 
             options.put("name", ""+getString(R.string.app_name));
-            options.put("description", ""+getString(R.string.payment_description));
+            options.put("description", "Payment Done By ID : "+userID_string);
             options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.png");
             // options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
             options.put("theme.color", "#00264D");
@@ -580,8 +581,8 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
             String numericString = inputString.replaceAll("[^\\d.]", "");
             long final_payment_100 = Long.parseLong(numericString.trim()) * 100;
             options.put("amount", ""+final_payment_100);//300 X 100 (amount * 100)
-            options.put("prefill.email", "gaurav.kumar@example.com");
-            options.put("prefill.contact","7864945278");
+            options.put("prefill.email", ""+ MyPreferences.getStringValue(Utils.shared_preference_key_LoggedInUser_email, "User Not Found",getApplicationContext()));
+            options.put("prefill.contact",""+MyPreferences.getStringValue(Utils.shared_preference_key_LoggedInUser_phone_number, "Phone Number Not Found", getApplicationContext()));
             checkout.open(activity, options);
         } catch(Exception e) {
             Log.e("TAG", "Error in starting Razorpay Checkout", e);

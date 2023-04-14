@@ -109,10 +109,16 @@ public class MainActivity extends AppCompatActivity {
                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
                            try {
-                               String user_name_string = value.getString(Utils.map_key_User_Name);
-                               String user_email_string = value.getString(Utils.map_key_User_Email);
-                               String user_password_string = value.getString(Utils.map_key_User_Password);
-                               String user_phone_number_string = value.getString(Utils.map_key_User_Phone_Number);
+                               String user_name_string, user_email_string, user_password_string, user_phone_number_string;
+                               user_name_string = value.getString(Utils.map_key_User_Name);
+                               user_email_string = value.getString(Utils.map_key_User_Email);
+                               user_password_string = value.getString(Utils.map_key_User_Password);
+                               user_phone_number_string = value.getString(Utils.map_key_User_Phone_Number);
+
+                               MyPreferences.setStringValue(Utils.shared_preference_key_LoggedInUser_name, user_name_string, getApplicationContext());
+                               MyPreferences.setStringValue(Utils.shared_preference_key_LoggedInUser_email, user_email_string, getApplicationContext());
+                               MyPreferences.setStringValue(Utils.shared_preference_key_LoggedInUser_phone_number, user_phone_number_string, getApplicationContext());
+                               MyPreferences.setStringValue(Utils.shared_preference_key_LoggedInUser_password, user_password_string, getApplicationContext());
 
                                iv_nav_header_profile.setImageDrawable(getDrawable(R.drawable.icon_user));
                                tv_nav_header_login_type.setText("USER");
@@ -146,7 +152,10 @@ public class MainActivity extends AppCompatActivity {
                                 String owner_password_string = value.getString(Utils.map_key_owner_Password);
                                 String owner_phone_number_string = value.getString(Utils.map_key_owner_Phone_Number);
 
-
+                                MyPreferences.setStringValue(Utils.shared_preference_key_LoggedInUser_name, owner_name_string, getApplicationContext());
+                                MyPreferences.setStringValue(Utils.shared_preference_key_LoggedInUser_email, owner_email_string, getApplicationContext());
+                                MyPreferences.setStringValue(Utils.shared_preference_key_LoggedInUser_phone_number, owner_phone_number_string, getApplicationContext());
+                                MyPreferences.setStringValue(Utils.shared_preference_key_LoggedInUser_password, owner_password_string, getApplicationContext());
 
                                 iv_nav_header_profile.setImageDrawable(getDrawable(R.drawable.icon_owner));
                                 tv_nav_header_login_type.setText("OWNER");
@@ -254,12 +263,23 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_logout:
                 // do something
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(MainActivity.this, SplashScreen.class));
+                Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
+                resetSharedPreferenceValur();
                 finish();
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    private void resetSharedPreferenceValur() {
+        MyPreferences.setStringValue(Utils.shared_preference_key_LoggedInUser_name, "", getApplicationContext());
+        MyPreferences.setStringValue(Utils.shared_preference_key_LoggedInUser_email, "", getApplicationContext());
+        MyPreferences.setStringValue(Utils.shared_preference_key_LoggedInUser_phone_number, "", getApplicationContext());
+        MyPreferences.setStringValue(Utils.shared_preference_key_LoggedInUser_password, "", getApplicationContext());
     }
     //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 

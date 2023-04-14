@@ -143,8 +143,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
         mapView.onResume();
 
 
-        binding.rlProgressbarHomeFragment.setVisibility(View.VISIBLE);
-
         //-----------------------------------------------------------------------------------------
 
         if (googleMap != null) {
