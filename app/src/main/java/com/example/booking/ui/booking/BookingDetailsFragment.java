@@ -79,7 +79,7 @@ public class BookingDetailsFragment extends Fragment implements OnHistoryDataCha
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), BookingHistoryActivity.class);
-                intent.putExtra("historyData", historyData_double_linkedhashmap);
+                intent.putExtra("historyData", loggedIn_user_data_linked_hashmap);
                 startActivity(intent);
             }
         });
@@ -151,7 +151,7 @@ public class BookingDetailsFragment extends Fragment implements OnHistoryDataCha
                        }
                    }
                }
-               //-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=
+               //-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=
            }
 
 

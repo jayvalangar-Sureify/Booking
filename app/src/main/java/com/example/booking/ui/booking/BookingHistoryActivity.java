@@ -23,18 +23,18 @@ public class BookingHistoryActivity extends AppCompatActivity {
 
         booking_history_details_recycle_view = (RecyclerView) findViewById(R.id.booking_history_details_recycle_view);
 
-        LinkedHashMap<String, LinkedHashMap<String, String>> historyData_double_linkedhashmap = new LinkedHashMap<>();
+        LinkedHashMap<String, Object> loggedIn_user_data_linked_hashmap = new LinkedHashMap<>();
 
         Serializable extra = getIntent().getSerializableExtra("historyData");
         if (extra instanceof HashMap) {
-            historyData_double_linkedhashmap = new LinkedHashMap<>((HashMap<String, LinkedHashMap<String, String>>) extra);
+            loggedIn_user_data_linked_hashmap = new LinkedHashMap<>((HashMap<String, LinkedHashMap<String, String>>) extra);
         } else if (extra instanceof LinkedHashMap) {
-            historyData_double_linkedhashmap = (LinkedHashMap<String, LinkedHashMap<String, String>>) extra;
+            loggedIn_user_data_linked_hashmap = (LinkedHashMap<String, Object>) extra;
         } else {
             // handle error case
         }
         //------------------------------------------------------------------------------------------
-        BookingHistoryAdapter adapter = new BookingHistoryAdapter(historyData_double_linkedhashmap);
+        BookingHistoryAdapter adapter = new BookingHistoryAdapter(loggedIn_user_data_linked_hashmap);
         booking_history_details_recycle_view.setAdapter(adapter);
         booking_history_details_recycle_view.setLayoutManager(new GridLayoutManager(BookingHistoryActivity.this, 1));
 // Call notifyDataSetChanged() on the adapter to refresh the data displayed in the RecyclerView
