@@ -102,6 +102,24 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
         }
 
 
+        //------------------------------------------------------------------------------------------
+        // Swap the second and third elements (12 - 01 AM AM and PM PM)
+        List<Map.Entry<String, Integer>> entries = new ArrayList<>(sortedTimeSlots.entrySet());
+        int index1 = 11;
+        int index2 = 23;
+        Map.Entry<String, Integer> entry1 = entries.get(index1);
+        Map.Entry<String, Integer> entry2 = entries.get(index2);
+
+        sortedTimeSlots.remove(entry1.getKey());
+        sortedTimeSlots.remove(entry2.getKey());
+
+        sortedTimeSlots.put(entry1.getKey(), entry1.getValue());
+        sortedTimeSlots.put(entry2.getKey(), entry2.getValue());
+
+        //------------------------------------------------------------------------------------------
+
+
+
     }
 
     private void readIsAlreadySlotsBooked() {
