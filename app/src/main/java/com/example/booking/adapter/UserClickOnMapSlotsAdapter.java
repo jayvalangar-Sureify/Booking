@@ -15,9 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.booking.R;
 import com.example.booking.interfaces.user_timeslot_Selected_OnclickListner;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOnMapSlotsAdapter.ViewHolder> implements user_timeslot_Selected_OnclickListner {
+
+
+    // Finally, create a new LinkedHashMap to preserve the sorted order, and put the sorted entries in it
+    LinkedHashMap<String, Integer> sortedTimeSlots = new LinkedHashMap<>();
 
     String user_selected_date_string;
     HashMap<String, HashMap<String, Boolean>> get_is_already_booking_done_date_time_userid_hahmap;
@@ -28,10 +38,12 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
     private user_timeslot_Selected_OnclickListner mListener;
 
     public UserClickOnMapSlotsAdapter(HashMap<String, Integer> hasmapData, String user_selected_date_string, HashMap<String, HashMap<String, Boolean>> get_is_already_booking_done_date_time_userid_hahmap, user_timeslot_Selected_OnclickListner listener) {
-        place_slots_details_hashmap = hasmapData;
+        this.place_slots_details_hashmap = hasmapData;
         mListener = listener;
         this.get_is_already_booking_done_date_time_userid_hahmap = get_is_already_booking_done_date_time_userid_hahmap;
         this.user_selected_date_string = user_selected_date_string;
+
+        sortPlaceSlotsDetails(place_slots_details_hashmap);
 
         for (String key : place_slots_details_hashmap.keySet()) {
             mSelectedItems.put(key, false);
@@ -41,6 +53,55 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
         if(get_is_already_booking_done_date_time_userid_hahmap != null) {
             readIsAlreadySlotsBooked();
         }
+    }
+
+    private void sortPlaceSlotsDetails(HashMap<String, Integer> place_slots_details_hashmap) {
+        // Then, create a list of entries from the HashMap
+        List<Map.Entry<String, Integer>> timeslotList = new ArrayList<>(place_slots_details_hashmap.entrySet());
+
+// Next, sort the list of entries by timeslot
+        Collections.sort(timeslotList, new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> entry1, Map.Entry<String, Integer> entry2) {
+                // Extract the hour and AM/PM designation from the start times in the keys
+                String startTime1 = entry1.getKey().substring(0, 2);
+                String startAMPM1 = entry1.getKey().substring(3, 5);
+                String startTime2 = entry2.getKey().substring(0, 2);
+                String startAMPM2 = entry2.getKey().substring(3, 5);
+
+                // Convert the hour to an integer for easier comparison
+                int hour1 = Integer.parseInt(startTime1);
+                int hour2 = Integer.parseInt(startTime2);
+
+                // If the AM/PM designation is "PM", add 12 to the hour to convert to 24-hour time
+                if (startAMPM1.equals("PM")) {
+                    hour1 += 12;
+                }
+                if (startAMPM2.equals("PM")) {
+                    hour2 += 12;
+                }
+
+                // Compare the hours
+                int result = Integer.compare(hour1, hour2);
+
+                // If the hours are the same, compare the AM/PM designation
+                if (result == 0) {
+                    result = startAMPM1.compareTo(startAMPM2);
+                }
+
+                return result;
+            }
+        });
+
+        sortedTimeSlots = new LinkedHashMap<>();
+        // Finally, loop through the sorted list and print out the timeslots and prices
+        for (Map.Entry<String, Integer> timeslot : timeslotList) {
+            System.out.println(timeslot.getKey() + " - " + timeslot.getValue());
+
+            sortedTimeSlots.put(timeslot.getKey(), timeslot.getValue());
+        }
+
+
     }
 
     private void readIsAlreadySlotsBooked() {
@@ -60,6 +121,7 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
 
     public void setData(HashMap<String, Integer> hasMapdata) {
         place_slots_details_hashmap = hasMapdata;
+        sortPlaceSlotsDetails(place_slots_details_hashmap);
         notifyDataSetChanged();
     }
 
@@ -69,9 +131,6 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
         return new ViewHolder(view);
     }
 
-    public String getItem(int position) {
-        return place_slots_details_hashmap.keySet().toArray(new String[0])[position];
-    }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
@@ -80,8 +139,8 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
         int light_grey_color = ContextCompat.getColor(holder.itemView.getContext(), R.color.grey_1);
 
 
-        String time_slots_key = (String) place_slots_details_hashmap.keySet().toArray()[position];
-        Integer price_value = place_slots_details_hashmap.get(time_slots_key);
+        String time_slots_key = (String) sortedTimeSlots.keySet().toArray()[position];
+        Integer price_value = sortedTimeSlots.get(time_slots_key);
 
 
 
@@ -132,7 +191,7 @@ public class UserClickOnMapSlotsAdapter extends RecyclerView.Adapter<UserClickOn
 
     @Override
     public int getItemCount() {
-        return place_slots_details_hashmap.size();
+        return sortedTimeSlots.size();
     }
 
     @Override
