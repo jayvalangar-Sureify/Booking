@@ -74,6 +74,17 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <activity
+            android:name=".ui.booking.BookingHistoryActivity"
+            android:exported="true"
+            android:label="@string/booking_history"
+            android:noHistory="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
         <activity
             android:name=".ui.SplashScreen.SplashScreen"
             android:exported="true"

@@ -19,11 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.booking.R;
 import com.example.booking.Utils;
+import com.example.booking.interfaces.OnHistoryDataChangedListener;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -36,12 +38,19 @@ import java.util.Map;
 
 public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAdapter.ViewHolder> {
 
+    //---------------------------------------------------------------------------------
+    private OnHistoryDataChangedListener onHistoryDataChangedListener;
+    LinkedHashMap<String, LinkedHashMap<String, String>> history_data_double_linked_list = new LinkedHashMap<>();
+    //---------------------------------------------------------------------------------
+
+
     List<Map.Entry<String, HashMap<String, String>>> entries = new ArrayList<>();
 
     private LinkedHashMap<String, Object> place_slots_details_linkedhashmap;
 
-    public BookingDetailsAdapter(LinkedHashMap<String, Object> hasmapData) {
+    public BookingDetailsAdapter(LinkedHashMap<String, Object> hasmapData, OnHistoryDataChangedListener listener) {
         this.place_slots_details_linkedhashmap = hasmapData;
+        this.onHistoryDataChangedListener = listener;
         sortLinkHashmap();
     }
 
@@ -89,8 +98,41 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
         return place_slots_details_linkedhashmap.keySet().toArray(new String[0])[position];
     }
 
+    private boolean checkIfItPastDates(String checkDateString) {
+        // Format the date in the format "dd MMM yyyy"
+        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+        String dateStr = checkDateString; // The date to check in string format
+        Date dateToCheck = null;
+
+        try {
+            dateToCheck = dateFormat.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+// Check if the date is in the past
+        if (dateToCheck != null && dateToCheck.before(Calendar.getInstance().getTime())) {
+            // The date is in the past
+            System.out.println(dateStr + " is in the past.");
+            return true;
+        } else if (dateToCheck != null && dateToCheck.equals(Calendar.getInstance().getTime())) {
+            // The date is today's date
+            System.out.println(dateStr + " is today's date.");
+            return false;
+        } else {
+            // The date is in the future
+            System.out.println(dateStr + " is in the future.");
+            return false;
+        }
+    }
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        //history
+        LinkedHashMap<String, String> histort_full_details = new LinkedHashMap<>();
+        boolean isPastDate = false;
+        String temp_single_history_date = "";
+
         //=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-
         Map.Entry<String, HashMap<String, String>> objectLinkedHashMap = entries.get(position);// assuming the position variable refers to the position of the item in the RecyclerView
 
@@ -113,12 +155,19 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
             System.out.println("Hash key: " + key + ", Hash value: " + value);
 
             if(key.contains(Utils.key_booking_user_id)){
-
+                histort_full_details.put(Utils.key_booking_user_id, value);
             }
             if(key.contains(Utils.key_booking_owner_id)){
-
+                histort_full_details.put(Utils.key_booking_owner_id, value);
             }
             if(key.contains(Utils.key_booking_date)){
+                histort_full_details.put(Utils.key_booking_date, value);
+
+                if(checkIfItPastDates(value)){
+                    isPastDate = true;
+                    temp_single_history_date = value;
+                }
+
                 Log.i("test_date_response", ""+value);
 
                 // Split the date string by space
@@ -133,18 +182,22 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
                 holder.tv_date_year.setText(year);
             }
             if(key.contains(Utils.key_booking_staff_number)){
+                histort_full_details.put(Utils.key_booking_staff_number, value);
                 holder.tv_booking_details_staff_number.setText(value);
             }
             if(key.contains(Utils.key_booking_place_name)){
-
+                histort_full_details.put(Utils.key_booking_place_name, value);
             }
             if(key.contains(Utils.key_booking_place_address)){
+                histort_full_details.put(Utils.key_booking_place_address, value);
                 holder.tv_booking_details_place_address.setText(value);
             }
             if(key.contains(Utils.key_booking_place_latitude)){
+                histort_full_details.put(Utils.key_booking_place_latitude, value);
                 holder.tv_latitude_longitude_hide.setText(value);
             }
             if(key.contains(Utils.key_booking_place_longitude)){
+                histort_full_details.put(Utils.key_booking_place_longitude, value);
                 holder.tv_latitude_longitude_hide.setText(holder.tv_latitude_longitude_hide.getText().toString()+","+value.toString());
             }
 
@@ -201,6 +254,18 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
                 }
             }
         });
+
+
+
+        // Is past data add into history
+        //==========================================================================================
+        if(isPastDate){
+            history_data_double_linked_list.put(temp_single_history_date, histort_full_details);
+            if (onHistoryDataChangedListener != null) {
+                onHistoryDataChangedListener.onHistoryDataChanged(history_data_double_linked_list);
+            }
+        }
+        //==========================================================================================
     }
 
     @Override

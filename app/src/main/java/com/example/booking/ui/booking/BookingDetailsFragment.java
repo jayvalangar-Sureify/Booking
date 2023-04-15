@@ -1,5 +1,6 @@
 package com.example.booking.ui.booking;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.example.booking.Utils;
 import com.example.booking.adapter.BookingDetailsAdapter;
 import com.example.booking.databinding.FragmentBookingDetailsBinding;
+import com.example.booking.interfaces.OnHistoryDataChangedListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,7 +27,9 @@ import java.util.List;
 import java.util.Map;
 
 
-public class BookingDetailsFragment extends Fragment {
+public class BookingDetailsFragment extends Fragment implements OnHistoryDataChangedListener {
+
+    LinkedHashMap<String, LinkedHashMap<String, String>> historyData_double_linkedhashmap;
 
     boolean is_data_taken_from_server = false;
     boolean is_data_filtering_done = false;
@@ -69,6 +73,17 @@ public class BookingDetailsFragment extends Fragment {
                     }
                 });
 
+
+        //-=-=-=-=--=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=
+        binding.btnBookingDetailsShowHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), BookingHistoryActivity.class);
+                intent.putExtra("historyData", historyData_double_linkedhashmap);
+                startActivity(intent);
+            }
+        });
+        //-=-=-=-=-=--=-=-==-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-
 
             return root;
     }
@@ -144,7 +159,7 @@ public class BookingDetailsFragment extends Fragment {
        }
 
         //------------------------------------------------------------------------------------------
-        BookingDetailsAdapter adapter = new BookingDetailsAdapter(loggedIn_user_data_linked_hashmap);
+        BookingDetailsAdapter adapter = new BookingDetailsAdapter(loggedIn_user_data_linked_hashmap, this);
         binding.bookingDetailsRecycleView.setAdapter(adapter);
         binding.bookingDetailsRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
 // Call notifyDataSetChanged() on the adapter to refresh the data displayed in the RecyclerView
@@ -156,6 +171,14 @@ public class BookingDetailsFragment extends Fragment {
 
         binding.rlProgressbarBookingDetailsFragment.setVisibility(View.GONE);
         //------------------------------------------------------------------------------------
+    }
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    @Override
+    public void onHistoryDataChanged(LinkedHashMap<String, LinkedHashMap<String, String>> historyData) {
+        // Handle the changed history data here
+        historyData_double_linkedhashmap = historyData;
     }
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 

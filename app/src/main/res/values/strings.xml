@@ -247,8 +247,8 @@
     <string name="save_sunday_rent">Save Sunday Rent</string>
 
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-    
-    
+
+
     <!-- UserClickOnMapShowThatPlaceAllDetails -->
     <string name="place_name">Place Name</string>
     <string name="place_address">Address</string>
@@ -288,5 +288,9 @@
     <string name="booking_done">Booking Done</string>
     <string name="booking_not_done">Failed To Book</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- -->
+
+    <!-- Booking History -->
+    <string name="booking_history">Booking History</string>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
 </resources>
