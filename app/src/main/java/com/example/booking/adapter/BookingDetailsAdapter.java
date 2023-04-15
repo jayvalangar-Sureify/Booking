@@ -20,22 +20,63 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.booking.R;
 import com.example.booking.Utils;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
 public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAdapter.ViewHolder> {
 
+    List<Map.Entry<String, HashMap<String, String>>> entries = new ArrayList<>();
+
     private LinkedHashMap<String, Object> place_slots_details_linkedhashmap;
 
     public BookingDetailsAdapter(LinkedHashMap<String, Object> hasmapData) {
-        place_slots_details_linkedhashmap = hasmapData;
+        this.place_slots_details_linkedhashmap = hasmapData;
+        sortLinkHashmap();
     }
 
     public void setData(LinkedHashMap<String, Object> hasMapdata) {
-        place_slots_details_linkedhashmap = hasMapdata;
+        this.place_slots_details_linkedhashmap = hasMapdata;
+        sortLinkHashmap();
         notifyDataSetChanged();
+    }
+
+    private void sortLinkHashmap() {
+        // Create a list of entries from the original LinkedHashMap
+         entries = new ArrayList(place_slots_details_linkedhashmap.entrySet());
+
+// Sort the list by date using a custom Comparator
+        Collections.sort(entries, new Comparator<Map.Entry<String, HashMap<String, String>>>() {
+            DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+            @Override
+            public int compare(Map.Entry<String, HashMap<String, String>> entry1, Map.Entry<String, HashMap<String, String>> entry2) {
+                String date1 = entry1.getValue().get(Utils.key_booking_date);
+                String date2 = entry2.getValue().get(Utils.key_booking_date);
+                try {
+                    Date d1 = dateFormat.parse(date1);
+                    Date d2 = dateFormat.parse(date2);
+                    return d1.compareTo(d2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
+
+// Add the sorted entries back to the new LinkedHashMap
+        for (Map.Entry<String, HashMap<String, String>> entry : entries) {
+            place_slots_details_linkedhashmap.put(entry.getKey(), entry.getValue());
+        }
     }
 
     @Override
@@ -50,21 +91,26 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String time_slots_key = (String) place_slots_details_linkedhashmap.keySet().toArray()[position];
-        HashMap<String, String> internal_details = (HashMap<String, String>) place_slots_details_linkedhashmap.get(time_slots_key);
+        //=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-
+        Map.Entry<String, HashMap<String, String>> objectLinkedHashMap = entries.get(position);// assuming the position variable refers to the position of the item in the RecyclerView
 
-        String[] parts = time_slots_key.split(" = ");
+        String time_slots_keys = objectLinkedHashMap.getKey();
+        HashMap<String, String> hashMapValues = objectLinkedHashMap.getValue();
+
+        System.out.println("====================================================");
+        System.out.println("time_slots_keys: " + time_slots_keys);
+
+
+        String[] parts = time_slots_keys.split(" = ");
         String timeRange = parts[0];
         String price = parts[1];
 
 
         holder.tv_booking_details_place_time_slots.setText(timeRange + " (" + price +" Rs)");
-
-
-        for (Map.Entry<String, String> entry : internal_details.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-
+        for (Map.Entry<String, String> hashMapEntry : hashMapValues.entrySet()) {
+            String key = hashMapEntry.getKey();
+            String value = hashMapEntry.getValue();
+            System.out.println("Hash key: " + key + ", Hash value: " + value);
 
             if(key.contains(Utils.key_booking_user_id)){
 
@@ -87,22 +133,24 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
                 holder.tv_date_year.setText(year);
             }
             if(key.contains(Utils.key_booking_staff_number)){
-              holder.tv_booking_details_staff_number.setText(value);
+                holder.tv_booking_details_staff_number.setText(value);
             }
             if(key.contains(Utils.key_booking_place_name)){
 
             }
             if(key.contains(Utils.key_booking_place_address)){
-             holder.tv_booking_details_place_address.setText(value);
+                holder.tv_booking_details_place_address.setText(value);
             }
             if(key.contains(Utils.key_booking_place_latitude)){
-            holder.tv_latitude_longitude_hide.setText(value);
+                holder.tv_latitude_longitude_hide.setText(value);
             }
             if(key.contains(Utils.key_booking_place_longitude)){
-            holder.tv_latitude_longitude_hide.setText(holder.tv_latitude_longitude_hide.getText().toString()+","+value.toString());
+                holder.tv_latitude_longitude_hide.setText(holder.tv_latitude_longitude_hide.getText().toString()+","+value.toString());
             }
 
         }
+        System.out.println("====================================================");
+        //=-=-=--==-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-
 
 
         holder.cv_booking_details_location.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +205,7 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
 
     @Override
     public int getItemCount() {
-        return place_slots_details_linkedhashmap.size();
+        return entries.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
