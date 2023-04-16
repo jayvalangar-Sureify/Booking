@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +23,11 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -36,10 +35,6 @@ import java.util.Map;
 
 
 public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAdapter.ViewHolder> {
-
-        //---------------------------------------------------------------------------------
-        LinkedHashMap<String, LinkedHashMap<String, String>> history_data_double_linked_list = new LinkedHashMap<>();
-        //---------------------------------------------------------------------------------
 
 
         List<Map.Entry<String, HashMap<String, String>>> entries = new ArrayList<>();
@@ -83,9 +78,19 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
             for (Map.Entry<String, HashMap<String, String>> entry : entries) {
                 place_slots_details_linkedhashmap.put(entry.getKey(), entry.getValue());
             }
+
+            for (Iterator<Map.Entry<String, HashMap<String, String>>> iterator = entries.iterator(); iterator.hasNext();) {
+                Map.Entry<String, HashMap<String, String>> entry = iterator.next();
+                HashMap<String, String> hashMap = entry.getValue();
+                String bookingDate = hashMap.get(Utils.key_booking_date);
+                if (!Utils.checkIfItIsOldDate(bookingDate)) {
+                    iterator.remove(); // Remove the current element from the list
+                }
+            }
         }
 
-        @Override
+
+    @Override
         public com.example.booking.adapter.BookingHistoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.booking_history_details_item_card, parent, false);
             return new com.example.booking.adapter.BookingHistoryAdapter.ViewHolder(view);
@@ -95,33 +100,6 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
             return place_slots_details_linkedhashmap.keySet().toArray(new String[0])[position];
         }
 
-        private boolean checkIfItPastDates(String checkDateString) {
-            // Format the date in the format "dd MMM yyyy"
-            DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
-            String dateStr = checkDateString; // The date to check in string format
-            Date dateToCheck = null;
-
-            try {
-                dateToCheck = dateFormat.parse(dateStr);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-// Check if the date is in the past
-            if (dateToCheck != null && dateToCheck.before(Calendar.getInstance().getTime())) {
-                // The date is in the past
-                System.out.println(dateStr + " is in the past.");
-                return true;
-            } else if (dateToCheck != null && dateToCheck.equals(Calendar.getInstance().getTime())) {
-                // The date is today's date
-                System.out.println(dateStr + " is today's date.");
-                return false;
-            } else {
-                // The date is in the future
-                System.out.println(dateStr + " is in the future.");
-                return false;
-            }
-        }
 
         @Override
         public void onBindViewHolder(com.example.booking.adapter.BookingHistoryAdapter.ViewHolder holder, int position) {
@@ -160,13 +138,6 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
                 if(key.contains(Utils.key_booking_date)){
                     histort_full_details.put(Utils.key_booking_date, value);
 
-                    if(checkIfItPastDates(value)){
-                        isPastDate = true;
-                        temp_single_history_date = value;
-                    }
-
-                    Log.i("test_date_response", ""+value);
-
                     // Split the date string by space
                     String[] dateParts = value.split(" ");
 
@@ -199,7 +170,6 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
                 }
 
             }
-            System.out.println("====================================================");
             //=-=-=--==-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-
 
 
@@ -252,14 +222,6 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
                 }
             });
 
-
-
-            // Is past data add into history
-            //==========================================================================================
-            if(isPastDate){
-                history_data_double_linked_list.put(temp_single_history_date, histort_full_details);
-            }
-            //==========================================================================================
         }
 
         @Override

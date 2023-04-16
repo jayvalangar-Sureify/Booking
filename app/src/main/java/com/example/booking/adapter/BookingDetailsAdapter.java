@@ -30,6 +30,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -85,6 +86,15 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
 // Add the sorted entries back to the new LinkedHashMap
         for (Map.Entry<String, HashMap<String, String>> entry : entries) {
             place_slots_details_linkedhashmap.put(entry.getKey(), entry.getValue());
+        }
+
+        for (Iterator<Map.Entry<String, HashMap<String, String>>> iterator = entries.iterator(); iterator.hasNext();) {
+            Map.Entry<String, HashMap<String, String>> entry = iterator.next();
+            HashMap<String, String> hashMap = entry.getValue();
+            String bookingDate = hashMap.get(Utils.key_booking_date);
+            if (Utils.checkIfItIsOldDate(bookingDate)) {
+                iterator.remove(); // Remove the current element from the list
+            }
         }
     }
 

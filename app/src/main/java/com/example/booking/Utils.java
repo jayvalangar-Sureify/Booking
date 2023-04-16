@@ -302,4 +302,49 @@ public class Utils {
         return dayOfWeek;
     }
     //=-=--=-=-=-=-=--=-=-=-=-=-=-=-=--==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+    // Check if it is old date
+    //=-=--=-=-=-=-=--=-=-=-=-=-=-=-=--==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    public static boolean checkIfItIsOldDate(String bookingDate) {
+        try {
+            String givenDate = bookingDate;
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+            Date date = dateFormat.parse(givenDate);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            int givenDay = calendar.get(Calendar.DAY_OF_MONTH);
+            int givenMonth = calendar.get(Calendar.MONTH);
+            int givenYear = calendar.get(Calendar.YEAR);
+
+            Calendar currentCalendar = Calendar.getInstance();
+            int currentDay = currentCalendar.get(Calendar.DAY_OF_MONTH);
+            int currentMonth = currentCalendar.get(Calendar.MONTH);
+            int currentYear = currentCalendar.get(Calendar.YEAR);
+
+            if (new SimpleDateFormat("dd MMM yyyy").parse(bookingDate).before(new Date())) {
+
+                // Todays date
+                if (givenDay == currentDay && givenMonth == currentMonth && givenYear == currentYear) {
+                    // given date is today's date
+                    Log.i("only_date", "Today's date : "+bookingDate);
+                    return false;
+                } else {
+                    Log.i("only_date", "PAST : "+bookingDate);
+                    return true;
+                }
+            }else{
+                Log.i("only_date", "Upcoming : "+bookingDate);
+                return false;
+            }
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    //=-=--=-=-=-=-=--=-=-=-=-=-=-=-=--==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
 }
