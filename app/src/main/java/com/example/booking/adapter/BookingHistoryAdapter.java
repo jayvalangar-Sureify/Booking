@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
@@ -36,13 +37,14 @@ import java.util.Map;
 
 public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAdapter.ViewHolder> {
 
-
+        Context context;
         List<Map.Entry<String, HashMap<String, String>>> entries = new ArrayList<>();
 
         private LinkedHashMap<String, Object> place_slots_details_linkedhashmap;
 
-        public BookingHistoryAdapter(LinkedHashMap<String, Object> hasmapData) {
+        public BookingHistoryAdapter(LinkedHashMap<String, Object> hasmapData, Context context) {
             this.place_slots_details_linkedhashmap = hasmapData;
+            this.context = context;
             sortLinkHashmap();
         }
 
@@ -226,7 +228,13 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
 
         @Override
         public int getItemCount() {
-            return entries.size();
+            if (entries.isEmpty()) {
+                Toast.makeText(context, "No History found", Toast.LENGTH_SHORT).show();
+                return 0;
+            } else {
+                return entries.size();
+            }
+
         }
 
 

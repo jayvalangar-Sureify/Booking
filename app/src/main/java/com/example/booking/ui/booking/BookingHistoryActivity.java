@@ -34,7 +34,7 @@ public class BookingHistoryActivity extends AppCompatActivity {
             // handle error case
         }
         //------------------------------------------------------------------------------------------
-        BookingHistoryAdapter adapter = new BookingHistoryAdapter(loggedIn_user_data_linked_hashmap);
+        BookingHistoryAdapter adapter = new BookingHistoryAdapter(loggedIn_user_data_linked_hashmap, getApplicationContext());
         booking_history_details_recycle_view.setAdapter(adapter);
         booking_history_details_recycle_view.setLayoutManager(new GridLayoutManager(BookingHistoryActivity.this, 1));
 // Call notifyDataSetChanged() on the adapter to refresh the data displayed in the RecyclerView
