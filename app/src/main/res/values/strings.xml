@@ -272,6 +272,8 @@
 
     <!--booking details and History -->
     <string name="upcoming">Upcoming</string>
+    <string name="no_upcoming_booking">No Upcoming Bookings...</string>
+    <string name="no_previous_booking">No Previous Bookings...</string>
     <string name="history">History</string>
     <string name="contact_details">Contact</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->

@@ -159,13 +159,18 @@ public class BookingDetailsFragment extends Fragment implements OnHistoryDataCha
        }
 
         //------------------------------------------------------------------------------------------
-        BookingDetailsAdapter adapter = new BookingDetailsAdapter(loggedIn_user_data_linked_hashmap, this);
-        binding.bookingDetailsRecycleView.setAdapter(adapter);
-        binding.bookingDetailsRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        if(loggedIn_user_data_linked_hashmap.size() != 0) {
+            binding.tvBookingDetailsNoUpcoming.setVisibility(View.GONE);
+            BookingDetailsAdapter adapter = new BookingDetailsAdapter(loggedIn_user_data_linked_hashmap, this);
+            binding.bookingDetailsRecycleView.setAdapter(adapter);
+            binding.bookingDetailsRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
 // Call notifyDataSetChanged() on the adapter to refresh the data displayed in the RecyclerView
-        adapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
 // Call invalidate() on the RecyclerView to force it to redraw itself
-        binding.bookingDetailsRecycleView.invalidate();
+            binding.bookingDetailsRecycleView.invalidate();
+        }else{
+            binding.tvBookingDetailsNoUpcoming.setVisibility(View.VISIBLE);
+        }
         //------------------------------------------------------------------------------------------
 
 
