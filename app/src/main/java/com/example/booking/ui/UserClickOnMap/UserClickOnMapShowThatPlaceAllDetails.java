@@ -514,27 +514,11 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
                 String user_id_string = userID_string;
                 String owner_id_string = owner_place_ID_string;
                 String booking_id_string =  owner_id_string+"_"+show_selected_date_data;
-                //----------------------------------------------------------------------------------------------------------
-                LinkedHashMap<String, String> user_owner_place_booking_details_linkedhashmap = new LinkedHashMap<>();
-                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_user_id, booking_id_string);
-                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_owner_id, owner_id_string);
-                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_date, show_selected_date_data);
-                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_staff_number, value_booking_staff_number);
-                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_place_name, value_booking_place_name);
-                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_place_address, value_booking_place_address);
-                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_place_latitude, value_booking_place_latitude);
-                user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_place_longitude,value_booking_place_longitude );
-                //----------------------------------------------------------------------------------------------------------
 
-
-                //----------------------------------------------------------------------------------------------------------
-                LinkedHashMap<String, LinkedHashMap<String, String>> linked_hash_map_userid = new LinkedHashMap();
-                linked_hash_map_userid.put(user_id_string, user_owner_place_booking_details_linkedhashmap);
-                //----------------------------------------------------------------------------------------------------------
 
                 //==========================================================================================================
                 if (time_slots_line_by_line_array[0] != "") {
-                    submit_booking_details(booking_id_string, show_selected_date_data, time_slots_line_by_line_array, linked_hash_map_userid, user_id_string, owner_id_string, total_bill);
+                    submit_booking_details(booking_id_string, show_selected_date_data, time_slots_line_by_line_array, user_id_string, owner_id_string, total_bill);
                 }else{
                     Toast.makeText(getApplicationContext(), "Select atleast one time slots !", Toast.LENGTH_SHORT).show();
                 }
@@ -553,9 +537,9 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
     String final_booking_id, final_date_string, final_user_id_string, final_owner_id_string, final_total_bill;
     String[] final_time_slots_line_by_line_array;
-    LinkedHashMap<String, LinkedHashMap<String, String>> final_linked_hash_map_userid;
+
     //======================================================================================================================================================
-     public void submit_booking_details(String booking_id, String date_string, String[] time_slots_line_by_line_array, LinkedHashMap<String, LinkedHashMap<String, String>> linked_hash_map_userid, String user_id_string, String owner_id_string, String total_bill) {
+     public void submit_booking_details(String booking_id, String date_string, String[] time_slots_line_by_line_array, String user_id_string, String owner_id_string, String total_bill) {
 
          final_booking_id = booking_id;
          final_date_string = date_string;
@@ -563,7 +547,6 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
          final_owner_id_string = owner_id_string;
          final_total_bill = total_bill;
          final_time_slots_line_by_line_array = time_slots_line_by_line_array;
-         final_linked_hash_map_userid = linked_hash_map_userid;
 
          makepayment();
 
@@ -605,8 +588,8 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
     }
 
     @Override
-    public void onPaymentSuccess(String s) {
-        Log.i("test_response", "Payment Success : "+s.toString());
+    public void onPaymentSuccess(String payment_id_string) {
+        Log.i("test_response", "Payment Success : "+payment_id_string.toString());
         //------------------------------------------------------------------------------------------
         // show success dialog
         final Dialog dialog = new Dialog(UserClickOnMapShowThatPlaceAllDetails.this);
@@ -628,6 +611,33 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         cv_payment_dialog.setCardBackgroundColor(light_green_color);
 
 
+
+        //==========================================================================================
+        //----------------------------------------------------------------------------------------------------------
+        String user_id_string = userID_string;
+        String owner_id_string = owner_place_ID_string;
+        String booking_id_string =  owner_id_string+"_"+show_selected_date_data;
+
+        LinkedHashMap<String, String> user_owner_place_booking_details_linkedhashmap = new LinkedHashMap<>();
+        user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_user_id, booking_id_string);
+        user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_owner_id, owner_id_string);
+        user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_date, show_selected_date_data);
+        user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_staff_number, value_booking_staff_number);
+        user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_place_name, value_booking_place_name);
+        user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_place_address, value_booking_place_address);
+        user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_place_latitude, value_booking_place_latitude);
+        user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_place_longitude,value_booking_place_longitude );
+        user_owner_place_booking_details_linkedhashmap.put(Utils.key_booking_payment_id_successful,payment_id_string );
+        //----------------------------------------------------------------------------------------------------------
+
+
+        //----------------------------------------------------------------------------------------------------------
+        LinkedHashMap<String, LinkedHashMap<String, String>> linked_hash_map_userid = new LinkedHashMap();
+        linked_hash_map_userid.put(user_id_string, user_owner_place_booking_details_linkedhashmap);
+        //----------------------------------------------------------------------------------------------------------
+        //==========================================================================================
+
+
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=--=-=-=-=-=-=
         DocumentReference documentRef = firebaseFirestore.collection(Utils.key_place_booking_firestore).document(final_booking_id);
 
@@ -642,7 +652,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         // time slots --> userid --> detail_data
         LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String,String>>> data = new LinkedHashMap<>();
         for(int i = 0 ; i < final_time_slots_line_by_line_array.length; i++){
-            data.put(final_time_slots_line_by_line_array[i], final_linked_hash_map_userid);
+            data.put(final_time_slots_line_by_line_array[i], linked_hash_map_userid);
             time_userid_linkedhashmap.put(final_time_slots_line_by_line_array[i], final_user_id_string);
         }
 

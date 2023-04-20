@@ -70,6 +70,7 @@ public class Utils {
     public static String key_booking_user_id = "key_booking_user_id";
     public static String key_booking_owner_id = "key_booking_user_id";
     public static String key_booking_date = "key_booking_date";
+    public static String key_booking_payment_id_successful = "key_booking_payment_id_successful";
     public static String key_booking_user_name = "key_booking_user_name";
     public static String key_booking_user_number = "key_booking_user_number";
     public static String key_booking_owner_name = "key_booking_owner_name";
