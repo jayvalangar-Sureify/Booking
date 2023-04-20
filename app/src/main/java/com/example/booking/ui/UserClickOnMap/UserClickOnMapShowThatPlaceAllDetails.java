@@ -295,8 +295,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
     private void readAlreadyBookingDetails(String owner_place_id_string) {
         rl_slots_booking_progressbar.setVisibility(View.VISIBLE);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference collectionRef = db.collection(Utils.key_place_booking_firestore);
+        CollectionReference collectionRef = firebaseFirestore.collection(Utils.key_place_booking_firestore);
         collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -333,6 +332,10 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
                         }
                     }
 
+                    if(already_booked_date_and_timeslot_hashmap.size() == 0){
+                        rl_slots_booking_progressbar.setVisibility(View.GONE);
+                        recycleData();
+                    }
                     Log.d("TAG", "=========\n"+already_booked_date_and_timeslot_hashmap.toString());
                 } else {
                     Log.d("TAG","Error getting documents: ", task.getException());
