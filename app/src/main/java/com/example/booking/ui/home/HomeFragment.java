@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.booking.FirebaseProductionSingletonClass;
 import com.example.booking.Utils;
 import com.example.booking.databinding.FragmentHomeBinding;
 import com.example.booking.ui.OwnerPlaceRentDayTime.OwnerPlaceRentDayTimeWise;
@@ -87,8 +88,18 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
 
         // Initialization
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        // Initialize
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        if(Utils.get_SharedPreference_staging_or_production_enviorment(getActivity()).contains(Utils.value_production)){
+            firebaseAuth = FirebaseAuth.getInstance(FirebaseProductionSingletonClass.getInstance(getActivity()));
+            firebaseFirestore = FirebaseFirestore.getInstance(FirebaseProductionSingletonClass.getInstance(getActivity()));
+
+        }else{
+            firebaseAuth = FirebaseAuth.getInstance();
+            firebaseFirestore = FirebaseFirestore.getInstance();
+        }
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
         user_Id_string = firebaseAuth.getCurrentUser().getUid();
         Log.i("test_response", "HOME FRAGMENT : "+user_Id_string);
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

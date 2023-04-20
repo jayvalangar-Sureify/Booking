@@ -27,6 +27,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.booking.FirebaseProductionSingletonClass;
 import com.example.booking.MyPreferences;
 import com.example.booking.R;
 import com.example.booking.Utils;
@@ -117,8 +118,19 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         place_whole_details_hashmap = Utils.convertStringToHashMap_StringString(getHashmapPlaceWholeData_String);
 
         //----------------------------------------------------------------------------------------------
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
+
+        // Initialize
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        if(Utils.get_SharedPreference_staging_or_production_enviorment(getApplicationContext()).contains(Utils.value_production)){
+            firebaseAuth = FirebaseAuth.getInstance(FirebaseProductionSingletonClass.getInstance(getApplicationContext()));
+            firebaseFirestore = FirebaseFirestore.getInstance(FirebaseProductionSingletonClass.getInstance(getApplicationContext()));
+
+        }else{
+            firebaseAuth = FirebaseAuth.getInstance();
+            firebaseFirestore = FirebaseFirestore.getInstance();
+        }
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
         get_type_of_login = Utils.get_SharedPreference_type_of_login(getApplicationContext());
         userID_string = firebaseAuth.getCurrentUser().getUid();
         //----------------------------------------------------------------------------------------------

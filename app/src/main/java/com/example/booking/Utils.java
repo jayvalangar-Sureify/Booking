@@ -27,6 +27,12 @@ public class Utils {
     public static String owner = "owner";
 
 
+    // Enviorment Type
+    public static String key_build_env_staging_or_production = "key_build_env";
+    public static String value_staging = "staging";
+    public static String value_production = "production";
+
+
     // Razorpay Payment gateway
     public static String razorpay_key_id = "rzp_test_FTYNMgruxTdMMc";
 
@@ -241,6 +247,21 @@ public class Utils {
     }
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+
+
+    // set and get : your choice of development - staging env or production env
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    public static void set_SharedPreference_staging_or_production_enviorment(String env_name, Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key_build_env_staging_or_production, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(key_build_env_staging_or_production, env_name);
+        editor.commit();
+    }
+    public static String get_SharedPreference_staging_or_production_enviorment(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(key_build_env_staging_or_production, MODE_PRIVATE);
+        return sharedPreferences.getString(key_build_env_staging_or_production, value_staging);
+    }
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
     public static HashMap<String, HashMap<String, Integer>> stringToHashMap(String str) {
         HashMap<String, HashMap<String, Integer>> result = new HashMap<>();

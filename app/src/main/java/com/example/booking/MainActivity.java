@@ -65,8 +65,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialization
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        // Initialize
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        firebaseAuth = FirebaseAuth.getInstance(FirebaseProductionSingletonClass.getInstance(getApplicationContext()));
+//        firebaseAuth = FirebaseAuth.getInstance();
+//        firebaseFirestore = FirebaseFirestore.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance(FirebaseProductionSingletonClass.getInstance(getApplicationContext()));
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
         user_Id_string = firebaseAuth.getCurrentUser().getUid();
 
         NavigationView navigationView = binding.navView;
@@ -262,7 +268,13 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_logout:
                 // do something
-                FirebaseAuth.getInstance().signOut();
+//                FirebaseAuth.getInstance().signOut();
+                if(Utils.get_SharedPreference_staging_or_production_enviorment(getApplicationContext()).contains(Utils.value_production)){
+                    FirebaseAuth.getInstance(FirebaseProductionSingletonClass.getInstance(getApplicationContext())).signOut();
+                }else{
+                    FirebaseAuth.getInstance().signOut();
+                }
+
                 Intent intent = new Intent(getApplicationContext(), SplashScreen.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

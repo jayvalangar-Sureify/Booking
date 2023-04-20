@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.example.booking.FirebaseProductionSingletonClass;
 import com.example.booking.Utils;
 import com.example.booking.adapter.BookingDetailsAdapter;
 import com.example.booking.databinding.FragmentBookingDetailsBinding;
@@ -50,8 +51,18 @@ public class BookingDetailsFragment extends Fragment implements OnHistoryDataCha
 
         // Initialize
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        // Initialize
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        if(Utils.get_SharedPreference_staging_or_production_enviorment(getActivity()).contains(Utils.value_production)){
+            firebaseAuth = FirebaseAuth.getInstance(FirebaseProductionSingletonClass.getInstance(getActivity()));
+            firebaseFirestore = FirebaseFirestore.getInstance(FirebaseProductionSingletonClass.getInstance(getActivity()));
+
+        }else{
+            firebaseAuth = FirebaseAuth.getInstance();
+            firebaseFirestore = FirebaseFirestore.getInstance();
+        }
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
         user_Id_string = firebaseAuth.getCurrentUser().getUid();
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
