@@ -94,6 +94,11 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
     String value_booking_place_address = "";
     String value_booking_place_latitude = "";
     String value_booking_place_longitude = "";
+    String value_total_number_of_nets_available = "";
+    //----------------------------------------------------------------------------------------------
+
+    //----------------------------------------------------------------------------------------------
+    int for_selected_timeslot_count_how_many_nets_full = 0;
     //----------------------------------------------------------------------------------------------
 
 
@@ -101,7 +106,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
     String get_type_of_login;
     String userID_string = "", owner_place_ID_string = "";
     FirebaseAuth firebaseAuth;
-    FirebaseFirestore firebaseFirestore;
+    public static FirebaseFirestore firebaseFirestore;
 
     // document_id ==> userid_ownerid_date_time, Hashmap_key ==> time_slot, Hashmap_value ==> whole_details
     public HashMap<String, HashMap<String, String>> submit_booking_data_from_user_hashmap;
@@ -157,7 +162,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
         show_selected_date_data = todayDate;
 
-       //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         place_whole_details_hashmap.entrySet().forEach(entry -> {
             // seperating latitude and longitude from key
             String key = entry.getKey();
@@ -204,6 +209,10 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
             if(key.equals("owner_place_staff_number_string")){
                 value_booking_staff_number = without_slash_hashmap_value;
+            }
+
+            if(key.equals("owner_place_total_nets_string")){
+                value_total_number_of_nets_available = without_slash_hashmap_value;
             }
 
 
@@ -271,7 +280,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
 
         // Button book
-      //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
         btn_book_place_from_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -310,16 +319,47 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
                         if(owner_id.contains(owner_place_id_string)){
                             //-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=
-                            Map<String, Object> bookingData = document.getData();
-                            HashMap<String, Boolean> booked_time_slots_hashmap = new HashMap<>();
-                            for (Map.Entry<String, Object> bookingEntry : bookingData.entrySet()) {
-                                // Get the booking time slot
-                                String timeSlot = bookingEntry.getKey();
-                                Log.d("TAG", "Time slot: " + timeSlot);
-                                booked_time_slots_hashmap.put(timeSlot, true);
-                            }
+//                            Map<String, Object> bookingData = document.getData();
+//                            HashMap<String, Boolean> booked_time_slots_hashmap = new HashMap<>();
+//                            for (Map.Entry<String, Object> bookingEntry : bookingData.entrySet()) {
+//                                // Get the booking time slot
+//                                String timeSlot = bookingEntry.getKey();
+//                                Log.d("TAG", "Time slot: " + timeSlot);
+//                                booked_time_slots_hashmap.put(timeSlot, true);
+//                            }
+//                            already_booked_date_and_timeslot_hashmap.put(date, booked_time_slots_hashmap);
                             //-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+                            //****************************************************************************************
+                            Map<String, Object> bookingData = document.getData();
+
+
+                            String TAG = "test_latest_response";
+                            for_selected_timeslot_count_how_many_nets_full = 0;
+                            HashMap<String, Boolean> booked_time_slots_hashmap = new HashMap<>();
+                            for (Map.Entry<String, Object> entry : bookingData.entrySet()) {
+                                String key = entry.getKey();
+                                Map<String, Object> value = (Map<String, Object>) entry.getValue();
+                                Log.d(TAG, "Key: " + key + ", Value: " + value.toString());
+
+                                for_selected_timeslot_count_how_many_nets_full = for_selected_timeslot_count_how_many_nets_full + 1;
+
+                                for (Map.Entry<String, Object> innerEntry : value.entrySet()){
+                                    String timeSlot = innerEntry.getKey();
+                                    Map<String, Object> inner_value = (Map<String, Object>) innerEntry.getValue();
+//                                    Log.d(TAG, "inner_key: " + timeSlot + ", inner_value: " + inner_value.toString());
+
+                                    // User clicked on map, Now show user to how many timeslots are full or empty, now check last net timeslots, if present that's means it's full
+                                    if(for_selected_timeslot_count_how_many_nets_full == Integer.parseInt(value_total_number_of_nets_available)){
+                                        booked_time_slots_hashmap.put(timeSlot, true);
+                                    }
+                                }
+                            }
+
                             already_booked_date_and_timeslot_hashmap.put(date, booked_time_slots_hashmap);
+                            //****************************************************************************************
+
                         }
 
                         // Access the document data here
@@ -355,8 +395,8 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
             int slot_price_integer = time_slots_with_price.get(key);
 
             if (value) { // If the value matches the one you are looking for
-                    stringBuilder.append(entry.getKey() + " = " +slot_price_integer);
-                    stringBuilder.append("\n"); // Append a newline character to create a new line
+                stringBuilder.append(entry.getKey() + " = " +slot_price_integer);
+                stringBuilder.append("\n"); // Append a newline character to create a new line
                 total_price = total_price + slot_price_integer;
             }
         }
@@ -535,22 +575,26 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
 
 
-    String final_booking_id, final_date_string, final_user_id_string, final_owner_id_string, final_total_bill;
+    static String final_booking_id;
+    String final_date_string;
+    String final_user_id_string;
+    String final_owner_id_string;
+    String final_total_bill;
     String[] final_time_slots_line_by_line_array;
 
     //======================================================================================================================================================
-     public void submit_booking_details(String booking_id, String date_string, String[] time_slots_line_by_line_array, String user_id_string, String owner_id_string, String total_bill) {
+    public void submit_booking_details(String booking_id, String date_string, String[] time_slots_line_by_line_array, String user_id_string, String owner_id_string, String total_bill) {
 
-         final_booking_id = booking_id;
-         final_date_string = date_string;
-         final_user_id_string = user_id_string;
-         final_owner_id_string = owner_id_string;
-         final_total_bill = total_bill;
-         final_time_slots_line_by_line_array = time_slots_line_by_line_array;
+        final_booking_id = booking_id;
+        final_date_string = date_string;
+        final_user_id_string = user_id_string;
+        final_owner_id_string = owner_id_string;
+        final_total_bill = total_bill;
+        final_time_slots_line_by_line_array = time_slots_line_by_line_array;
 
-         makepayment();
+        makepayment();
 
-     }
+    }
     //======================================================================================================================================================
 
 
@@ -656,19 +700,11 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
             time_userid_linkedhashmap.put(final_time_slots_line_by_line_array[i], final_user_id_string);
         }
 
+        //******************************************************************************************************
 
+        checkWhichBookingNetsAvailableandSubmitData(time_userid_linkedhashmap, linked_hash_map_userid, owner_id_string, show_selected_date_data);
 
-        documentRef.set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d("TAG", "Document updated/created successfully!");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("TAG", "Error updating/creating document: ", e);
-            }
-        });
+        //******************************************************************************************************
 
 
         // submit timeslots to OwnerPlaces collection also for mark red and green
@@ -751,5 +787,160 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
 
     //======================================================================================================================================================
 
+
+
+    //********************************************************************************************************************
+    private void checkWhichBookingNetsAvailableandSubmitData(LinkedHashMap<String, String> time_userid_linkedhashmap, LinkedHashMap<String, LinkedHashMap<String, String>> linked_hash_map_userid, String owner_place_id_string, String show_selected_date_data) {
+        rl_slots_booking_progressbar.setVisibility(View.VISIBLE);
+        CollectionReference collectionRef = firebaseFirestore.collection(Utils.key_place_booking_firestore);
+        collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+
+
+                    // 1st loop for number of selected timeslots ---------------------------------------------------------------------------------
+                    for (Map.Entry<String, String> time_userid_linkedhashmap : time_userid_linkedhashmap.entrySet()) {
+                        String selected_time_slot_string_key = time_userid_linkedhashmap.getKey();
+
+                        Log.i("test_real_data", "============= 1st key ============="+selected_time_slot_string_key);
+
+                        // Checking if new entry we have to do if already that date of data is not present ---------------------------------------------------------------------------------
+                        QuerySnapshot documents = task.getResult();
+                        int server_booking_data_size = documents.size();
+                        if(server_booking_data_size == 0){
+                            LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String,String>>> data = new LinkedHashMap<>();
+                            data.put(selected_time_slot_string_key, linked_hash_map_userid);
+                            submitBookingDetails("1", data);
+                            rl_slots_booking_progressbar.setVisibility(View.GONE);
+                            recycleData();
+                        }
+                        // END : Checking if new entry we have to do if already that date of data is not present ---------------------------------------------------------------------------------
+
+
+
+                        // 2nd Loop : Red server data, and choose perfect place to submit data  ---------------------------------------------------------------------------------
+                        outerloop:
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+
+                            String[] parts = document.getId().split("_");
+                            String owner_id = parts[0]; // "bHbwpPf7xFhJXX42vC9pEomm8Ey2"
+                            String date = parts[1]; // "14 Apr 2023"
+
+
+                            // Check which date of data you want to read ---------------------------------------------------------
+                            if (document.getId().contains(owner_place_id_string+"_"+show_selected_date_data)) {
+
+                                Map<String, Object> bookingData = document.getData();
+
+
+                                int curren_innerloop_tIteration = 1;
+                                int total_innerloop_Iterations = bookingData.entrySet().size();
+
+
+                                // 3rd Loop : Number of nets, Net wise read timeslots, 3rd loop Nets, 4th loop timeslots  ---------------------------------------------------------------------------------
+                                innerloop:
+                                for (Map.Entry<String, Object> entry : bookingData.entrySet()) {
+                                    String list_number_key = entry.getKey();
+
+//                                    Log.i("test_real_data", "============= 3rd key =============" + list_number_key);
+
+                                    Map<String, Object> value = (Map<String, Object>) entry.getValue();
+
+
+                                    // 4th Loop : get timeslots from server   ---------------------------------------------------------------------------------
+                                    boolean isSameTimeSlotAlreadyFound = false;
+                                    for (Map.Entry<String, Object> innerEntry : value.entrySet()) {
+                                        String timeSlot = innerEntry.getKey();
+//                                        Log.i("test_real_data", "============= 4th key =============" + timeSlot);
+
+                                        if (selected_time_slot_string_key.contains(timeSlot)) {
+//                                            Log.i("test_real_data", "@@@@@@@@@@ SAME TO SAME @@@@@@@@@");
+                                            isSameTimeSlotAlreadyFound = true;
+                                        }
+
+                                    }
+                                    // END : 4th Loop : get timeslots from server   ---------------------------------------------------------------------------------
+
+
+                                    // loop finish still not found same value than submit -----------------------------------------------------------------
+                                    if (!isSameTimeSlotAlreadyFound) {
+//                                        Log.i("test_real_data", "$$$$$$$$$ It's UNIQUE SUBMIT YOUR DATA TO : " + list_number_key);
+                                        LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String,String>>> data = new LinkedHashMap<>();
+                                        data.put(selected_time_slot_string_key, linked_hash_map_userid);
+                                        submitBookingDetails(""+list_number_key, data);
+                                        rl_slots_booking_progressbar.setVisibility(View.GONE);
+                                        recycleData();
+                                        break  innerloop;
+                                    }
+                                    //------------------------------------------------------------------------------------------------------------
+
+
+                                    // check if it is the last innerloop iteration, and still isSameTimeSlotAlreadyFound = true, than submit your data to next node
+                                    if (curren_innerloop_tIteration == total_innerloop_Iterations && isSameTimeSlotAlreadyFound) {
+                                        // code to execute for the last iteration
+//                                        Log.i("test_real_data", "$$$$$$$$$ It's UNIQUE SUBMIT YOUR DATA TO : " + (Integer.parseInt(list_number_key)+1));
+                                        LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String,String>>> data = new LinkedHashMap<>();
+                                        data.put(selected_time_slot_string_key, linked_hash_map_userid);
+                                        submitBookingDetails(""+(Integer.parseInt(list_number_key)+1), data);
+                                        rl_slots_booking_progressbar.setVisibility(View.GONE);
+                                        recycleData();
+                                    }
+
+                                    curren_innerloop_tIteration++;
+
+                                }
+                                // END : 3rd Loop : Number of nets, Net wise read timeslots  ---------------------------------------------------------------------------------
+
+                            }else{
+                                // new date found
+//                                Log.i("test_real_data", "$$$$$$$$$ It's UNIQUE SUBMIT Your Data, NEW DATE FOUND");
+                                LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String,String>>> data = new LinkedHashMap<>();
+                                data.put(selected_time_slot_string_key, linked_hash_map_userid);
+                                submitBookingDetails("1", data);
+                                rl_slots_booking_progressbar.setVisibility(View.GONE);
+                                recycleData();
+                                break  outerloop;
+                            }
+                            // END : If else : If : date found, Else : New Date found -------------------------------------------------------------------------
+
+                        }
+                        // END : Outerloop : 2nd Loop : Red server data, and choose perfect place to submit data  ---------------------------------------------------------------------------------
+                    }
+                    // END : 1st loop for number of selected timeslots ---------------------------------------------------------------------------------
+
+
+                }
+
+            }
+        });
+
+    }
+    //********************************************************************************************************************
+
+
+    public static void submitBookingDetails(String net_number_string, LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, String>>> data){
+        DocumentReference documentRef = firebaseFirestore.collection(Utils.key_place_booking_firestore).document(final_booking_id);
+
+        Log.d("test_real_data", "Inside : "+net_number_string+" ,"+data.toString());
+
+        LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String, LinkedHashMap<String,String>>>> data2 = new LinkedHashMap<>();
+        data2.put(net_number_string, data);
+
+        documentRef.set(data2, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d("TAG", "Document updated/created successfully!");
+                Log.d("test_real_data", "SUCESSSSSSS");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("TAG", "Error updating/creating document: ", e);
+                Log.d("test_real_data", "Error : "+e.getMessage());
+            }
+        });
+
+    }
 
 }
