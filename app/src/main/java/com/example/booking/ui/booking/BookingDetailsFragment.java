@@ -16,24 +16,36 @@ import com.example.booking.Utils;
 import com.example.booking.adapter.BookingDetailsAdapter;
 import com.example.booking.databinding.FragmentBookingDetailsBinding;
 import com.example.booking.interfaces.OnHistoryDataChangedListener;
+import com.example.booking.model.BookingDetailsModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class BookingDetailsFragment extends Fragment implements OnHistoryDataChangedListener {
 
     LinkedHashMap<String, LinkedHashMap<String, String>> historyData_double_linkedhashmap;
 
-    boolean is_data_taken_from_server = false;
-    boolean is_data_filtering_done = false;
+
+    //--------------------------------------------------
+    ArrayList<String> date_arrayList;
+    ArrayList<String> timeslotsandprice_arraylist;
+    ArrayList<String> indetailBookingDetails_arraylist;
+    //--------------------------------------------------
 
     LinkedHashMap<String, Object> loggedIn_user_data_linked_hashmap = new LinkedHashMap<>();
 
@@ -101,94 +113,178 @@ public class BookingDetailsFragment extends Fragment implements OnHistoryDataCha
 
 
 
+
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     private void getAllBookingIdData(List<DocumentSnapshot> documentSnapshot) {
-        //------------------------------------------------------------------------------------
-       for(int i = 0; i < documentSnapshot.size(); i++) {
-           String owner_id_with_date_string = documentSnapshot.get(i).getId();
+        CollectionReference collectionRef = firebaseFirestore.collection(Utils.key_place_booking_firestore);
+        collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
 
-           String[] parts = owner_id_with_date_string.split("_");
+                    date_arrayList = new ArrayList<>();
+                    timeslotsandprice_arraylist = new ArrayList<>();
+                    indetailBookingDetails_arraylist = new ArrayList<>();
 
-           String owner_id_from_Server_string = parts[0]; // "15GeAx8pikQFJwFZ5q4GJIXLuMW2"
-           String owner_booking_date = parts[1]; // "05 Apr 2023"
+                    QuerySnapshot querySnapshot = task.getResult();
+                    List<DocumentSnapshot> documents = querySnapshot.getDocuments();
+                    for (int i = 0; i < documents.size(); i++) {
+                        DocumentSnapshot document = documents.get(i);
 
-           String get_type_of_login = Utils.get_SharedPreference_type_of_login(getActivity());
+                        String[] parts = document.getId().split("_");
+                        String owner_id_from_server_String = parts[0]; // "bHbwpPf7xFhJXX42vC9pEomm8Ey2"
+                        String date_from_Server_string = parts[1]; // "14 Apr 2023"
 
-           if(get_type_of_login.contains(Utils.owner)){
-               //-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=
-               String current_owner_id = user_Id_string;
+                        Utils.printLongLog("test_new_data", "owner_id_from_server_String : "+owner_id_from_server_String);
+                        Utils.printLongLog("test_new_data", "date_from_Server_string : "+date_from_Server_string);
 
-               if(current_owner_id.contains(owner_id_from_Server_string)) {
-                   Map<String, Object> bookingData = documentSnapshot.get(i).getData();
-                   for (Map.Entry<String, Object> bookingEntry : bookingData.entrySet()) {
-                       // Get the booking time slot
-                       String timeSlot = bookingEntry.getKey();
-                       Log.d("TAG", "Time slot: " + timeSlot);
+                        Utils.printLongLog("test_new_data", "======================================================");
 
-                       // Get the nested booking data
-                       Map<String, Object> bookingDetails = (Map<String, Object>) bookingEntry.getValue();
-                       for (Map.Entry<String, Object> bookingDetailsEntry : bookingDetails.entrySet()) {
-                           // Get the booking ID
-                           String bookingId = bookingDetailsEntry.getKey();
+                        String get_type_of_login = Utils.get_SharedPreference_type_of_login(getActivity());
 
-                           // Get the nested booking data
-                           Map<String, Object> booking = (Map<String, Object>) bookingDetailsEntry.getValue();
+                        if (get_type_of_login.contains(Utils.owner)) {
 
-                               loggedIn_user_data_linked_hashmap.put(timeSlot, booking);
+                            Map<String, Object> bookingData = document.getData();
 
-                       }
-                   }
-               }
-               //-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=
-           }else{
-               //-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=
-               Map<String, Object> bookingData = documentSnapshot.get(i).getData();
-               for (Map.Entry<String, Object> bookingEntry : bookingData.entrySet()) {
-                   // Get the booking time slot
-                   String timeSlot = bookingEntry.getKey();
-                   Log.d("TAG", "Time slot: " + timeSlot);
+                            for (Map.Entry<String, Object> entry : bookingData.entrySet()) {
+                                String list_number_key = entry.getKey();
 
-                   // Get the nested booking data
-                   Map<String, Object> bookingDetails = (Map<String, Object>) bookingEntry.getValue();
-                   for (Map.Entry<String, Object> bookingDetailsEntry : bookingDetails.entrySet()) {
-                       // Get the booking ID
-                       String bookingId = bookingDetailsEntry.getKey();
+                                Map<String, Object> value = (Map<String, Object>) entry.getValue();
 
-                       // Get the nested booking data
-                       Map<String, Object> booking = (Map<String, Object>) bookingDetailsEntry.getValue();
+                                for (Map.Entry<String, Object> innerEntry : value.entrySet()) {
+                                    String timeSlot = innerEntry.getKey();
+                                    innerEntry.getValue();
+//
+                                }
+                            }
 
-                       if (user_Id_string.contains(bookingId)) {
-                           loggedIn_user_data_linked_hashmap.put(timeSlot, booking);
-                       }
-                   }
-               }
-               //-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=
-           }
+                        } else {
+                            // It's User
+
+                            Utils.printLongLog("test_new_data", "It's USER");
 
 
+                            Map<String, Object> bookingData = document.getData();
 
-       }
-
-        //------------------------------------------------------------------------------------------
-        if(loggedIn_user_data_linked_hashmap.size() != 0) {
-            binding.tvBookingDetailsNoUpcoming.setVisibility(View.GONE);
-            BookingDetailsAdapter adapter = new BookingDetailsAdapter(loggedIn_user_data_linked_hashmap, this);
-            binding.bookingDetailsRecycleView.setAdapter(adapter);
-            binding.bookingDetailsRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-// Call notifyDataSetChanged() on the adapter to refresh the data displayed in the RecyclerView
-            adapter.notifyDataSetChanged();
-// Call invalidate() on the RecyclerView to force it to redraw itself
-            binding.bookingDetailsRecycleView.invalidate();
-        }else{
-            binding.tvBookingDetailsNoUpcoming.setVisibility(View.VISIBLE);
-        }
-        //------------------------------------------------------------------------------------------
+                            for (Map.Entry<String, Object> entry : bookingData.entrySet()) {
+                                String key_1_ground_net_number = entry.getKey();
+                                Map<String, Object> value_1 = (Map<String, Object>) entry.getValue();
 
 
-        binding.rlProgressbarBookingDetailsFragment.setVisibility(View.GONE);
+                                for (Map.Entry<String, Object> innerEntry : value_1.entrySet()) {
+                                    String key_2_time_price_combo = innerEntry.getKey();
+                                    Map<String, Object> value_2_all_booking_details = (Map<String, Object>) entry.getValue();
+
+
+                                    // Take USer Id from Value object
+                                    //--------------------------------------------------------------------------------------
+                                    Pattern pattern = Pattern.compile("\\{([a-zA-Z0-9]+)=\\{");
+                                    Matcher matcher = pattern.matcher(value_2_all_booking_details.toString());
+                                    String userid_from_Server = "";
+                                    while (matcher.find()) {
+                                        userid_from_Server = matcher.group(1);
+                                    }
+                                    //--------------------------------------------------------------------------------------
+
+
+                                    if (user_Id_string.contains(userid_from_Server)) {
+                                        Utils.printLongLog("test_new_data", "***** USERID match Current USer *****");
+
+                                        //=============================================================
+                                        String date_timeSlot_String = date_from_Server_string+"_"+key_2_time_price_combo;
+                                        String[] date_timeSlot_parts = date_timeSlot_String.split("_");
+                                        String date = parts[0];
+                                        String time = parts[1];
+
+                                        // Add date, time and Details
+                                        date_arrayList.add(date_from_Server_string);
+                                        timeslotsandprice_arraylist.add(key_2_time_price_combo);
+                                        indetailBookingDetails_arraylist.add(value_2_all_booking_details.get(key_2_time_price_combo).toString());
+                                        //=============================================================
+
+                                    }
+
+
+                                }
+                            }
+
+
+                            //-=-=-=-=-=-=-=-=-=-=--=-=-=--=-=-=--=-=-=--=-=-=-=--=-=-=-=-=--=-=-=-=
+                            // Create a list of Booking objects
+                            List<BookingDetailsModel> bookings = new ArrayList<>();
+                            for (int i1 = 0; i1 < date_arrayList.size(); i1++) {
+                                String date = date_arrayList.get(i1);
+                                String timePrice = timeslotsandprice_arraylist.get(i1);
+                                String[] splitTimePrice = timePrice.split(" = ");
+                                String time = splitTimePrice[0];
+                                int price = Integer.parseInt(splitTimePrice[1]);
+                                Map<String, Map<String, String>> details = new HashMap<>();
+                                details.put(indetailBookingDetails_arraylist.get(i1), new HashMap<>());
+                                BookingDetailsModel booking = new BookingDetailsModel(date, time, price, details);
+                                bookings.add(booking);
+                            }
+
+                            // Sort the list by date and time
+                            Collections.sort(bookings, new Comparator<BookingDetailsModel>() {
+                                public int compare(BookingDetailsModel b1, BookingDetailsModel b2) {
+                                    int dateCompare = b1.getDate().compareTo(b2.getDate());
+                                    if (dateCompare != 0) {
+                                        return dateCompare;
+                                    }
+                                    return b1.getTime().compareTo(b2.getTime());
+                                }
+                            });
+
+                            // Update the original arraylists based on the sorted Booking objects
+                            for (int i2 = 0; i2 < bookings.size(); i2++) {
+                                date_arrayList.set(i2, bookings.get(i2).getDate());
+                                String time = bookings.get(i2).getTime() + " = " + bookings.get(i2).getPrice();
+                                timeslotsandprice_arraylist.set(i2, time);
+                                indetailBookingDetails_arraylist.set(i2, bookings.get(i2).getDetails().keySet().iterator().next());
+                            }
+
+                            //-=-=--=-=-=--=-=-=-=--=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=-=-=--==-=
+
+                            Utils.printLongLog("test_new_data_only", "Date : \n" + date_arrayList.toString());
+                            Utils.printLongLog("test_new_data_only", "Time : \n" + timeslotsandprice_arraylist.toString());
+                            Utils.printLongLog("test_new_data_only", "Indetails : \n" + indetailBookingDetails_arraylist.toString());
+
+
+
+                        }
+
+                        Utils.printLongLog("test_new_data", "======================================================");
+                    }
+                    // END : 1st loop for number of selected timeslots ---------------------------------------------------------------------------------
+
+
+                //********************************************************************************************
+                    if (date_arrayList.size() != 0) {
+                        binding.tvBookingDetailsNoUpcoming.setVisibility(View.GONE);
+                        BookingDetailsAdapter adapter = new BookingDetailsAdapter(date_arrayList, timeslotsandprice_arraylist, indetailBookingDetails_arraylist, BookingDetailsFragment.this);
+                        binding.bookingDetailsRecycleView.setAdapter(adapter);
+                        binding.bookingDetailsRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+                        adapter.notifyDataSetChanged();
+                        binding.bookingDetailsRecycleView.invalidate();
+                    } else {
+                        binding.tvBookingDetailsNoUpcoming.setVisibility(View.VISIBLE);
+                    }
+
+                    //********************************************************************************************
+
+                }
+            }
+
+        });
+
+
+
+
+
         //------------------------------------------------------------------------------------
     }
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     @Override

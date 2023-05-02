@@ -369,4 +369,21 @@ public class Utils {
     //=-=--=-=-=-=-=--=-=-=-=-=-=-=-=--==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
+
+    //=-=--=-=-=-=-=--=-=-=-=-=-=-=-=--==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    private static final int MAX_LOG_LENGTH = 4000;
+
+    public static void printLongLog(String tag, String message) {
+        if (message.length() > MAX_LOG_LENGTH) {
+            int i = 0;
+            while (i < message.length()) {
+                int endIndex = Math.min(i + MAX_LOG_LENGTH, message.length());
+                Log.i(tag, message.substring(i, endIndex));
+                i += MAX_LOG_LENGTH;
+            }
+        } else {
+            Log.i(tag, message);
+        }
+    }
+    //=-=--=-=-=-=-=--=-=-=-=-=-=-=-=--==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 }
