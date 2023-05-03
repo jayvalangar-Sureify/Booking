@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Booking</string>
+    <string name="app_name_staging">Booking Staging</string>
     <string name="app_one_liner">Book Your Place !</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -11,7 +12,7 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_booking_details">Upcoming Booking</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_about">About</string>
     <string name="title_activity_login_screen">LoginScreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -293,6 +294,18 @@
 
     <!-- Booking History -->
     <string name="booking_history">Booking History</string>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
+
+    <!-- About Page -->
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <string name="info_page">Info</string>
+    <string name="privacy_policy_link">https://bit.ly/3LP9UT7</string>
+    <string name="app_version_code">APP VERSION CODE</string>
+    <string name="app_name_label">APP NAME</string>
+    <string name="privacy_policy">PRIVACY POLICY</string>
+    <string name="permission_used">PERMISSION USED</string>
+    <string name="permission_used_details">INTERNET, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, ACCESS_BACKGROUND_LOCATION</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
 </resources>

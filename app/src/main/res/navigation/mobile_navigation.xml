@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_booking_details" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.booking.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_about"
+        android:name="com.example.booking.ui.About.AboutFragment"
+        android:label="@string/menu_about"
+        tools:layout="@layout/fragment_about" />
 </navigation>
