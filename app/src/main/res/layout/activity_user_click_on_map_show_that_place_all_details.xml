@@ -26,7 +26,7 @@
 
         <TextView
             android:id="@+id/progress_text"
-            android:layout_below="@+id/login_progressbar"
+            android:layout_below="@+id/slots_booking_progressbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/wait"
