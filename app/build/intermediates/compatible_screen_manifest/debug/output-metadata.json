@@ -4,7 +4,7 @@
     "type": "COMPATIBLE_SCREEN_MANIFEST",
     "kind": "Directory"
   },
-  "applicationId": "com.example.booking",
+  "applicationId": "com.valangar.booking",
   "variantName": "debug",
   "elements": []
 }

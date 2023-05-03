@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-103:12
-INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-103:12
-INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-103:12
-INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-103:12
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-115:12
+INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-115:12
+INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-115:12
+INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-115:12
 MERGED from [androidx.databinding:viewbinding:7.3.1] /home/jayv/.gradle/caches/transforms-3/076971b8bc289c9ef0d36b515ee0ba0b/transformed/viewbinding-7.3.1/AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.navigation:navigation-ui:2.5.3] /home/jayv/.gradle/caches/transforms-3/20ab82e67395892bf0d060d80d7d9bbd/transformed/navigation-ui-2.5.3/AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.material:material:1.8.0] /home/jayv/.gradle/caches/transforms-3/2c13c30a09a82e2595819c73d636063e/transformed/material-1.8.0/AndroidManifest.xml:17:1-26:12
@@ -93,22 +93,22 @@ MERGED from [androidx.documentfile:documentfile:1.0.0] /home/jayv/.gradle/caches
 MERGED from [androidx.print:print:1.0.0] /home/jayv/.gradle/caches/transforms-3/bf31cb82c5e82af0612c08b7ff7c0368/transformed/print-1.0.0/AndroidManifest.xml:17:1-22:12
 MERGED from [io.grpc:grpc-android:1.50.2] /home/jayv/.gradle/caches/transforms-3/3445227ead42fd230e72c51f6d616165/transformed/grpc-android-1.50.2/AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] /home/jayv/.gradle/caches/transforms-3/4814aec79905d545bc1b0ea9c9ac2359/transformed/protolite-well-known-types-18.0.0/AndroidManifest.xml:2:1-11:12
-INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-103:12
-INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-103:12
-INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-103:12
+INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-115:12
+INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-115:12
+INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-115:12
 	package
 		INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-103:12
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-115:12
 		INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml
 	android:versionName
 		INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-103:12
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-115:12
 		INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml
 	xmlns:tools
 		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:3:5-51
 	android:versionCode
 		INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-103:12
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:1-115:12
 		INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml
 	xmlns:android
 		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:2:11-69
@@ -134,20 +134,32 @@ MERGED from [com.google.android.gms:play-services-measurement-sdk-api:21.2.0] /h
 MERGED from [com.google.android.gms:play-services-measurement-sdk-api:21.2.0] /home/jayv/.gradle/caches/transforms-3/55052c7d1424e09fbcfe204613b28896/transformed/play-services-measurement-sdk-api-21.2.0/AndroidManifest.xml:23:5-67
 	android:name
 		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:5:22-64
+uses-permission#com.google.android.gms.permission.AD_ID
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:6:5-78
+MERGED from [com.google.android.gms:play-services-measurement-api:21.2.0] /home/jayv/.gradle/caches/transforms-3/32a8eb716ccbf0d8ad538a1d4e5467fe/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:25:5-79
+MERGED from [com.google.android.gms:play-services-measurement-api:21.2.0] /home/jayv/.gradle/caches/transforms-3/32a8eb716ccbf0d8ad538a1d4e5467fe/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:25:5-79
+MERGED from [com.google.android.gms:play-services-measurement-impl:21.2.0] /home/jayv/.gradle/caches/transforms-3/d2d7cbb3be833864cef1752dcbd66ecb/transformed/play-services-measurement-impl-21.2.0/AndroidManifest.xml:27:5-79
+MERGED from [com.google.android.gms:play-services-measurement-impl:21.2.0] /home/jayv/.gradle/caches/transforms-3/d2d7cbb3be833864cef1752dcbd66ecb/transformed/play-services-measurement-impl-21.2.0/AndroidManifest.xml:27:5-79
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.0] /home/jayv/.gradle/caches/transforms-3/8c82d12e4f190ef895e4a4a853c962d1/transformed/play-services-ads-identifier-18.0.0/AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.0] /home/jayv/.gradle/caches/transforms-3/8c82d12e4f190ef895e4a4a853c962d1/transformed/play-services-ads-identifier-18.0.0/AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:21.2.0] /home/jayv/.gradle/caches/transforms-3/55052c7d1424e09fbcfe204613b28896/transformed/play-services-measurement-sdk-api-21.2.0/AndroidManifest.xml:26:5-79
+MERGED from [com.google.android.gms:play-services-measurement-sdk-api:21.2.0] /home/jayv/.gradle/caches/transforms-3/55052c7d1424e09fbcfe204613b28896/transformed/play-services-measurement-sdk-api-21.2.0/AndroidManifest.xml:26:5-79
+	android:name
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:6:22-76
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:6:5-81
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:7:5-81
 	android:name
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:6:22-78
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:7:22-78
 uses-permission#android.permission.ACCESS_FINE_LOCATION
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:7:5-79
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:8:5-79
 	android:name
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:7:22-76
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:8:22-76
 uses-permission#android.permission.ACCESS_BACKGROUND_LOCATION
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:8:5-85
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:9:5-85
 	android:name
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:8:22-82
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:9:22-82
 application
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:10:5-101:19
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:11:5-113:19
 MERGED from [com.google.android.material:material:1.8.0] /home/jayv/.gradle/caches/transforms-3/2c13c30a09a82e2595819c73d636063e/transformed/material-1.8.0/AndroidManifest.xml:24:5-20
 MERGED from [com.google.android.material:material:1.8.0] /home/jayv/.gradle/caches/transforms-3/2c13c30a09a82e2595819c73d636063e/transformed/material-1.8.0/AndroidManifest.xml:24:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /home/jayv/.gradle/caches/transforms-3/a9acdbd261a74e7c894230797feea4f3/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
@@ -217,112 +229,122 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /home/jayv/
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/18030739e5b1f2c0979c38e8c75f0133/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:17:9-35
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:18:9-35
 	android:label
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:15:9-41
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:16:9-41
 	android:fullBackupContent
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:13:9-54
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:14:9-54
 	android:roundIcon
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:16:9-54
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:17:9-64
 	tools:targetApi
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:19:9-29
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:20:9-29
 	android:icon
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:14:9-43
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:15:9-53
 	android:allowBackup
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:11:9-35
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:12:9-35
 	android:theme
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:18:9-45
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:19:9-45
 	android:dataExtractionRules
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:12:9-65
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:13:9-65
 activity#com.example.booking.ui.UserClickOnMap.UserClickOnMapShowThatPlaceAllDetails
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:20:9-27:20
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:21:9-28:20
 	android:label
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:22:13-50
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:23:13-50
 	android:exported
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:23:13-37
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:24:13-37
 	android:name
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:21:13-84
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:22:13-84
 meta-data#android.app.lib_name
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:24:13-26:36
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:25:13-27:36
 	android:value
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:26:17-33
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:27:17-33
 	android:name
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:25:17-52
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:26:17-52
 activity#com.example.booking.ui.OwnerPlaceRentDayTime.OwnerPlaceRentDayTimeWise
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:28:9-35:20
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:29:9-36:20
 	android:label
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:31:13-56
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:32:13-56
 	android:exported
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:30:13-37
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:31:13-37
 	android:name
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:29:13-79
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:30:13-79
 meta-data#com.google.android.geo.API_KEY
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:47:9-49:51
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:48:9-50:51
 	android:value
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:49:13-48
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:50:13-48
 	android:name
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:48:13-58
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:49:13-58
 activity#com.example.booking.ui.Owner_Add_Place_Details.OwnerAddPlaceDetails
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:51:9-58:20
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:52:9-59:20
 	android:label
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:54:13-59
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:55:13-59
 	android:exported
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:53:13-37
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:54:13-37
 	android:name
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:52:13-76
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:53:13-76
 activity#com.example.booking.ui.Signup.SignupScreen_User
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:59:9-67:20
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:60:9-68:20
 	android:label
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:62:13-61
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:63:13-61
 	android:noHistory
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:63:13-37
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:64:13-37
 	android:exported
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:61:13-37
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:62:13-37
 	android:name
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:60:13-56
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:61:13-56
 activity#com.example.booking.ui.Login.LoginScreenActivity
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:68:9-76:20
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:69:9-77:20
 	android:label
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:71:13-63
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:72:13-63
 	android:noHistory
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:72:13-37
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:73:13-37
 	android:exported
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:70:13-36
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:71:13-36
 	android:name
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:69:13-57
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:70:13-57
+activity#com.example.booking.ui.booking.BookingHistoryActivity
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:79:9-87:20
+	android:label
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:82:13-52
+	android:noHistory
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:83:13-37
+	android:exported
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:81:13-36
+	android:name
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:80:13-62
 activity#com.example.booking.ui.SplashScreen.SplashScreen
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:77:9-90:20
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:89:9-102:20
 	android:label
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:80:13-29
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:92:13-45
 	android:exported
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:79:13-36
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:91:13-36
 	android:name
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:78:13-57
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:90:13-57
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:81:13-85:29
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:93:13-97:29
 action#android.intent.action.MAIN
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:82:17-69
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:94:17-69
 	android:name
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:82:25-66
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:94:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:84:17-77
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:96:17-77
 	android:name
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:84:27-74
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:96:27-74
 activity#com.example.booking.MainActivity
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:91:9-100:20
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:103:9-112:20
 	android:label
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:94:13-45
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:106:13-45
 	android:exported
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:93:13-36
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:105:13-36
 	android:theme
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:95:13-61
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:107:13-61
 	android:name
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:92:13-41
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:104:13-41
 nav-graph
-ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:99:13-71
-CONVERTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:99:13-71
+ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:111:13-71
+CONVERTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:111:13-71
 	android:value
-		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:99:24-69
+		ADDED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml:111:24-69
 uses-sdk
 INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/jayv/AndroidStudioProjects/Booking/app/src/main/AndroidManifest.xml
@@ -717,16 +739,6 @@ ADDED from [com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/
 		ADDED from [com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:43:13-69
 	android:name
 		ADDED from [com.google.android.gms:play-services-measurement:21.2.0] /home/jayv/.gradle/caches/transforms-3/7fc75c18554ce7f2377b2d881e932160/transformed/play-services-measurement-21.2.0/AndroidManifest.xml:40:13-87
-uses-permission#com.google.android.gms.permission.AD_ID
-ADDED from [com.google.android.gms:play-services-measurement-api:21.2.0] /home/jayv/.gradle/caches/transforms-3/32a8eb716ccbf0d8ad538a1d4e5467fe/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:25:5-79
-MERGED from [com.google.android.gms:play-services-measurement-impl:21.2.0] /home/jayv/.gradle/caches/transforms-3/d2d7cbb3be833864cef1752dcbd66ecb/transformed/play-services-measurement-impl-21.2.0/AndroidManifest.xml:27:5-79
-MERGED from [com.google.android.gms:play-services-measurement-impl:21.2.0] /home/jayv/.gradle/caches/transforms-3/d2d7cbb3be833864cef1752dcbd66ecb/transformed/play-services-measurement-impl-21.2.0/AndroidManifest.xml:27:5-79
-MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.0] /home/jayv/.gradle/caches/transforms-3/8c82d12e4f190ef895e4a4a853c962d1/transformed/play-services-ads-identifier-18.0.0/AndroidManifest.xml:23:5-79
-MERGED from [com.google.android.gms:play-services-ads-identifier:18.0.0] /home/jayv/.gradle/caches/transforms-3/8c82d12e4f190ef895e4a4a853c962d1/transformed/play-services-ads-identifier-18.0.0/AndroidManifest.xml:23:5-79
-MERGED from [com.google.android.gms:play-services-measurement-sdk-api:21.2.0] /home/jayv/.gradle/caches/transforms-3/55052c7d1424e09fbcfe204613b28896/transformed/play-services-measurement-sdk-api-21.2.0/AndroidManifest.xml:26:5-79
-MERGED from [com.google.android.gms:play-services-measurement-sdk-api:21.2.0] /home/jayv/.gradle/caches/transforms-3/55052c7d1424e09fbcfe204613b28896/transformed/play-services-measurement-sdk-api-21.2.0/AndroidManifest.xml:26:5-79
-	android:name
-		ADDED from [com.google.android.gms:play-services-measurement-api:21.2.0] /home/jayv/.gradle/caches/transforms-3/32a8eb716ccbf0d8ad538a1d4e5467fe/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:25:22-76
 meta-data#com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar
 ADDED from [com.google.android.gms:play-services-measurement-api:21.2.0] /home/jayv/.gradle/caches/transforms-3/32a8eb716ccbf0d8ad538a1d4e5467fe/transformed/play-services-measurement-api-21.2.0/AndroidManifest.xml:31:13-33:85
 	android:value
@@ -829,7 +841,7 @@ ADDED from [androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/180
 		ADDED from [androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/18030739e5b1f2c0979c38e8c75f0133/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
 	android:name
 		ADDED from [androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/18030739e5b1f2c0979c38e8c75f0133/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
-permission#com.example.booking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+permission#com.valangar.booking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/18030739e5b1f2c0979c38e8c75f0133/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
 	android:protectionLevel
 		ADDED from [androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/18030739e5b1f2c0979c38e8c75f0133/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
@@ -839,7 +851,7 @@ uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/18030739e5b1f2c0979c38e8c75f0133/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
 	android:name
 		ADDED from [androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/18030739e5b1f2c0979c38e8c75f0133/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
-uses-permission#com.example.booking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+uses-permission#com.valangar.booking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
 ADDED from [androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/18030739e5b1f2c0979c38e8c75f0133/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
 	android:name
 		ADDED from [androidx.core:core:1.9.0] /home/jayv/.gradle/caches/transforms-3/18030739e5b1f2c0979c38e8c75f0133/transformed/core-1.9.0/AndroidManifest.xml:26:22-94

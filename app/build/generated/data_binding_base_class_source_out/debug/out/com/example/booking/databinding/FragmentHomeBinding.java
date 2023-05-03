@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
@@ -36,13 +37,19 @@ public final class FragmentHomeBinding implements ViewBinding {
   public final LinearLayout llBottomLatitudeLongitude;
 
   @NonNull
+  public final ProgressBar loginProgressbar;
+
+  @NonNull
   public final MapView mapView;
 
   @NonNull
-  public final ProgressBar progressbarHomeFragment;
+  public final TextView progressText;
 
   @NonNull
   public final RelativeLayout rlBottom;
+
+  @NonNull
+  public final RelativeLayout rlProgressbarHomeFragment;
 
   @NonNull
   public final RelativeLayout rlTop;
@@ -50,16 +57,19 @@ public final class FragmentHomeBinding implements ViewBinding {
   private FragmentHomeBinding(@NonNull RelativeLayout rootView,
       @NonNull Button btnHomeAddOwnerPlace, @NonNull EditText etHomeLatitude,
       @NonNull EditText etHomeLongitude, @NonNull LinearLayout llBottomLatitudeLongitude,
-      @NonNull MapView mapView, @NonNull ProgressBar progressbarHomeFragment,
-      @NonNull RelativeLayout rlBottom, @NonNull RelativeLayout rlTop) {
+      @NonNull ProgressBar loginProgressbar, @NonNull MapView mapView,
+      @NonNull TextView progressText, @NonNull RelativeLayout rlBottom,
+      @NonNull RelativeLayout rlProgressbarHomeFragment, @NonNull RelativeLayout rlTop) {
     this.rootView = rootView;
     this.btnHomeAddOwnerPlace = btnHomeAddOwnerPlace;
     this.etHomeLatitude = etHomeLatitude;
     this.etHomeLongitude = etHomeLongitude;
     this.llBottomLatitudeLongitude = llBottomLatitudeLongitude;
+    this.loginProgressbar = loginProgressbar;
     this.mapView = mapView;
-    this.progressbarHomeFragment = progressbarHomeFragment;
+    this.progressText = progressText;
     this.rlBottom = rlBottom;
+    this.rlProgressbarHomeFragment = rlProgressbarHomeFragment;
     this.rlTop = rlTop;
   }
 
@@ -114,21 +124,33 @@ public final class FragmentHomeBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.login_progressbar;
+      ProgressBar loginProgressbar = ViewBindings.findChildViewById(rootView, id);
+      if (loginProgressbar == null) {
+        break missingId;
+      }
+
       id = R.id.mapView;
       MapView mapView = ViewBindings.findChildViewById(rootView, id);
       if (mapView == null) {
         break missingId;
       }
 
-      id = R.id.progressbar_home_fragment;
-      ProgressBar progressbarHomeFragment = ViewBindings.findChildViewById(rootView, id);
-      if (progressbarHomeFragment == null) {
+      id = R.id.progress_text;
+      TextView progressText = ViewBindings.findChildViewById(rootView, id);
+      if (progressText == null) {
         break missingId;
       }
 
       id = R.id.rl_bottom;
       RelativeLayout rlBottom = ViewBindings.findChildViewById(rootView, id);
       if (rlBottom == null) {
+        break missingId;
+      }
+
+      id = R.id.rl_progressbar_home_fragment;
+      RelativeLayout rlProgressbarHomeFragment = ViewBindings.findChildViewById(rootView, id);
+      if (rlProgressbarHomeFragment == null) {
         break missingId;
       }
 
@@ -139,8 +161,8 @@ public final class FragmentHomeBinding implements ViewBinding {
       }
 
       return new FragmentHomeBinding((RelativeLayout) rootView, btnHomeAddOwnerPlace,
-          etHomeLatitude, etHomeLongitude, llBottomLatitudeLongitude, mapView,
-          progressbarHomeFragment, rlBottom, rlTop);
+          etHomeLatitude, etHomeLongitude, llBottomLatitudeLongitude, loginProgressbar, mapView,
+          progressText, rlBottom, rlProgressbarHomeFragment, rlTop);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

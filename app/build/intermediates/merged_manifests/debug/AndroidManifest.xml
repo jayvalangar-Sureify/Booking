@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.booking"
-    android:versionCode="1"
+    package="com.valangar.booking"
+    android:versionCode="2"
     android:versionName="1.0" >
 
     <uses-sdk
@@ -9,6 +9,7 @@
         android:targetSdkVersion="33" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
@@ -50,13 +51,12 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
-    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
 
     <permission
-        android:name="com.example.booking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="com.valangar.booking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.example.booking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="com.valangar.booking.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
         android:allowBackup="true"
@@ -65,11 +65,10 @@
         android:debuggable="true"
         android:extractNativeLibs="false"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/booking_logo_all_form"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/booking_logo_all_form_round"
         android:supportsRtl="true"
-        android:testOnly="true"
         android:theme="@style/Theme.Booking" >
         <activity
             android:name="com.example.booking.ui.UserClickOnMap.UserClickOnMapShowThatPlaceAllDetails"
@@ -129,9 +128,18 @@
                 android:value="" />
         </activity>
         <activity
+            android:name="com.example.booking.ui.booking.BookingHistoryActivity"
+            android:exported="true"
+            android:label="@string/booking_history"
+            android:noHistory="true" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name="com.example.booking.ui.SplashScreen.SplashScreen"
             android:exported="true"
-            android:label="" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -267,7 +275,7 @@
 
         <provider
             android:name="com.google.firebase.provider.FirebaseInitProvider"
-            android:authorities="com.example.booking.firebaseinitprovider"
+            android:authorities="com.valangar.booking.firebaseinitprovider"
             android:directBootAware="true"
             android:exported="false"
             android:initOrder="100" />
@@ -283,7 +291,7 @@
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.example.booking.androidx-startup"
+            android:authorities="com.valangar.booking.androidx-startup"
             android:exported="false" >
             <meta-data
                 android:name="androidx.emoji2.text.EmojiCompatInitializer"

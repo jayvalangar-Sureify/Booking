@@ -13,9 +13,8 @@
             android:icon="@drawable/icon_booking_24"
             android:title="@string/menu_booking_details" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow"
-            android:visible="false"/>
+            android:id="@+id/nav_about"
+            android:icon="@drawable/icon_about_24"
+            android:title="@string/menu_about" />
     </group>
 </menu>
