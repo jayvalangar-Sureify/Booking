@@ -269,7 +269,7 @@ public class BookingDetailsFragment extends Fragment implements OnHistoryDataCha
                     } else {
                         binding.tvBookingDetailsNoUpcoming.setVisibility(View.VISIBLE);
                     }
-
+                    binding.rlProgressbarBookingDetailsFragment.setVisibility(View.GONE);
                     //********************************************************************************************
 
                 }

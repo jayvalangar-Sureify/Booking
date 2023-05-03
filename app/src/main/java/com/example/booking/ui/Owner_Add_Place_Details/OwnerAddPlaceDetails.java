@@ -107,6 +107,32 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
 
 
 
+        // allowed only letters and characters and " -"
+        //------------------------------------------------------------------------------------------
+//// Add a TextWatcher to filter input
+//        binding.etOwnerAddPlaceAddress.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                // Do nothing
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                // Filter out any characters that are not numbers, letters from "a" to "z", or "-"
+//                String filtered = s.toString().replaceAll("[^a-zA-Z0-9\\-\\ \\*\\#\\@\\$\\(\\)\\&\\_]", "");
+//                if (!s.toString().equals(filtered)) {
+//                    binding.etOwnerAddPlaceAddress.setText(filtered);
+//                    binding.etOwnerAddPlaceAddress.setSelection(filtered.length());
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                // Do nothing
+//            }
+//        });
+        //------------------------------------------------------------------------------------------
+
         // Button Add Owner Place
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         binding.btnOwnerAddPlaceSubmit.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +145,8 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                 String owner_place_pincode_String = binding.etOwnerAddPlacePincode.getText().toString();
                 String owner_place_country_state_district_String = binding.etOwnerAddPlaceDistrictCityCountry.getText().toString();
                 String owner_place_address_String = binding.etOwnerAddPlaceAddress.getText().toString();
+                // replacing comma into - so while reading it's good
+                owner_place_address_String = owner_place_address_String.replaceAll("[^a-zA-Z0-9 ]+", " - "); // Replace all non-alphanumeric characters with a dash
                 String owner_place_staff_phone_number_string = binding.etOwnerAddPlaceStuffNumber.getText().toString();
                 String owner_place_total_nets_String = binding.etOwnerAddPlaceAvailableNets.getText().toString();
                 String owner_place_opening_time_String = binding.ownerPlaceOpeningSpinner.getSelectedItem().toString();
@@ -212,7 +240,7 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                                     owner_place_detail_map.put(Utils.map_key_owner_place_address, owner_place_address_String);
                                     owner_place_detail_map.put(Utils.map_key_owner_place_pincode, owner_place_pincode_String);
                                     owner_place_detail_map.put(Utils.map_key_owner_place_country_city_district, owner_place_country_state_district_String);
-                                    owner_place_detail_map.put(Utils.map_key_owner_place_full_address, owner_place_address_String + "\n" + "Pincode : " +owner_place_pincode_String+ "\n" + owner_place_country_state_district_String);
+                                    owner_place_detail_map.put(Utils.map_key_owner_place_full_address, owner_place_address_String + "\n" + "Pincode - " +owner_place_pincode_String+ "\n" + owner_place_country_state_district_String);
                                     owner_place_detail_map.put(Utils.map_key_owner_place_ground_staff_number, owner_place_staff_phone_number_string);
                                     owner_place_detail_map.put(Utils.map_key_owner_place_total_nets, owner_place_total_nets_String);
                                     owner_place_detail_map.put(Utils.map_key_owner_place_opening_time, owner_place_opening_time_String);
@@ -318,7 +346,8 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
                         String country = pincodeModel.getPostOffice().get(0).getCountry();
                         String state = pincodeModel.getPostOffice().get(0).getState();
                         String district = pincodeModel.getPostOffice().get(0).getDistrict();
-                        binding.etOwnerAddPlaceDistrictCityCountry.setText("" + country + "," + state + "," + district);
+                        binding.etOwnerAddPlaceDistrictCityCountry.setText("" + country + "-" + state + "-" + district);
+                        binding.etOwnerAddPlaceDistrictCityCountry.setText("" + country + "-" + state + "-" + district);
                     }catch (Exception e){
                         e.getMessage();
                         binding.etOwnerAddPlaceDistrictCityCountry.setText("");
