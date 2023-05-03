@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.booking.BuildConfig;
+import com.example.booking.R;
+import com.example.booking.Utils;
 import com.example.booking.databinding.FragmentAboutBinding;
 
 public class AboutFragment extends Fragment {
@@ -24,6 +26,15 @@ public class AboutFragment extends Fragment {
         int versionCode = BuildConfig.VERSION_CODE;
         String versionName = BuildConfig.VERSION_NAME;
         binding.tvAppVersion.setText(versionName + " ("+versionCode+")");
+
+        if(Utils.get_SharedPreference_staging_or_production_enviorment(getActivity()).contains(Utils.value_production)){
+            binding.tvAppName.setText(getString(R.string.app_name));
+        }else{
+            binding.tvAppName.setText(getString(R.string.app_name_staging));
+
+
+        }
+
 
         return root;
     }
