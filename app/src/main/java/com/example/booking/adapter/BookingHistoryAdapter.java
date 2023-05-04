@@ -18,78 +18,33 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.booking.R;
-import com.example.booking.Utils;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 
 public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAdapter.ViewHolder> {
 
         Context context;
-        List<Map.Entry<String, HashMap<String, String>>> entries = new ArrayList<>();
 
-        private LinkedHashMap<String, Object> place_slots_details_linkedhashmap;
+    ArrayList<String> history_date_arrayList = new ArrayList<>();
+    ArrayList<String> history_timeslotsandprice_arraylist = new ArrayList<>();
+    ArrayList<String> history_indetailBookingDetails_arraylist = new ArrayList<>();
 
-        public BookingHistoryAdapter(LinkedHashMap<String, Object> hasmapData, Context context) {
-            this.place_slots_details_linkedhashmap = hasmapData;
-            this.context = context;
-            sortLinkHashmap();
-        }
 
-        public void setData(LinkedHashMap<String, Object> hasMapdata) {
-            this.place_slots_details_linkedhashmap = hasMapdata;
-            sortLinkHashmap();
+    public BookingHistoryAdapter(ArrayList<String> history_date_arrayList, ArrayList<String> history_timeslotsandprice_arraylist, ArrayList<String> history_indetailBookingDetails_arraylist, Context applicationContext) {
+        this.history_date_arrayList = history_date_arrayList;
+        this.history_timeslotsandprice_arraylist = history_timeslotsandprice_arraylist;
+        this.history_indetailBookingDetails_arraylist = history_indetailBookingDetails_arraylist;
+        this.context = applicationContext;
+    }
+
+    public void setData(ArrayList<String> history_date_arrayList, ArrayList<String> history_timeslotsandprice_arraylist, ArrayList<String> history_indetailBookingDetails_arraylist) {
+        this.history_date_arrayList = history_date_arrayList;
+        this.history_timeslotsandprice_arraylist = history_timeslotsandprice_arraylist;
+        this.history_indetailBookingDetails_arraylist = history_indetailBookingDetails_arraylist;
             notifyDataSetChanged();
         }
 
-        private void sortLinkHashmap() {
-            // Create a list of entries from the original LinkedHashMap
-            entries = new ArrayList(place_slots_details_linkedhashmap.entrySet());
-
-// Sort the list by date using a custom Comparator
-            Collections.sort(entries, new Comparator<Map.Entry<String, HashMap<String, String>>>() {
-                DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
-                @Override
-                public int compare(Map.Entry<String, HashMap<String, String>> entry1, Map.Entry<String, HashMap<String, String>> entry2) {
-                    String date1 = entry1.getValue().get(Utils.key_booking_date);
-                    String date2 = entry2.getValue().get(Utils.key_booking_date);
-                    try {
-                        Date d1 = dateFormat.parse(date1);
-                        Date d2 = dateFormat.parse(date2);
-                        return d1.compareTo(d2);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    return 0;
-                }
-            });
-
-// Add the sorted entries back to the new LinkedHashMap
-            for (Map.Entry<String, HashMap<String, String>> entry : entries) {
-                place_slots_details_linkedhashmap.put(entry.getKey(), entry.getValue());
-            }
-
-            for (Iterator<Map.Entry<String, HashMap<String, String>>> iterator = entries.iterator(); iterator.hasNext();) {
-                Map.Entry<String, HashMap<String, String>> entry = iterator.next();
-                HashMap<String, String> hashMap = entry.getValue();
-                String bookingDate = hashMap.get(Utils.key_booking_date);
-                if (!Utils.checkIfItIsOldDate(bookingDate)) {
-                    iterator.remove(); // Remove the current element from the list
-                }
-            }
-        }
 
 
     @Override
@@ -98,82 +53,89 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
             return new com.example.booking.adapter.BookingHistoryAdapter.ViewHolder(view);
         }
 
-    public String getItem(int position) {
-            return place_slots_details_linkedhashmap.keySet().toArray(new String[0])[position];
-        }
 
 
         @Override
         public void onBindViewHolder(com.example.booking.adapter.BookingHistoryAdapter.ViewHolder holder, int position) {
-            //historyhistory_data_double_linked_list.put(temp_single_history_date, histort_full_details)
-            LinkedHashMap<String, String> histort_full_details = new LinkedHashMap<>();
-            boolean isPastDate = false;
-            String temp_single_history_date = "";
+            String date_string = history_date_arrayList.get(position);
+            String time_price_string = history_timeslotsandprice_arraylist.get(position);
+            String indetail_string = history_indetailBookingDetails_arraylist.get(position);
 
-            //=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-=-=-
-            Map.Entry<String, HashMap<String, String>> objectLinkedHashMap = entries.get(position);// assuming the position variable refers to the position of the item in the RecyclerView
-
-            String time_slots_keys = objectLinkedHashMap.getKey();
-            HashMap<String, String> hashMapValues = objectLinkedHashMap.getValue();
-
-            System.out.println("====================================================");
-            System.out.println("time_slots_keys: " + time_slots_keys);
-
-
-            String[] parts = time_slots_keys.split(" = ");
-            String timeRange = parts[0];
-            String price = parts[1];
+            // Date
+            //------------------------------------------------------------------------------------------
+            String[] dates_parts = date_string.split(" ");
+            String day = dates_parts[0];
+            String month = dates_parts[1];
+            String year = dates_parts[2];
+            holder.tv_booking_history_date_day.setText(day);
+            holder.tv_booking_history_date_month.setText(month);
+            holder.tv_booking_history_date_year.setText(year);
+            //------------------------------------------------------------------------------------------
 
 
-            holder.tv_booking_history_details_place_time_slots.setText(timeRange + " (" + price +" Rs)");
-            for (Map.Entry<String, String> hashMapEntry : hashMapValues.entrySet()) {
-                String key = hashMapEntry.getKey();
-                String value = hashMapEntry.getValue();
-                System.out.println("Hash key: " + key + ", Hash value: " + value);
+            // Timeslot and Price
+            //------------------------------------------------------------------------------------------
+            holder.tv_booking_history_details_place_time_slots.setText(time_price_string);
+            //------------------------------------------------------------------------------------------
 
-                if(key.contains(Utils.key_booking_user_id)){
-                    histort_full_details.put(Utils.key_booking_user_id, value);
+
+            // Indetails Place address and Contact number
+            //------------------------------------------------------------------------------------------
+            try {
+
+                String addressKey = "key_booking_place_address=";
+                int addressIndex = indetail_string.indexOf(addressKey);
+                int endIndex = indetail_string.indexOf(",", addressIndex);
+                if (endIndex == -1) {
+                    endIndex = indetail_string.indexOf("}", addressIndex);
                 }
-                if(key.contains(Utils.key_booking_owner_id)){
-                    histort_full_details.put(Utils.key_booking_owner_id, value);
-                }
-                if(key.contains(Utils.key_booking_date)){
-                    histort_full_details.put(Utils.key_booking_date, value);
+                String addressValue = indetail_string.substring(addressIndex + addressKey.length(), endIndex);
 
-                    // Split the date string by space
-                    String[] dateParts = value.split(" ");
 
-                    // Assign day, month, and year variables
-                    String day = dateParts[0];
-                    String month = dateParts[1];
-                    String year = dateParts[2];
-                    holder.tv_booking_history_date_day.setText(day);
-                    holder.tv_booking_history_date_month.setText(month);
-                    holder.tv_booking_history_date_year.setText(year);
-                }
-                if(key.contains(Utils.key_booking_staff_number)){
-                    histort_full_details.put(Utils.key_booking_staff_number, value);
-                    holder.tv_booking_history_details_staff_number.setText(value);
-                }
-                if(key.contains(Utils.key_booking_place_name)){
-                    histort_full_details.put(Utils.key_booking_place_name, value);
-                }
-                if(key.contains(Utils.key_booking_place_address)){
-                    histort_full_details.put(Utils.key_booking_place_address, value);
-                    holder.tv_booking_history_details_place_address.setText(value);
-                }
-                if(key.contains(Utils.key_booking_place_latitude)){
-                    histort_full_details.put(Utils.key_booking_place_latitude, value);
-                    holder.tv_history_latitude_longitude_hide.setText(value);
-                }
-                if(key.contains(Utils.key_booking_place_longitude)){
-                    histort_full_details.put(Utils.key_booking_place_longitude, value);
-                    holder.tv_history_latitude_longitude_hide.setText(holder.tv_history_latitude_longitude_hide.getText().toString()+","+value.toString());
-                }
+                holder.tv_booking_history_details_place_address.setText(addressValue);
+//            holder.tv_booking_details_staff_number.setText(staffNumber);
+//            holder.tv_latitude_longitude_hide.setText(""+latitude);
+//            holder.tv_latitude_longitude_hide.setText(""+longitude);
 
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            //=-=-=--==-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-
+            //------------------------------------------------------------------------------------------
 
+
+            //------------------------------------------------------------------------------------------
+            String input = indetail_string;
+            // Extracting values one by one using substring() and indexOf() methods
+            String userId = input.substring(input.indexOf("key_booking_user_id=") + "key_booking_user_id=".length(), input.indexOf(", ", input.indexOf("key_booking_user_id=")));
+            String placeName = input.substring(input.indexOf("key_booking_place_name=") + "key_booking_place_name=".length(), input.indexOf(", ", input.indexOf("key_booking_place_name=")));
+            String placeLatitude = input.substring(input.indexOf("key_booking_place_latitude=") + "key_booking_place_latitude=".length(), input.indexOf(", ", input.indexOf("key_booking_place_latitude=")));
+            String placeLongitude = input.substring(input.indexOf("key_booking_place_longitude=") + "key_booking_place_longitude=".length(), input.indexOf(", ", input.indexOf("key_booking_place_longitude=")));
+            String paymentId = input.substring(input.indexOf("key_booking_payment_id_successful=") + "key_booking_payment_id_successful=".length(), input.indexOf(", ", input.indexOf("key_booking_payment_id_successful=")));
+            String placeAddress = input.substring(input.indexOf("key_booking_place_address=") + "key_booking_place_address=".length(), input.indexOf(", ", input.indexOf("key_booking_place_address=")));
+            String staffNumber = input.substring(input.indexOf("key_booking_staff_number=") + "key_booking_staff_number=".length(), input.indexOf(", ", input.indexOf("key_booking_staff_number=")));
+            String bookingDate = input.substring(input.indexOf("key_booking_date=") + "key_booking_date=".length(), input.indexOf("}", input.indexOf("key_booking_date=")));
+
+// Printing the extracted values
+            System.out.println("User ID: " + userId);
+            System.out.println("Place Name: " + placeName);
+            System.out.println("Place Latitude: " + placeLatitude);
+            System.out.println("Place Longitude: " + placeLongitude);
+            System.out.println("Payment ID: " + paymentId);
+            System.out.println("Place Address: " + placeAddress);
+            System.out.println("Staff Number: " + staffNumber);
+            System.out.println("Booking Date: " + bookingDate);
+
+
+            holder.tv_booking_history_details_place_address.setText(placeAddress);
+            holder.tv_history_latitude_longitude_hide.setText(placeLatitude+","+placeLongitude);
+            holder.tv_booking_history_details_staff_number.setText(staffNumber);
+
+            //------------------------------------------------------------------------------------------
+
+
+
+
+            //------------------------------------------------------------------------------------------
 
             holder.cv_booking_history_details_location.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -223,16 +185,17 @@ public class BookingHistoryAdapter extends RecyclerView.Adapter<BookingHistoryAd
                     }
                 }
             });
+            //------------------------------------------------------------------------------------------
 
         }
 
         @Override
         public int getItemCount() {
-            if (entries.isEmpty()) {
+            if (history_date_arrayList.size() == 0) {
                 Toast.makeText(context, "No History found", Toast.LENGTH_SHORT).show();
                 return 0;
             } else {
-                return entries.size();
+                return history_date_arrayList.size();
             }
 
         }

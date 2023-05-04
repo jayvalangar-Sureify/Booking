@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -399,4 +400,34 @@ public class Utils {
     }
     //=-=--=-=-=-=-=--=-=-=-=-=-=-=-=--==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
+
+    //=-=--=-=-=-=-=--=-=-=-=-=-=-=-=--==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    public static boolean checkIfItPastDates(String checkDateString) {
+        // Format the date in the format "dd MMM yyyy"
+        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+        String dateStr = checkDateString; // The date to check in string format
+        Date dateToCheck = null;
+
+        try {
+            dateToCheck = dateFormat.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+// Check if the date is in the past
+        if (dateToCheck != null && dateToCheck.before(Calendar.getInstance().getTime())) {
+            // The date is in the past
+            System.out.println(dateStr + " is in the past.");
+            return true;
+        } else if (dateToCheck != null && dateToCheck.equals(Calendar.getInstance().getTime())) {
+            // The date is today's date
+            System.out.println(dateStr + " is today's date.");
+            return false;
+        } else {
+            // The date is in the future
+            System.out.println(dateStr + " is in the future.");
+            return false;
+        }
+    }
+    //=-=--=-=-=-=-=--=-=-=-=-=-=-=-=--==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 }

@@ -38,16 +38,25 @@ import java.util.regex.Pattern;
 
 public class BookingDetailsFragment extends Fragment implements OnHistoryDataChangedListener {
 
-    LinkedHashMap<String, LinkedHashMap<String, String>> historyData_double_linkedhashmap;
 
 
     //--------------------------------------------------
     ArrayList<String> date_arrayList;
     ArrayList<String> timeslotsandprice_arraylist;
     ArrayList<String> indetailBookingDetails_arraylist;
+
+
+    // Upcoming Data
+    ArrayList<String> upcoming_date_arrayList = new ArrayList<>();
+    ArrayList<String> upcoming_timeslotsandprice_arraylist = new ArrayList<>();
+    ArrayList<String> upcoming_indetailBookingDetails_arraylist = new ArrayList<>();
+
+    // History data
+    ArrayList<String> history_date_arrayList = new ArrayList<>();
+    ArrayList<String> history_timeslotsandprice_arraylist = new ArrayList<>();
+    ArrayList<String> history_indetailBookingDetails_arraylist = new ArrayList<>();
     //--------------------------------------------------
 
-    LinkedHashMap<String, Object> loggedIn_user_data_linked_hashmap = new LinkedHashMap<>();
 
     private FragmentBookingDetailsBinding binding;
 
@@ -101,8 +110,13 @@ public class BookingDetailsFragment extends Fragment implements OnHistoryDataCha
         binding.btnBookingDetailsShowHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // create the Intent and add the ArrayList objects as extra data
                 Intent intent = new Intent(getActivity(), BookingHistoryActivity.class);
-                intent.putExtra("historyData", loggedIn_user_data_linked_hashmap);
+                intent.putStringArrayListExtra("history_date", history_date_arrayList);
+                intent.putStringArrayListExtra("history_timeslots_and_price", history_timeslotsandprice_arraylist);
+                intent.putStringArrayListExtra("history_booking_details", history_indetailBookingDetails_arraylist);
+
+// start the new Activity
                 startActivity(intent);
             }
         });
@@ -260,12 +274,8 @@ public class BookingDetailsFragment extends Fragment implements OnHistoryDataCha
 
                 //********************************************************************************************
                     if (date_arrayList.size() != 0) {
-                        binding.tvBookingDetailsNoUpcoming.setVisibility(View.GONE);
-                        BookingDetailsAdapter adapter = new BookingDetailsAdapter(date_arrayList, timeslotsandprice_arraylist, indetailBookingDetails_arraylist, BookingDetailsFragment.this);
-                        binding.bookingDetailsRecycleView.setAdapter(adapter);
-                        binding.bookingDetailsRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
-                        adapter.notifyDataSetChanged();
-                        binding.bookingDetailsRecycleView.invalidate();
+                        sortPresentDataPastData();
+
                     } else {
                         binding.tvBookingDetailsNoUpcoming.setVisibility(View.VISIBLE);
                     }
@@ -287,10 +297,50 @@ public class BookingDetailsFragment extends Fragment implements OnHistoryDataCha
 
 
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    public void sortPresentDataPastData() {
+        upcoming_date_arrayList = new ArrayList<>();
+        upcoming_timeslotsandprice_arraylist = new ArrayList<>();
+        upcoming_indetailBookingDetails_arraylist = new ArrayList<>();
+
+        history_date_arrayList = new ArrayList<>();
+        history_timeslotsandprice_arraylist = new ArrayList<>();
+        history_indetailBookingDetails_arraylist = new ArrayList<>();
+
+        Log.i("test_take_care", "BEFORE SIZE : "+date_arrayList.size());
+
+        Log.i("test_take_care", "DAtA : "+date_arrayList.toString());
+
+        for(int i = 0; i <date_arrayList.size(); i++){
+            if(Utils.checkIfItPastDates(date_arrayList.get(i))){
+                Log.i("test_take_care", "ABSENT : "+date_arrayList.get(i));
+                // add into past arraylist
+                history_date_arrayList.add(date_arrayList.get(i));
+                history_timeslotsandprice_arraylist.add(timeslotsandprice_arraylist.get(i));
+                history_indetailBookingDetails_arraylist.add(indetailBookingDetails_arraylist.get(i));
+            }else {
+                Log.i("test_take_care", "PRESENT : "+date_arrayList.get(i));
+                upcoming_date_arrayList.add(date_arrayList.get(i));
+                upcoming_timeslotsandprice_arraylist.add(timeslotsandprice_arraylist.get(i));
+                upcoming_indetailBookingDetails_arraylist.add(indetailBookingDetails_arraylist.get(i));
+            }
+        }
+
+        Log.i("test_take_care", "AFTER SIZE : "+date_arrayList.size());
+
+        binding.tvBookingDetailsNoUpcoming.setVisibility(View.GONE);
+        BookingDetailsAdapter adapter = new BookingDetailsAdapter(upcoming_date_arrayList, upcoming_timeslotsandprice_arraylist, upcoming_indetailBookingDetails_arraylist, BookingDetailsFragment.this);
+        binding.bookingDetailsRecycleView.setAdapter(adapter);
+        binding.bookingDetailsRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 1));
+        adapter.notifyDataSetChanged();
+        binding.bookingDetailsRecycleView.invalidate();
+    }
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
     @Override
     public void onHistoryDataChanged(LinkedHashMap<String, LinkedHashMap<String, String>> historyData) {
         // Handle the changed history data here
-        historyData_double_linkedhashmap = historyData;
     }
     //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 

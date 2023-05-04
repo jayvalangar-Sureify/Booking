@@ -19,13 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.booking.R;
 import com.example.booking.ui.booking.BookingDetailsFragment;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 
 public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAdapter.ViewHolder> {
@@ -33,6 +27,8 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
     ArrayList<String> date_arrayList = new ArrayList<>();
     ArrayList<String> timeslotsandprice_arraylist = new ArrayList<>();
     ArrayList<String> indetailBookingDetails_arraylist = new ArrayList<>();
+
+
     Context context;
 
     public BookingDetailsAdapter(ArrayList<String> date_arrayList, ArrayList<String> timeslotsandprice_arraylist, ArrayList<String> indetailBookingDetails_arraylist, BookingDetailsFragment bookingDetailsFragment) {
@@ -51,6 +47,8 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
     }
 
 
+
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.booking_details_item_card, parent, false);
@@ -58,33 +56,6 @@ public class BookingDetailsAdapter extends RecyclerView.Adapter<BookingDetailsAd
     }
 
 
-    private boolean checkIfItPastDates(String checkDateString) {
-        // Format the date in the format "dd MMM yyyy"
-        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
-        String dateStr = checkDateString; // The date to check in string format
-        Date dateToCheck = null;
-
-        try {
-            dateToCheck = dateFormat.parse(dateStr);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-// Check if the date is in the past
-        if (dateToCheck != null && dateToCheck.before(Calendar.getInstance().getTime())) {
-            // The date is in the past
-            System.out.println(dateStr + " is in the past.");
-            return true;
-        } else if (dateToCheck != null && dateToCheck.equals(Calendar.getInstance().getTime())) {
-            // The date is today's date
-            System.out.println(dateStr + " is today's date.");
-            return false;
-        } else {
-            // The date is in the future
-            System.out.println(dateStr + " is in the future.");
-            return false;
-        }
-    }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
