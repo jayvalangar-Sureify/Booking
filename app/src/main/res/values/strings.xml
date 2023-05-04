@@ -308,4 +308,14 @@
     <string name="permission_used_details">INTERNET, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, ACCESS_BACKGROUND_LOCATION</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
+
+
+    <!--No Internet Popup-->
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <string name="oops">Oops !</string>
+    <string name="no_internet">No Internet !</string>
+    <string name="retry">Retry
+    </string>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
 </resources>

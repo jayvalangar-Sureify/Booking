@@ -2,6 +2,8 @@ package com.example.booking.ui.OwnerPlaceRentDayTime;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.booking.ConnectivityReceiver;
 import com.example.booking.R;
 import com.example.booking.Utils;
 import com.example.booking.ui.Owner_Add_Place_Details.OwnerAddPlaceDetails;
@@ -28,6 +31,8 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 
 public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
+
+    ConnectivityReceiver networkChangeListener = new ConnectivityReceiver();
 
     public Dialog review_all_Day_rent_dialog;
 
@@ -649,5 +654,32 @@ public class OwnerPlaceRentDayTimeWise extends AppCompatActivity {
 
         return print_data;
     }
+
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    @Override
+    protected void onStart() {
+        try {
+            IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+            registerReceiver(networkChangeListener, intentFilter);
+        }catch (Exception e){
+            e.getMessage();
+        }
+        super.onStart();
+    }
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    @Override
+    protected void onStop() {
+        try{
+            unregisterReceiver(networkChangeListener);
+        }catch (Exception e){
+            e.getMessage();
+        }
+        super.onStop();
+    }
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 
 }

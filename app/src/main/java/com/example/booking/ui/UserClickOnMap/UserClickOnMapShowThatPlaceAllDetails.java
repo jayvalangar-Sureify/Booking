@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.SpannableString;
@@ -27,6 +29,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.booking.ConnectivityReceiver;
 import com.example.booking.FirebaseProductionSingletonClass;
 import com.example.booking.MyPreferences;
 import com.example.booking.R;
@@ -63,6 +66,7 @@ import java.util.Map;
 
 public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity implements user_timeslot_Selected_OnclickListner, PaymentResultListener {
 
+    ConnectivityReceiver networkChangeListener = new ConnectivityReceiver();
 
     RelativeLayout rl_slots_booking_progressbar;
     HashMap<String, HashMap<String, Boolean>> already_booked_date_and_timeslot_hashmap = new HashMap<>();
@@ -942,5 +946,30 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         });
 
     }
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    @Override
+    protected void onStart() {
+        try {
+            IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+            registerReceiver(networkChangeListener, intentFilter);
+        }catch (Exception e){
+            e.getMessage();
+        }
+        super.onStart();
+    }
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    @Override
+    protected void onStop() {
+        try{
+            unregisterReceiver(networkChangeListener);
+        }catch (Exception e){
+            e.getMessage();
+        }
+        super.onStop();
+    }
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 }

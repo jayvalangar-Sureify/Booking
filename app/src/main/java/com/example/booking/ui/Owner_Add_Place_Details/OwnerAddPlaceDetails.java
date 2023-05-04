@@ -1,6 +1,8 @@
 package com.example.booking.ui.Owner_Add_Place_Details;
 
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.booking.ConnectivityReceiver;
 import com.example.booking.FirebaseProductionSingletonClass;
 import com.example.booking.MainActivity;
 import com.example.booking.R;
@@ -40,6 +43,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class OwnerAddPlaceDetails extends AppCompatActivity {
+
+    ConnectivityReceiver networkChangeListener = new ConnectivityReceiver();
 
     HashMap<String, ArrayMap<String, Integer>> submit_day_wise_rent_hashmap = new HashMap<>();
     Double owner_place_latitude, owner_place_longitude;
@@ -373,5 +378,32 @@ public class OwnerAddPlaceDetails extends AppCompatActivity {
 
     }
     //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    @Override
+    protected void onStart() {
+        try {
+            IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+            registerReceiver(networkChangeListener, intentFilter);
+        }catch (Exception e){
+            e.getMessage();
+        }
+        super.onStart();
+    }
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    @Override
+    protected void onStop() {
+        try{
+            unregisterReceiver(networkChangeListener);
+        }catch (Exception e){
+            e.getMessage();
+        }
+        super.onStop();
+    }
+    //=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 }
