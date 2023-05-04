@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
@@ -43,8 +44,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.common.reflect.TypeToken;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
@@ -304,6 +309,48 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
             int dayOfWeek = Utils.getDayfromDate(show_selected_date_data);
             setHashmapdata(dayOfWeek);
         }
+
+        // Listen data change event
+        //------------------------------------------------------------------------------------------
+        CollectionReference bookingsRef = firebaseFirestore.collection(Utils.key_place_booking_firestore);
+
+        bookingsRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w("TAG", "Listen failed.", e);
+                    return;
+                }
+
+                // Process changes to the collection here
+                for (DocumentChange dc : snapshot.getDocumentChanges()) {
+                    switch (dc.getType()) {
+                        case ADDED:
+                            // A new document was added
+                            DocumentSnapshot newDocument = dc.getDocument();
+                            // Notify the user of the new document
+                            refreshRecycleview(show_selected_date_data);
+//                            Toast.makeText(getApplicationContext(), "Data Change : ADDED", Toast.LENGTH_SHORT).show();
+                            break;
+                        case MODIFIED:
+                            // An existing document was modified
+                            DocumentSnapshot modifiedDocument = dc.getDocument();
+                            refreshRecycleview(show_selected_date_data);
+                            // Notify the user of the modified document
+//                            Toast.makeText(getApplicationContext(), "Data Change : MODIFIED", Toast.LENGTH_SHORT).show();
+                            break;
+                        case REMOVED:
+                            // An existing document was removed
+                            DocumentSnapshot removedDocument = dc.getDocument();
+                            // Notify the user of the removed document
+                            refreshRecycleview(show_selected_date_data);
+//                            Toast.makeText(getApplicationContext(), "Data Change : REMOVED", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                }
+            }
+        });
+        //------------------------------------------------------------------------------------------
     }
 
     private void readAlreadyBookingDetails(String owner_place_id_string) {
