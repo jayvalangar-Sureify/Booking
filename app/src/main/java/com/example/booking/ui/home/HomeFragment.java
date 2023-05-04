@@ -39,8 +39,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.gson.Gson;
 
@@ -156,21 +156,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
 
         //-----------------------------------------------------------------------------------------
 
-        if (googleMap != null) {
-            googleMap.clear(); // Clear the map
-            googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); // Set the map type
-            googleMap.setTrafficEnabled(true); // Enable traffic layer
-            googleMap.setBuildingsEnabled(true); // Enable 3D buildings
-            googleMap.setIndoorEnabled(true); // Enable indoor maps
-            googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-                @Override
-                public void onMapLoaded() {
-                    // Call onMapLoaded() method when the map is loaded
-                    HomeFragment.this.onMapLoaded();
+         refreshMapView();
 
-                }
-            });
-        }
        // View visible and Gone based on Login Type
        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         if(login_type_string.equals(Utils.user)){
@@ -208,14 +195,19 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
         // Adding places from database :  in hashmap
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         if(login_type_string.equals(Utils.user)){
+            binding.rlProgressbarHomeFragment.setVisibility(View.VISIBLE);
             firebaseFirestore.collection(Utils.key_ownerplace_firestore)
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                    // Adding latitude and longitude to one hasmap
+                                List<DocumentSnapshot> documents = task.getResult().getDocuments();
+                                int size = task.getResult().size();
+                                for (int i = 0; i < size; i++) {
+                                    DocumentSnapshot document = documents.get(i);
+                                    document.getData().get(Utils.map_key_owner_place_latitude);
+// Adding latitude and longitude to one hasmap
                                     Double owner_place_latitude = (Double) document.getData().get(Utils.map_key_owner_place_latitude);
                                     Double owner_place_longitude = (Double) document.getData().get(Utils.map_key_owner_place_longitude);
 
@@ -229,7 +221,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                                     String map_key_owner_place_pincode_string = (String) document.getData().get(Utils.map_key_owner_place_pincode);
                                     String map_key_owner_place_opening_time_string = (String) document.getData().get(Utils.map_key_owner_place_opening_time);
                                     String map_key_owner_place_closing_time_string = (String) document.getData().get(Utils.map_key_owner_place_closing_time);
-                                   // Converting time slots into string
+                                    // Converting time slots into string
                                     //-------------------------------------------------------------------------------------------------------------------------------------
                                     HashMap<String, ArrayMap<String, Integer>> map_key_owner_place_day_hour_rent_hashmap = (HashMap<String, ArrayMap<String, Integer>>)  document.getData().get(Utils.map_key_owner_place_day_hour_rent_hashmap);
                                     String time_slots_converting_hashmap_to_string = Utils.hashMap_StringArraymap_ToString(map_key_owner_place_day_hour_rent_hashmap);
@@ -265,14 +257,27 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
                                     // Storing Final Entire data into one key, pair, key = owner_place_id and value= place whole details
                                     owner_places_in_details_hashmap.put(create_temp_lat_long_key, Utils.convertHashMap_StringStringToString(temp_data_taking_in_hashmap));
 
+
+                                    // check if this is the last iteration
+                                    if (i == size - 1) {
+                                        // this is the last iteration
+                                        // do something special
+                                        binding.rlProgressbarHomeFragment.setVisibility(View.GONE);
+                                        refreshMapView();
+                                    }
                                 }
                             } else {
                                 Log.i("test_response", "Error getting documents: ", task.getException());
+                                binding.rlProgressbarHomeFragment.setVisibility(View.GONE);
+                                refreshMapView();
                             }
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            binding.rlProgressbarHomeFragment.setVisibility(View.GONE);
+                            refreshMapView();
                             Log.i("test_response", "Error getting documents: "+e.getMessage());
                         }
                     });
@@ -281,6 +286,24 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
         }
 
 
+    }
+
+    private void refreshMapView() {
+        if (googleMap != null) {
+            googleMap.clear(); // Clear the map
+            googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); // Set the map type
+            googleMap.setTrafficEnabled(true); // Enable traffic layer
+            googleMap.setBuildingsEnabled(true); // Enable 3D buildings
+            googleMap.setIndoorEnabled(true); // Enable indoor maps
+            googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                @Override
+                public void onMapLoaded() {
+                    // Call onMapLoaded() method when the map is loaded
+                    HomeFragment.this.onMapLoaded();
+
+                }
+            });
+        }
     }
 
 
