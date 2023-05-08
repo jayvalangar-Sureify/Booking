@@ -70,6 +70,11 @@
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
 
+    <!-- Privacy Policy -->
+    <string name="error_privacy_policy">Please Agree privacy policy</string>
+    <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
+
     <!-- Logout -->
     <string name="action_logout">Logout</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
@@ -305,7 +310,7 @@
     <string name="app_name_label">APP NAME</string>
     <string name="privacy_policy">PRIVACY POLICY</string>
     <string name="permission_used">PERMISSION USED</string>
-    <string name="permission_used_details">INTERNET, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION, ACCESS_BACKGROUND_LOCATION</string>
+    <string name="permission_used_details">INTERNET, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
 

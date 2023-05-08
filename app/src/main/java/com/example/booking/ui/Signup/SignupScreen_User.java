@@ -1,5 +1,6 @@
 package com.example.booking.ui.Signup;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -10,7 +11,11 @@ import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -89,6 +94,40 @@ public class SignupScreen_User extends AppCompatActivity {
 
 
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        binding.tvSignupPrivacyPolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(SignupScreen_User.this);
+                dialog.setContentView(R.layout.privacy_policy_signup_dialog);
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false);
+
+                //-------------------------------------------------------------------------------
+                WebView webview_privacy_policy;
+                Button privacy_policy_dialog_cancel;
+
+                webview_privacy_policy = (WebView) dialog.findViewById(R.id.webview_privacy_policy);
+                privacy_policy_dialog_cancel = (Button) dialog.findViewById(R.id.privacy_policy_dialog_cancel);
+                //-------------------------------------------------------------------------------
+
+
+                webview_privacy_policy.loadUrl("file:///android_asset/privacy_policy.html");
+
+                privacy_policy_dialog_cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+
+
+                dialog.show();
+            }
+        });
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
         binding.btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,6 +139,11 @@ public class SignupScreen_User extends AppCompatActivity {
                 String email_String = binding.etSignupEnterEmail.getText().toString();
                 String password_String = binding.etSignupEnterPassword.getText().toString();
                 String phone_String = binding.etSignupEnterPhoneNumber.getText().toString();
+
+                if(!binding.signupCheckboxPrivacyPolicy.isChecked()){
+                    Toast.makeText(getApplicationContext(), ""+getString(R.string.error_privacy_policy), Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if(TextUtils.isEmpty(name_String)){
                     binding.tvSignupErrorDisplay.setText(getString(R.string.enter_valid_name));
