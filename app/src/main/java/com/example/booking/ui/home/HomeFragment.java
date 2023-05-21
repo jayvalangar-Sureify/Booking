@@ -137,6 +137,20 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
             googleMap.setMyLocationEnabled(true);
 
         }
+
+
+        // Refresh Fab Button
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+        binding.btnFabHomeRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refreshMapView();
+            }
+        });
+        //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+
         return root;
     }
 
@@ -289,20 +303,46 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
     }
 
     private void refreshMapView() {
-        if (googleMap != null) {
-            googleMap.clear(); // Clear the map
-            googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); // Set the map type
-            googleMap.setTrafficEnabled(true); // Enable traffic layer
-            googleMap.setBuildingsEnabled(true); // Enable 3D buildings
-            googleMap.setIndoorEnabled(true); // Enable indoor maps
-            googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-                @Override
-                public void onMapLoaded() {
-                    // Call onMapLoaded() method when the map is loaded
-                    HomeFragment.this.onMapLoaded();
 
-                }
-            });
+        if (ActivityCompat.checkSelfPermission(
+                getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 20);
+
+        }else {
+            mapView.getMapAsync(HomeFragment.this);
+            //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            criteria = new Criteria();
+            try {
+                provider = locationManager.getBestProvider(criteria, false);
+                location = locationManager.getLastKnownLocation(provider);
+            } catch (Exception e) {
+                e.getMessage();
+            }
+
+            if (googleMap != null) { //prevent crashing if the map doesn't exist yet (eg. on starting activity)
+                googleMap.clear();
+                googleMap.setMyLocationEnabled(true);
+
+            }
+
+            if (googleMap != null) {
+                googleMap.clear(); // Clear the map
+                googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL); // Set the map type
+                googleMap.setTrafficEnabled(true); // Enable traffic layer
+                googleMap.setBuildingsEnabled(true); // Enable 3D buildings
+                googleMap.setIndoorEnabled(true); // Enable indoor maps
+                googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+                    @Override
+                    public void onMapLoaded() {
+                        // Call onMapLoaded() method when the map is loaded
+                        HomeFragment.this.onMapLoaded();
+
+                    }
+                });
+            }
         }
     }
 
