@@ -158,18 +158,77 @@ public class BookingDetailsFragment extends Fragment implements OnHistoryDataCha
 
                         if (get_type_of_login.contains(Utils.owner)) {
 
-                            Map<String, Object> bookingData = document.getData();
+                            // Particular Owner Details
+                            if(owner_id_from_server_String.contains(user_Id_string)) {
+                                Map<String, Object> bookingData = document.getData();
 
-                            for (Map.Entry<String, Object> entry : bookingData.entrySet()) {
-                                String list_number_key = entry.getKey();
+                                for (Map.Entry<String, Object> entry : bookingData.entrySet()) {
+                                    String key_1_ground_net_number = entry.getKey();
+                                    Map<String, Object> value_1 = (Map<String, Object>) entry.getValue();
 
-                                Map<String, Object> value = (Map<String, Object>) entry.getValue();
 
-                                for (Map.Entry<String, Object> innerEntry : value.entrySet()) {
-                                    String timeSlot = innerEntry.getKey();
-                                    innerEntry.getValue();
-//
+                                    for (Map.Entry<String, Object> innerEntry : value_1.entrySet()) {
+                                        String key_2_time_price_combo = innerEntry.getKey();
+                                        Map<String, Object> value_2_all_booking_details = (Map<String, Object>) entry.getValue();
+
+                                            //=============================================================
+                                            String date_timeSlot_String = date_from_Server_string+"_"+key_2_time_price_combo;
+                                            String[] date_timeSlot_parts = date_timeSlot_String.split("_");
+                                            String date = parts[0];
+                                            String time = parts[1];
+
+                                            // Add date, time and Details
+                                            date_arrayList.add(date_from_Server_string);
+                                            timeslotsandprice_arraylist.add(key_2_time_price_combo);
+                                            indetailBookingDetails_arraylist.add(value_2_all_booking_details.get(key_2_time_price_combo).toString());
+                                            //=============================================================
+
+                                    }
                                 }
+
+
+                                //-=-=-=-=-=-=-=-=-=-=--=-=-=--=-=-=--=-=-=--=-=-=-=--=-=-=-=-=--=-=-=-=
+                                // Create a list of Booking objects
+                                List<BookingDetailsModel> bookings = new ArrayList<>();
+                                for (int i1 = 0; i1 < date_arrayList.size(); i1++) {
+                                    String date = date_arrayList.get(i1);
+                                    String timePrice = timeslotsandprice_arraylist.get(i1);
+                                    String[] splitTimePrice = timePrice.split(" = ");
+                                    String time = splitTimePrice[0];
+                                    int price = Integer.parseInt(splitTimePrice[1]);
+                                    Map<String, Map<String, String>> details = new HashMap<>();
+                                    details.put(indetailBookingDetails_arraylist.get(i1), new HashMap<>());
+                                    BookingDetailsModel booking = new BookingDetailsModel(date, time, price, details);
+                                    bookings.add(booking);
+                                }
+
+                                // Sort the list by date and time
+                                Collections.sort(bookings, new Comparator<BookingDetailsModel>() {
+                                    public int compare(BookingDetailsModel b1, BookingDetailsModel b2) {
+                                        int dateCompare = b1.getDate().compareTo(b2.getDate());
+                                        if (dateCompare != 0) {
+                                            return dateCompare;
+                                        }
+                                        return b1.getTime().compareTo(b2.getTime());
+                                    }
+                                });
+
+                                // Update the original arraylists based on the sorted Booking objects
+                                for (int i2 = 0; i2 < bookings.size(); i2++) {
+                                    date_arrayList.set(i2, bookings.get(i2).getDate());
+                                    String time = bookings.get(i2).getTime() + " = " + bookings.get(i2).getPrice();
+                                    timeslotsandprice_arraylist.set(i2, time);
+                                    indetailBookingDetails_arraylist.set(i2, bookings.get(i2).getDetails().keySet().iterator().next());
+                                }
+
+                                //-=-=--=-=-=--=-=-=-=--=-=-=--=-=-=-=-=--=-=-=-=-=--=-=-=-=-=-=-=--==-=
+
+                                Utils.printLongLog("test_new_data_only", "Date : \n" + date_arrayList.toString());
+                                Utils.printLongLog("test_new_data_only", "Time : \n" + timeslotsandprice_arraylist.toString());
+                                Utils.printLongLog("test_new_data_only", "Indetails : \n" + indetailBookingDetails_arraylist.toString());
+
+
+
                             }
 
                         } else {

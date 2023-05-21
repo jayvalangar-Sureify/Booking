@@ -19,8 +19,10 @@ import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.example.booking.FirebaseProductionSingletonClass;
+import com.example.booking.R;
 import com.example.booking.Utils;
 import com.example.booking.databinding.FragmentHomeBinding;
 import com.example.booking.ui.OwnerPlaceRentDayTime.OwnerPlaceRentDayTimeWise;
@@ -184,6 +186,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback,  Googl
             if(Utils.get_SharedPreference_owner_completed_add_placele_procedure(getActivity()).equals("1")){
                 binding.llBottomLatitudeLongitude.setVisibility(View.GONE);
                 binding.rlTop.setVisibility(View.GONE);
+                Navigation.findNavController(requireView()).navigate(R.id.nav_booking_details);
             }else {
                 binding.llBottomLatitudeLongitude.setVisibility(View.VISIBLE);
 
