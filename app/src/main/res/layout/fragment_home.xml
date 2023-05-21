@@ -160,10 +160,9 @@
             android:id="@+id/btn_fab_home_refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:backgroundTint="@color/white"
-            android:layout_margin="16dp"
+            android:layout_margin="10dp"
             app:tint="@color/combo_text_blue"
             android:src="@drawable/icon_refresh_24" />
 
