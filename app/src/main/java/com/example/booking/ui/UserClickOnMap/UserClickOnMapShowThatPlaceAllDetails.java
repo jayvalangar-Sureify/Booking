@@ -167,7 +167,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         Calendar calendars = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
         String todayDate = dateFormat.format(calendars.getTime());
-        tv_show_calendar_date.setText(todayDate);
+        tv_show_calendar_date.setText(todayDate+ " - "+ Utils.fromDateTogetDay_3_char(todayDate));
 
         show_selected_date_data = todayDate;
 
@@ -270,7 +270,7 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         String selectedDate = String.format("%02d %s %04d", dayOfMonth, new DateFormatSymbols().getShortMonths()[month], year);
-                        tv_show_calendar_date.setText(selectedDate);
+                        tv_show_calendar_date.setText(selectedDate+" - "+Utils.fromDateTogetDay_3_char(selectedDate));
                         show_selected_date_data = selectedDate;
 
                         setHashmapdata(Utils.getDayfromDate(show_selected_date_data));
@@ -558,10 +558,11 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         dialog.setCancelable(true);
 
         //-------------------------------------------------------------------------------
-        TextView tv_booking_review_total_bill, tv_booking_review_selected_time_Slots, tv_selected_date_show_review_dialog;
+        TextView tv_booking_review_total_bill, tv_booking_review_selected_time_Slots, tv_selected_date_show_review_dialog, tv_selected_day_show_review_dialog;
         Button booking_review_dialog_payment, booking_review_dialog_cancel;
 
         tv_selected_date_show_review_dialog = (TextView) dialog.findViewById(R.id.tv_selected_date_show_review_dialog);
+        tv_selected_day_show_review_dialog = (TextView) dialog.findViewById(R.id.tv_selected_day_show_review_dialog);
         tv_booking_review_selected_time_Slots = (TextView) dialog.findViewById(R.id.tv_booking_review_selected_time_Slots);
         tv_booking_review_total_bill = (TextView) dialog.findViewById(R.id.tv_booking_review_total_bill);
         booking_review_dialog_cancel = (Button) dialog.findViewById(R.id.booking_review_dialog_cancel);
@@ -582,11 +583,12 @@ public class UserClickOnMapShowThatPlaceAllDetails extends AppCompatActivity imp
         for (String line : time_slots_line_by_line_array) {
             int endIndex = startIndex + line.length(); // calculate the end index of the line
             // Apply formatting to the line (e.g., draw a rectangle)
-            spannableString.setSpan(new BackgroundColorSpan(getColor(R.color.combo_background_green)), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new BackgroundColorSpan(getColor(R.color.background_red)), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             startIndex = endIndex + 1; // move the start index to the next line
         }
         //-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+        tv_selected_day_show_review_dialog.setText(Utils.fromDateTogetDay(show_selected_date_data));
         tv_selected_date_show_review_dialog.setText(show_selected_date_data);
         tv_booking_review_total_bill.setText(total_bill);
         tv_booking_review_selected_time_Slots.setText(spannableString);

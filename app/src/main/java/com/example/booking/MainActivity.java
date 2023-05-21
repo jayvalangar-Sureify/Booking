@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         TextView tv_nav_header_user_name = (TextView) headerView.findViewById(R.id.tv_nav_header_user_name);
         TextView tv_nav_header_login_type = (TextView) headerView.findViewById(R.id.tv_nav_header_login_type);
         ImageView iv_nav_header_profile = (ImageView) headerView.findViewById(R.id.iv_nav_header_profile);
+        tv_nav_header_login_type.setVisibility(View.GONE);
         //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
         setSupportActionBar(binding.appBarMain.toolbar);

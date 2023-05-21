@@ -11,6 +11,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="red">#FF0000</color>
+    <color name="maroon">#7a1b0c</color>
     <color name="background_red">#ffcccc</color>
 
     <!-- Best Color Combo -->
@@ -39,6 +40,7 @@ combo_text_green
 
 
 
+    <color name="blue_link_color">#0B0080</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
     <color name="light_blue_A200">#FF40C4FF</color>

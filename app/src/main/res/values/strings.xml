@@ -273,7 +273,9 @@
     <string name="cancel">Cancel</string>
     <string name="selected_time_slot">Selected Time Slots</string>
     <string name="total_bill">Total Bill</string>
+    <string name="day">Day</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
 
 
     <!--booking details and History -->
@@ -310,7 +312,9 @@
     <string name="app_name_label">APP NAME</string>
     <string name="privacy_policy">PRIVACY POLICY</string>
     <string name="permission_used">PERMISSION USED</string>
-    <string name="permission_used_details">INTERNET, ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION</string>
+    <string name="permission_used_details">\n INTERNET,\n ACCESS_COARSE_LOCATION,\n ACCESS_FINE_LOCATION</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="contact_us_mail">professionalappsandbackups@gmail.com</string>
     <!-- -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
 
 

@@ -430,4 +430,40 @@ public class Utils {
         }
     }
     //=-=--=-=-=-=-=--=-=-=-=-=-=-=-=--==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+    // From date to get day
+    //=-=--=-=-=-=-=--=-=-=-=-=-=-=-=--==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    public static String fromDateTogetDay(String show_selected_date_data) {
+        String day = "";
+        SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+
+        try {
+            Date date = format.parse(show_selected_date_data);
+            SimpleDateFormat dayFormat = new SimpleDateFormat("EEEE", Locale.ENGLISH);
+
+            day = dayFormat.format(date);
+            System.out.println("Day: " + day);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return day;
+    }
+
+    public static String fromDateTogetDay_3_char(String show_selected_date_data) {
+        String day = "";
+        SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH);
+
+        try {
+            Date date = format.parse(show_selected_date_data);
+            SimpleDateFormat dayFormat = new SimpleDateFormat("EEE", Locale.ENGLISH);
+
+            day = dayFormat.format(date);
+            System.out.println("Day: " + day);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return day;
+    }
+    //=-=--=-=-=-=-=--=-=-=-=-=-=-=-=--==-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 }

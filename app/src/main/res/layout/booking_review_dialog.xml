@@ -29,6 +29,10 @@
             android:textStyle="bold"/>
 
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/white"/>
 
        <ScrollView
            android:layout_width="match_parent"
@@ -52,23 +56,39 @@
             android:padding="6dp"
             android:textStyle="bold"
             android:gravity="center"
-            android:background="@color/combo_background_blue"
-            android:textColor="@color/red"
+            android:background="@color/combo_text_blue"
+            android:textColor="@color/white"
             android:text="@string/selected_time_slot"
             android:textSize="18sp"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/combo_text_green"/>
+
 
         <TextView
+            android:id="@+id/tv_selected_day_show_review_dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="6dp"
             android:textStyle="bold"
             android:gravity="center"
-            android:background="@color/combo_background_green"
+            android:background="@color/combo_text_blue"
+            android:textColor="@color/white"
+            android:text="@string/day"
+            android:textSize="18sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/red"/>
+
+        <TextView
+            android:id="@+id/tv_booking_review_selected_time_Slots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:gravity="center"
+            android:background="@color/background_red"
             android:textColor="@color/combo_text_blue"
             android:text="@string/selected_time_slot"
             android:textSize="18sp"/>
@@ -76,27 +96,16 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/combo_text_green"/>
-
-        <TextView
-            android:id="@+id/tv_booking_review_selected_time_Slots"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:textColor="@color/combo_text_blue"
-            android:text="@string/selected_time_slot"
-            android:textSize="18sp"/>
+            android:background="@color/red"/>
     </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:background="@color/combo_text_blue"
             android:layout_gravity="center"
+            android:padding="8dp"
             android:orientation="horizontal">
 
 
@@ -108,7 +117,6 @@
                 android:layout_weight="2"
                 android:layout_gravity="center"
                 android:gravity="end"
-                android:background="@color/combo_background_blue"
                 android:textColor="@color/red"
                 android:text="@string/total_bill"
                 android:textSize="20sp"/>
@@ -123,8 +131,8 @@
                 android:layout_weight="2"
                 android:layout_gravity="center"
                 android:gravity="left"
-                android:background="@color/combo_background_blue"
-                android:textColor="@color/red"
+                android:background="@color/combo_text_blue"
+                android:textColor="@color/white"
                 android:text="@string/price"
                 android:textSize="20sp"/>
 
@@ -147,6 +155,7 @@
                 android:id="@+id/booking_review_dialog_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
                 android:layout_weight="1"
                 android:layout_margin="2dp"
                 android:text="@string/cancel"/>
@@ -155,6 +164,7 @@
                 android:id="@+id/booking_review_dialog_payment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/combo_text_green"
                 android:layout_weight="1"
                 android:layout_margin="2dp"
                 android:text="@string/payment"/>

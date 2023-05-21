@@ -311,7 +311,7 @@ public class BookingDetailsFragment extends Fragment implements OnHistoryDataCha
         Log.i("test_take_care", "DAtA : "+date_arrayList.toString());
 
         for(int i = 0; i <date_arrayList.size(); i++){
-            if(Utils.checkIfItPastDates(date_arrayList.get(i))){
+            if(Utils.checkIfItIsOldDate(date_arrayList.get(i))){
                 Log.i("test_take_care", "ABSENT : "+date_arrayList.get(i));
                 // add into past arraylist
                 history_date_arrayList.add(date_arrayList.get(i));
